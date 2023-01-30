@@ -8,7 +8,7 @@ const wsInstance = expressWs(appBase);
 const { app } = wsInstance;
 
 app.use(compression());
-app.use(morgan('tiny'));
+app.use(morgan('dev'));
 app.use(express.json({ limit: '128kb' }));
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
