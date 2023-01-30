@@ -1,12 +1,14 @@
 import express from 'express';
 import expressWs from 'express-ws';
 import compression from 'compression';
+import morgan from 'morgan';
 
 const appBase = express();
 const wsInstance = expressWs(appBase);
 const { app } = wsInstance;
 
 app.use(compression());
+app.use(morgan('tiny'));
 app.use(express.json({ limit: '128kb' }));
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
