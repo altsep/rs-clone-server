@@ -1,0 +1,5 @@
+node_modules
+build
+*.cjs
+*.config.js
+*setup.js
