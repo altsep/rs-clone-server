@@ -1,11 +1,11 @@
 import { Handler } from 'express';
 import { app } from '../../../app';
 import { db } from '../../../db';
+import { handleError } from '../utils';
 
 const { users } = db;
 
-const getUsersHandler: Handler = (_req, res, next) => {
-  console.log(`Get users request received`);
+const getUsersHandler: Handler = (_req, res) => {
   res.send(users);
 };
 
@@ -13,42 +13,32 @@ app.get('/api/users', getUsersHandler);
 
 const postUserHandler: Handler = (req, res, next) => {
   const { alias, userName } = req.body as { alias: string; id: number; userName: string };
-  const { originalUrl } = req;
 
   if (!userName) {
-    const errMessage = `POST: incorrect request body, ${originalUrl}`;
-    res.status(500).send(errMessage);
-    next(errMessage);
-    return;
+    const message = 'Incorrect request body';
+    return handleError(req, res, next, message);
   }
 
   const exists = users.findIndex((u) => u.userName === userName) !== -1;
 
   if (exists) {
-    const errMessage = `User ${userName} exists`;
-    res.status(500).send(errMessage);
-    next(errMessage);
-    return;
+    const message = `User ${userName} exists`;
+    return handleError(req, res, next, message);
   }
 
-  console.log(`Post user request received`);
-
-  const newUser = { alias: alias || '', userName, id: users.length + 1 };
+  const newUser = { id: users.length + 1, userName, alias: alias || '' };
 
   users.push(newUser);
 
-  console.log(users);
-
   res.send(newUser);
+
+  return undefined;
 };
 
 app.post('/api/users', postUserHandler);
 
-const deleteUserHandler: Handler = (req, res, next) => {
+const deleteUserHandler: Handler = (req) => {
   const { param } = req.params;
-
-  const message = `Delete user request received for param ${param}`;
-  res.send(message);
 };
 
 app.delete('/api/users/:param', deleteUserHandler);

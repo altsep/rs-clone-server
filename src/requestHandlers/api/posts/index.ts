@@ -4,26 +4,20 @@ import { db } from '../../../db';
 
 const { posts } = db;
 
-const getPostsHandler: Handler = (_req, res, next) => {
+const getPostsHandler: Handler = (_req, res) => {
   res.send(posts);
 };
 
 app.get('/api/posts', getPostsHandler);
 
-const postHandler: Handler = (req, res, next) => {
+const postHandler: Handler = (req) => {
   const { text, userId } = req.body as { text: string; userId: number };
-
-  const message = `Post request received from id ${userId}`;
-  res.send(message);
 };
 
 app.post('/api/posts', postHandler);
 
-const deletePostHandler: Handler = (req, res, next) => {
+const deletePostHandler: Handler = (req) => {
   const { param } = req.params;
-
-  const message = `Delete post request received for param ${param}`;
-  res.send(message);
 };
 
 app.delete('/api/posts/:param', deletePostHandler);
