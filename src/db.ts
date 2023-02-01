@@ -10,9 +10,12 @@ export const db: Db = {
     {
       id: 1,
       name: 'Clark',
+      password: '',
       alias: 'santa661',
+      hidden: false,
     },
-    { id: 2, name: 'tttty', alias: '' },
+    { id: 2, name: 'tttty', password: '', alias: '', hidden: false },
+    { id: 3, name: 'h1dd3nUs3r99', password: '1', alias: '', hidden: true },
   ],
   posts: [
     {

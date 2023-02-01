@@ -2,27 +2,29 @@ import { Handler } from 'express';
 import { app } from '../../../app';
 import { db } from '../../../db';
 import { User } from '../../../types';
-import { handleError } from '../utils';
+import { handleError, Options } from '../utils';
 
-const { users } = db;
-
-const postUserHandler: Handler = (req, res, next) => {
+const postUser: Handler = (req, res, next) => {
   const body = req.body as Partial<User>;
-  const { name } = body;
+  const { name, password } = body;
+  const { users } = db;
 
-  if (!name) {
-    const message = 'Incorrect request body';
-    return handleError(req, res, next, message);
+  if (!name || !password) {
+    const message = 'Bad request';
+    const status = 400;
+    const errOpts: Options = { req, res, next, message, status };
+    return handleError(errOpts);
   }
 
   const exists = users.findIndex((u) => u.name === name) !== -1;
 
   if (exists) {
     const message = `User ${name} exists`;
-    return handleError(req, res, next, message);
+    const errOpts: Options = { req, res, next, message };
+    return handleError(errOpts);
   }
 
-  const newUser = { id: users.length + 1, name, ...body };
+  const newUser = { id: users.length + 1, name, password, ...body };
 
   users.push(newUser);
 
@@ -31,4 +33,4 @@ const postUserHandler: Handler = (req, res, next) => {
   return undefined;
 };
 
-app.post('/api/users', postUserHandler);
+app.post('/api/users', postUser);

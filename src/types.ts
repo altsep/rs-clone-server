@@ -18,6 +18,8 @@ interface Post {
 interface User {
   id: number;
   name: string;
+  password: string;
+  hidden: boolean;
   alias?: string;
   country?: string;
   avatarURL?: string;

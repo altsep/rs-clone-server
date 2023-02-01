@@ -1,5 +1,5 @@
 import './getUser';
 import './getUsers';
 import './postUser';
-import './patchUser';
-import './deleteUser';
+import './updateUser';
+import './hideUser';
