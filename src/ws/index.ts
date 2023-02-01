@@ -1,6 +1,6 @@
 import { NextFunction, Request } from 'express';
 import { WebSocket } from 'ws';
-import { app } from '../../app';
+import { app } from '../app';
 
 type WsHandler = (ws: WebSocket, payload: unknown) => void;
 
