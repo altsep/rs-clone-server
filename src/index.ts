@@ -1,3 +1,3 @@
 import './app';
-import './requestHandlers/api';
-import './requestHandlers/ws';
+import './api';
+import './ws';
