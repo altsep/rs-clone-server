@@ -4,7 +4,7 @@ import { db } from '../../../db';
 import { User } from '../../../types';
 import { handleError, Options } from '../utils';
 
-const postUser: Handler = (req, res, next) => {
+const addUser: Handler = (req, res, next) => {
   const body = req.body as Partial<User>;
   const { name, password } = body;
   const { users } = db;
@@ -33,4 +33,4 @@ const postUser: Handler = (req, res, next) => {
   return undefined;
 };
 
-app.post('/api/users', postUser);
+app.post('/api/users', addUser);
