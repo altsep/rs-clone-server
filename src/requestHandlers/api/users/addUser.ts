@@ -24,7 +24,7 @@ const addUser: Handler = (req, res, next) => {
     return handleError(errOpts);
   }
 
-  const newUser = { id: users.length + 1, name, password, ...body };
+  const newUser = { id: users.length + 1, name, password, hidden: false, ...body };
 
   users.push(newUser);
 
