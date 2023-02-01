@@ -1,6 +1,6 @@
 import { Handler } from 'express';
-import { app } from '../../../app';
-import { db } from '../../../db';
+import { app } from '../../app';
+import { db } from '../../db';
 
 const { posts } = db;
 

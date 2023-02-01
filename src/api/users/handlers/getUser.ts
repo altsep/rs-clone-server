@@ -1,9 +1,8 @@
 import { Handler } from 'express';
-import { app } from '../../../app';
 import { db } from '../../../db';
-import { handleError, Options } from '../utils';
+import { handleError, Options } from '../../utils';
 
-const getUser: Handler = (req, res, next) => {
+export const getUser: Handler = (req, res, next) => {
   const { id } = req.params;
   const { users } = db;
 
@@ -29,5 +28,3 @@ const getUser: Handler = (req, res, next) => {
 
   return undefined;
 };
-
-app.get('/api/users/:id', getUser);

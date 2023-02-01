@@ -1,10 +1,9 @@
 import { Handler } from 'express';
-import { app } from '../../../app';
 import { db } from '../../../db';
 import { User } from '../../../types';
-import { handleError, Options } from '../utils';
+import { handleError, Options } from '../../utils';
 
-const hideUser: Handler = (req, res, next) => {
+export const hideUser: Handler = (req, res, next) => {
   const { id } = req.params;
   const { password } = req.body as Pick<User, 'password'>;
   const { users } = db;
@@ -38,5 +37,3 @@ const hideUser: Handler = (req, res, next) => {
 
   return undefined;
 };
-
-app.delete('/api/users/:id', hideUser);

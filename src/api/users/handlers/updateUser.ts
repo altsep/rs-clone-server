@@ -1,10 +1,9 @@
 import { Handler } from 'express';
-import { app } from '../../../app';
 import { db } from '../../../db';
 import { User } from '../../../types';
-import { handleError, Options } from '../utils';
+import { handleError, Options } from '../../utils';
 
-const updateUser: Handler = (req, res, next) => {
+export const updateUser: Handler = (req, res, next) => {
   const { id } = req.params;
   const newUserInfo = req.body as Partial<User>;
   const { users } = db;
@@ -28,5 +27,3 @@ const updateUser: Handler = (req, res, next) => {
 
   return undefined;
 };
-
-app.patch('/api/users/:id', updateUser);
