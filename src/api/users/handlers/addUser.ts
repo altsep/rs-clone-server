@@ -5,7 +5,7 @@ import { handleError, Options } from '../../utils';
 
 export const addUser: Handler = (req, res, next) => {
   const body = req.body as Partial<User>;
-  const { name, password } = body;
+  const { name, password, birthDate, country } = body;
   const { users } = db;
 
   if (!name || !password) {
@@ -23,7 +23,7 @@ export const addUser: Handler = (req, res, next) => {
     return handleError(errOpts);
   }
 
-  const newUser = { id: users.length + 1, name, password, hidden: false, ...body };
+  const newUser = { id: users.length + 1, name, password, hidden: false, birthDate, country, ...body };
 
   users.push(newUser);
 

@@ -5,11 +5,11 @@ import { addUser } from './handlers/addUser';
 import { updateUser } from './handlers/updateUser';
 import { hideUser } from './handlers/hideUser';
 
-app.get('/api/users/:id', getUser);
-
 app.get('/api/users', getUsers);
 
 app.post('/api/users', addUser);
+
+app.get('/api/users/:id', getUser);
 
 app.patch('/api/users/:id', updateUser);
 

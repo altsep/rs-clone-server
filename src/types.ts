@@ -2,7 +2,7 @@ interface IComment {
   id: number;
   userId: number;
   description: string;
-  createdAt: number;
+  createdAt: string;
   likes: number;
 }
 
@@ -10,7 +10,7 @@ interface IPost {
   id: number;
   userId: number;
   description: string;
-  createdAt: number;
+  createdAt: string;
   likes: number;
   commentsIds?: number[];
 }
@@ -20,8 +20,9 @@ interface IUser {
   name: string;
   password: string;
   hidden: boolean;
+  birthDate: string;
+  country: string;
   alias?: string;
-  country?: string;
   avatarURL?: string;
   postsIds?: number[];
   friendsIds?: number[];
