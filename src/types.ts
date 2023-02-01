@@ -1,4 +1,4 @@
-interface Comment {
+interface IComment {
   id: number;
   userId: number;
   description: string;
@@ -6,7 +6,7 @@ interface Comment {
   likes: number;
 }
 
-interface Post {
+interface IPost {
   id: number;
   userId: number;
   description: string;
@@ -15,7 +15,7 @@ interface Post {
   commentsIds?: number[];
 }
 
-interface User {
+interface IUser {
   id: number;
   name: string;
   password: string;
@@ -27,4 +27,4 @@ interface User {
   friendsIds?: number[];
 }
 
-export { Comment, Post, User };
+export { IComment as Comment, IPost as Post, IUser as User };
