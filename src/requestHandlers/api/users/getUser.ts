@@ -23,7 +23,9 @@ const getUser: Handler = (req, res, next) => {
     return handleError(errOpts);
   }
 
-  res.send(user);
+  const userData = { ...user, password: undefined };
+
+  res.send(userData);
 
   return undefined;
 };
