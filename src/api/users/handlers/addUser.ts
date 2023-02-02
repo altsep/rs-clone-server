@@ -3,14 +3,15 @@ import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 import { ALLOWED_USER_KEYS } from '../../../constants';
 import { db } from '../../../db';
 import { User } from '../../../types';
-import { handleError, hasWrongKeys, Options } from '../../utils';
+import { handleError, hasKeysMissing, hasWrongKeys, Options } from '../../utils';
 
 export const addUser: Handler = (req, res) => {
   const userProps = req.body as Exclude<User, 'id'>;
   const { name } = userProps;
-  const propsMissing = ALLOWED_USER_KEYS.some((k) => !Object.hasOwn(userProps, k));
+
+  const keysMissing = hasKeysMissing(userProps, ALLOWED_USER_KEYS);
   const wrongKeys = hasWrongKeys(userProps, ALLOWED_USER_KEYS);
-  const incorrectData = propsMissing || wrongKeys;
+  const incorrectData = keysMissing || wrongKeys;
 
   if (incorrectData) {
     const message = ReasonPhrases.BAD_REQUEST;

@@ -23,6 +23,9 @@ const handleError = (options: Options): void => {
 const hasWrongKeys = (props: Partial<User> | Partial<Post>, requiredKeyArr: string[]): boolean =>
   Object.keys(props).some((k) => !requiredKeyArr.includes(k));
 
+const hasKeysMissing = (props: Partial<User> | Partial<Post>, requiredKeyArr: string[]): boolean =>
+  requiredKeyArr.some((k) => !Object.hasOwn(props, k));
+
 export type { Options };
 
-export { handleError, hasWrongKeys };
+export { handleError, hasWrongKeys, hasKeysMissing };

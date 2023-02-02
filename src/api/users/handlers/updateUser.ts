@@ -8,6 +8,7 @@ import { handleError, hasWrongKeys, Options } from '../../utils';
 export const updateUser: Handler = (req, res) => {
   const { id } = req.params;
   const userProps = req.body as Partial<User>;
+
   const wrongKeys = hasWrongKeys(userProps, ALLOWED_USER_KEYS);
   const incorrectData = !userProps || wrongKeys;
 
