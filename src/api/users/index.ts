@@ -16,4 +16,4 @@ app.patch('/api/users/:id', updateUser);
 
 app.delete('/api/users/:id', hideUser);
 
-app.get('/api/users/auth', authUser);
+app.get('/api/users-auth', authUser);
