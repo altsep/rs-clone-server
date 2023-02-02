@@ -31,6 +31,17 @@ export const updateUser: Handler = (req, res) => {
     return;
   }
 
+  if (userProps.name) {
+    const exists = !!users.find((u) => u.name === userProps.name);
+
+    if (exists) {
+      const message = `User "${userProps.name}" exists`;
+      const errOpts: Options = { req, res, message };
+      handleError(errOpts);
+      return;
+    }
+  }
+
   const updatedUser: User = { ...user, ...userProps };
 
   const i = users.indexOf(user);
