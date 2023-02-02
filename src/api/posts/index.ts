@@ -1,23 +1,16 @@
-import { Handler } from 'express';
 import { app } from '../../app';
-import { db } from '../../db';
+import { getPost } from './handlers/getPost';
+import { getPosts } from './handlers/getPosts';
+import { addPost } from './handlers/addPost';
+import { updatePost } from './handlers/updatePost';
+import { removePost } from './handlers/removePost';
 
-const { posts } = db;
+app.get('/api/posts', getPosts);
 
-const getPostsHandler: Handler = (_req, res) => {
-  res.send(posts);
-};
+app.post('/api/posts', addPost);
 
-app.get('/api/posts', getPostsHandler);
+app.get('/api/posts/:id', getPost);
 
-const postHandler: Handler = (req) => {
-  const { text, userId } = req.body as { text: string; userId: number };
-};
+app.patch('/api/posts/:id', updatePost);
 
-app.post('/api/posts', postHandler);
-
-const deletePostHandler: Handler = (req) => {
-  const { param } = req.params;
-};
-
-app.delete('/api/posts/:param', deletePostHandler);
+app.delete('/api/posts/:id', removePost);
