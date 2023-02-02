@@ -1,26 +1,18 @@
 import { Handler } from 'express';
-import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 import { db } from '../../../db';
 import { User } from '../../../types';
 import { handleError, Options } from '../../utils';
 
-export const hideUser: Handler = (req, res, next) => {
-  const { id } = req.params;
-  const { password } = req.body as Pick<User, 'password'>;
+export const authUser: Handler = (req, res, next) => {
+  const { name, password } = req.body as Pick<User, 'password' | 'name'>;
+  const { originalUrl } = req;
   const { users } = db;
 
-  if (password == null) {
-    const message = ReasonPhrases.BAD_REQUEST;
-    const status = StatusCodes.BAD_REQUEST;
-    const errOpts: Options = { req, res, next, message, status };
-    handleError(errOpts);
-    return;
-  }
-
-  const user = users.find((u) => String(u.id) === id);
+  const user = users.find((u) => u.name === name);
 
   if (!user) {
-    const message = `User under id ${id} was not found`;
+    const message = ReasonPhrases.NOT_FOUND;
     const status = StatusCodes.NOT_FOUND;
     const errOpts: Options = { req, res, next, message, status };
     handleError(errOpts);
@@ -35,7 +27,10 @@ export const hideUser: Handler = (req, res, next) => {
     return;
   }
 
-  user.hidden = true;
+  const status = StatusCodes.ACCEPTED;
+  const message = ReasonPhrases.ACCEPTED;
 
-  res.send(user);
+  const data = { success: true, message, instance: originalUrl };
+
+  res.status(status).send(data);
 };

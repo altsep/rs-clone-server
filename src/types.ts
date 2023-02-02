@@ -1,14 +1,15 @@
 interface IComment {
-  id: number;
   userId: number;
+  postId: number;
+  id: number;
   description: string;
   createdAt: string;
   likes: number;
 }
 
 interface IPost {
-  id: number;
   userId: number;
+  id: number;
   description: string;
   createdAt: string;
   likes: number;
@@ -20,8 +21,9 @@ interface IUser {
   name: string;
   password: string;
   hidden: boolean;
-  birthDate: string;
   country: string;
+  birthDate: string;
+  createdAt: string;
   alias?: string;
   avatarURL?: string;
   postsIds?: number[];

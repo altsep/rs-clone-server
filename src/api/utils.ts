@@ -1,15 +1,17 @@
 import { Response, NextFunction, Request } from 'express';
+import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 
 interface Options {
   req: Request;
   res: Response;
   next: NextFunction;
-  message: string;
+  message?: string;
   status?: number;
 }
 
 const handleError = (options: Options): void => {
-  options.status = options.status || 500;
+  options.status = options.status || StatusCodes.INTERNAL_SERVER_ERROR;
+  options.message = options.message || ReasonPhrases.INTERNAL_SERVER_ERROR;
   const { req, res, next, message, status } = options;
   const { originalUrl } = req;
 
@@ -17,7 +19,7 @@ const handleError = (options: Options): void => {
 
   res.status(status).send(err);
 
-  next(message);
+  next(`${status} ${message}`);
 };
 
 export type { Options };

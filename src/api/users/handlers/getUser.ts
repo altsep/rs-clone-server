@@ -1,4 +1,5 @@
 import { Handler } from 'express';
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { db } from '../../../db';
 import { handleError, Options } from '../../utils';
 
@@ -7,24 +8,24 @@ export const getUser: Handler = (req, res, next) => {
   const { users } = db;
 
   if (id == null) {
-    const message = 'Bad request';
-    const status = 400;
+    const message = ReasonPhrases.BAD_REQUEST;
+    const status = StatusCodes.BAD_REQUEST;
     const errOpts: Options = { req, res, next, message, status };
-    return handleError(errOpts);
+    handleError(errOpts);
+    return;
   }
 
   const user = users.find((u) => String(u.id) === id);
 
   if (!user) {
     const message = `User under id ${id} was not found`;
-    const status = 404;
+    const status = StatusCodes.NOT_FOUND;
     const errOpts: Options = { req, res, next, message, status };
-    return handleError(errOpts);
+    handleError(errOpts);
+    return;
   }
 
-  const userData = { ...user, password: undefined };
+  const { password, ...userData } = { ...user };
 
   res.send(userData);
-
-  return undefined;
 };

@@ -1,4 +1,5 @@
 import { Handler } from 'express';
+import { StatusCodes } from 'http-status-codes';
 import { db } from '../../../db';
 import { User } from '../../../types';
 import { handleError, Options } from '../../utils';
@@ -12,9 +13,10 @@ export const updateUser: Handler = (req, res, next) => {
 
   if (!user) {
     const message = `User under id ${id} was not found`;
-    const status = 404;
+    const status = StatusCodes.UNAUTHORIZED;
     const errOpts: Options = { req, res, next, message, status };
-    return handleError(errOpts);
+    handleError(errOpts);
+    return;
   }
 
   const updatedUser: User = { ...user, ...newUserInfo };
@@ -24,6 +26,4 @@ export const updateUser: Handler = (req, res, next) => {
   db.users[i] = updatedUser;
 
   res.send(updatedUser);
-
-  return undefined;
 };
