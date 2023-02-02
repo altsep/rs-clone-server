@@ -4,13 +4,13 @@ import { db } from '../../../db';
 import { Post } from '../../../types';
 import { handleError, hasWrongKeys, Options } from '../../utils';
 
-const allowedPostKeys: (keyof Post)[] = ['description', 'likes', 'commentsIds'];
+const allowedKeys: (keyof Post)[] = ['description', 'likes', 'commentsIds'];
 
 export const updatePost: Handler = (req, res) => {
   const { id } = req.params;
   const postProps = req.body as Partial<Post>;
 
-  const wrongKeys = hasWrongKeys(postProps, allowedPostKeys);
+  const wrongKeys = hasWrongKeys(postProps, allowedKeys);
   const incorrectData = !postProps || wrongKeys;
 
   if (incorrectData) {

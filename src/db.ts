@@ -9,6 +9,7 @@ export const db: Db = {
   users: [
     {
       id: 1,
+      email: 'test@example.com',
       name: 'Clark',
       password: '',
       alias: 'santa661',
@@ -17,8 +18,28 @@ export const db: Db = {
       birthDate: '1955-11-11T21:00:00.000Z',
       createdAt: '2023-02-02T03:04:59.717Z',
     },
-    { id: 2, name: 'tttty', password: '', alias: '', hidden: false, country: '', birthDate: '', createdAt: '' },
-    { id: 3, name: 'h1dd3nUs3r99', password: '1', alias: '', hidden: true, country: '', birthDate: '', createdAt: '' },
+    {
+      id: 2,
+      email: '2@example.com',
+      name: 'tttty',
+      password: '',
+      alias: '',
+      hidden: false,
+      country: '',
+      birthDate: '',
+      createdAt: '',
+    },
+    {
+      id: 3,
+      email: 'hu@example.com',
+      name: 'h1dd3nUs3r99',
+      password: '1',
+      alias: '',
+      hidden: true,
+      country: '',
+      birthDate: '',
+      createdAt: '',
+    },
   ],
   posts: [
     {

@@ -4,13 +4,13 @@ import { db } from '../../../db';
 import { Post } from '../../../types';
 import { handleError, hasKeysMissing, hasWrongKeys, Options } from '../../utils';
 
-const allowedPostKeys: (keyof Post)[] = ['userId', 'description', 'createdAt'];
+const allowedKeys: (keyof Post)[] = ['userId', 'description', 'createdAt'];
 
 export const addPost: Handler = (req, res) => {
   const postProps = req.body as Exclude<Post, 'id'>;
 
-  const keysMissing = hasKeysMissing(postProps, allowedPostKeys);
-  const wrongKeys = hasWrongKeys(postProps, allowedPostKeys);
+  const keysMissing = hasKeysMissing(postProps, allowedKeys);
+  const wrongKeys = hasWrongKeys(postProps, allowedKeys);
   const incorrectData = keysMissing || wrongKeys;
 
   if (incorrectData) {

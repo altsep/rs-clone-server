@@ -4,7 +4,8 @@ import { db } from '../../../db';
 import { User } from '../../../types';
 import { handleError, hasWrongKeys, Options } from '../../utils';
 
-const allowedUserKeys: (keyof User)[] = [
+const allowedKeys: (keyof User)[] = [
+  'email',
   'name',
   'password',
   'alias',
@@ -19,7 +20,7 @@ export const updateUser: Handler = (req, res) => {
   const { id } = req.params;
   const userProps = req.body as Partial<User>;
 
-  const wrongKeys = hasWrongKeys(userProps, allowedUserKeys);
+  const wrongKeys = hasWrongKeys(userProps, allowedKeys);
   const incorrectData = !userProps || wrongKeys;
 
   if (incorrectData) {
@@ -41,11 +42,11 @@ export const updateUser: Handler = (req, res) => {
     return;
   }
 
-  if (userProps.name) {
-    const exists = !!users.find((u) => u.name === userProps.name);
+  if (userProps.email) {
+    const exists = !!users.find((u) => u.email === userProps.email);
 
     if (exists) {
-      const message = `User "${userProps.name}" exists`;
+      const message = `User already exists`;
       const errOpts: Options = { req, res, message };
       handleError(errOpts);
       return;

@@ -198,7 +198,6 @@ Creates a new user.
     birthDate: string;
     createdAt: string;
     alias?: string;
-    avatarURL?: string;
   }
   ```
 
@@ -239,7 +238,7 @@ Creates a new user.
 
 ## **Hide user**
 
-Sets the `hidden` field of the specified user to `true`
+Sets the `hidden` field of the specified user to `true`.
 
 <details>
 
@@ -267,7 +266,11 @@ Sets the `hidden` field of the specified user to `true`
 
 - **Data params**
 
-  None
+  ```ts
+  {
+    password: string
+  }
+  ````
 
 - **Success response:**
 
@@ -441,11 +444,11 @@ Checks user credentials.
 
 - **URL**
 
-  /api/users-auth
+  /api/users/auth
 
 - **Method:**
 
-  `POST`
+  `GET`
 
 - **Headers:**
 

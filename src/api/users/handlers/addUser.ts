@@ -4,14 +4,15 @@ import { db } from '../../../db';
 import { User } from '../../../types';
 import { handleError, hasKeysMissing, hasWrongKeys, Options } from '../../utils';
 
-const allowedUserKeys: (keyof User)[] = ['name', 'password', 'alias', 'birthDate', 'country', 'createdAt'];
+const allowedKeys: (keyof User)[] = ['email', 'name', 'password', 'alias', 'birthDate', 'country', 'createdAt'];
+const requiredKeys: (keyof User)[] = ['email', 'password', 'birthDate', 'country', 'createdAt'];
 
 export const addUser: Handler = (req, res) => {
   const userProps = req.body as Exclude<User, 'id'>;
-  const { name } = userProps;
+  const { email } = userProps;
 
-  const keysMissing = hasKeysMissing(userProps, allowedUserKeys);
-  const wrongKeys = hasWrongKeys(userProps, allowedUserKeys);
+  const wrongKeys = hasWrongKeys(userProps, allowedKeys);
+  const keysMissing = hasKeysMissing(userProps, requiredKeys);
   const incorrectData = keysMissing || wrongKeys;
 
   if (incorrectData) {
@@ -23,10 +24,10 @@ export const addUser: Handler = (req, res) => {
   }
 
   const { users } = db;
-  const exists = users.findIndex((u) => u.name === name) !== -1;
+  const exists = users.findIndex((u) => u.email === email) !== -1;
 
   if (exists) {
-    const message = `User "${name}" exists`;
+    const message = 'User already exists';
     const errOpts: Options = { req, res, message };
     handleError(errOpts);
     return;

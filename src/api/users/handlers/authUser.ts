@@ -5,11 +5,11 @@ import { User } from '../../../types';
 import { handleError, Options } from '../../utils';
 
 export const authUser: Handler = (req, res) => {
-  const { name, password } = req.body as Pick<User, 'password' | 'name'>;
+  const { email, password } = req.body as Pick<User, 'password' | 'email'>;
   const { originalUrl } = req;
   const { users } = db;
 
-  const user = users.find((u) => u.name === name);
+  const user = users.find((u) => u.email === email);
 
   if (!user) {
     const message = ReasonPhrases.NOT_FOUND;
