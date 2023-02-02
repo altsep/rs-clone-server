@@ -3,14 +3,14 @@ import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { db } from '../../../db';
 import { handleError, Options } from '../../utils';
 
-export const getUser: Handler = (req, res, next) => {
+export const getUser: Handler = (req, res) => {
   const { id } = req.params;
   const { users } = db;
 
   if (id == null) {
     const message = ReasonPhrases.BAD_REQUEST;
     const status = StatusCodes.BAD_REQUEST;
-    const errOpts: Options = { req, res, next, message, status };
+    const errOpts: Options = { req, res, message, status };
     handleError(errOpts);
     return;
   }
@@ -18,9 +18,9 @@ export const getUser: Handler = (req, res, next) => {
   const user = users.find((u) => String(u.id) === id);
 
   if (!user) {
-    const message = `User under id ${id} was not found`;
+    const message = ReasonPhrases.NOT_FOUND;
     const status = StatusCodes.NOT_FOUND;
-    const errOpts: Options = { req, res, next, message, status };
+    const errOpts: Options = { req, res, message, status };
     handleError(errOpts);
     return;
   }

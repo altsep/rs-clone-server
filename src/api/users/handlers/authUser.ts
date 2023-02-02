@@ -4,7 +4,7 @@ import { db } from '../../../db';
 import { User } from '../../../types';
 import { handleError, Options } from '../../utils';
 
-export const authUser: Handler = (req, res, next) => {
+export const authUser: Handler = (req, res) => {
   const { name, password } = req.body as Pick<User, 'password' | 'name'>;
   const { originalUrl } = req;
   const { users } = db;
@@ -14,7 +14,7 @@ export const authUser: Handler = (req, res, next) => {
   if (!user) {
     const message = ReasonPhrases.NOT_FOUND;
     const status = StatusCodes.NOT_FOUND;
-    const errOpts: Options = { req, res, next, message, status };
+    const errOpts: Options = { req, res, message, status };
     handleError(errOpts);
     return;
   }
@@ -22,14 +22,13 @@ export const authUser: Handler = (req, res, next) => {
   if (password !== user.password) {
     const message = `Incorrect password`;
     const status = StatusCodes.UNAUTHORIZED;
-    const errOpts: Options = { req, res, next, message, status };
+    const errOpts: Options = { req, res, message, status };
     handleError(errOpts);
     return;
   }
 
   const status = StatusCodes.ACCEPTED;
   const message = ReasonPhrases.ACCEPTED;
-
   const data = { success: true, message, instance: originalUrl };
 
   res.status(status).send(data);

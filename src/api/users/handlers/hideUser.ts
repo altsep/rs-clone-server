@@ -4,7 +4,7 @@ import { db } from '../../../db';
 import { User } from '../../../types';
 import { handleError, Options } from '../../utils';
 
-export const hideUser: Handler = (req, res, next) => {
+export const hideUser: Handler = (req, res) => {
   const { id } = req.params;
   const { password } = req.body as Pick<User, 'password'>;
   const { users } = db;
@@ -12,7 +12,7 @@ export const hideUser: Handler = (req, res, next) => {
   if (password == null) {
     const message = ReasonPhrases.BAD_REQUEST;
     const status = StatusCodes.BAD_REQUEST;
-    const errOpts: Options = { req, res, next, message, status };
+    const errOpts: Options = { req, res, message, status };
     handleError(errOpts);
     return;
   }
@@ -20,9 +20,9 @@ export const hideUser: Handler = (req, res, next) => {
   const user = users.find((u) => String(u.id) === id);
 
   if (!user) {
-    const message = `User under id ${id} was not found`;
+    const message = ReasonPhrases.NOT_FOUND;
     const status = StatusCodes.NOT_FOUND;
-    const errOpts: Options = { req, res, next, message, status };
+    const errOpts: Options = { req, res, message, status };
     handleError(errOpts);
     return;
   }
@@ -30,7 +30,7 @@ export const hideUser: Handler = (req, res, next) => {
   if (password !== user.password) {
     const message = `Incorrect password`;
     const status = StatusCodes.UNAUTHORIZED;
-    const errOpts: Options = { req, res, next, message, status };
+    const errOpts: Options = { req, res, message, status };
     handleError(errOpts);
     return;
   }

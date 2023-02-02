@@ -1,25 +1,36 @@
 import { Handler } from 'express';
-import { StatusCodes } from 'http-status-codes';
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+import { ALLOWED_USER_KEYS } from '../../../constants';
 import { db } from '../../../db';
 import { User } from '../../../types';
-import { handleError, Options } from '../../utils';
+import { handleError, hasWrongKeys, Options } from '../../utils';
 
-export const updateUser: Handler = (req, res, next) => {
+export const updateUser: Handler = (req, res) => {
   const { id } = req.params;
-  const newUserInfo = req.body as Partial<User>;
-  const { users } = db;
+  const userProps = req.body as Partial<User>;
+  const wrongKeys = hasWrongKeys(userProps, ALLOWED_USER_KEYS);
+  const incorrectData = !userProps || wrongKeys;
 
-  const user = users.find((u) => String(u.id) === id);
-
-  if (!user) {
-    const message = `User under id ${id} was not found`;
-    const status = StatusCodes.UNAUTHORIZED;
-    const errOpts: Options = { req, res, next, message, status };
+  if (incorrectData) {
+    const message = ReasonPhrases.BAD_REQUEST;
+    const status = StatusCodes.BAD_REQUEST;
+    const errOpts: Options = { req, res, message, status };
     handleError(errOpts);
     return;
   }
 
-  const updatedUser: User = { ...user, ...newUserInfo };
+  const { users } = db;
+  const user = users.find((u) => String(u.id) === id);
+
+  if (!user) {
+    const message = ReasonPhrases.NOT_FOUND;
+    const status = StatusCodes.NOT_FOUND;
+    const errOpts: Options = { req, res, message, status };
+    handleError(errOpts);
+    return;
+  }
+
+  const updatedUser: User = { ...user, ...userProps };
 
   const i = users.indexOf(user);
 

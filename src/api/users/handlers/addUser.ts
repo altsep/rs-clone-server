@@ -1,39 +1,41 @@
 import { Handler } from 'express';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
+import { ALLOWED_USER_KEYS } from '../../../constants';
 import { db } from '../../../db';
 import { User } from '../../../types';
-import { handleError, Options } from '../../utils';
+import { handleError, hasWrongKeys, Options } from '../../utils';
 
-export const addUser: Handler = (req, res, next) => {
-  const body = req.body as Partial<Exclude<User, 'id'>>;
-  const { name, password, birthDate, createdAt, country } = body;
-  const { users } = db;
+export const addUser: Handler = (req, res) => {
+  const userProps = req.body as Exclude<User, 'id'>;
+  const { name } = userProps;
+  const propsMissing = ALLOWED_USER_KEYS.some((k) => !Object.hasOwn(userProps, k));
+  const wrongKeys = hasWrongKeys(userProps, ALLOWED_USER_KEYS);
+  const incorrectData = propsMissing || wrongKeys;
 
-  const missingProps = [name, password, birthDate, createdAt, country].some((p) => p == null);
-
-  if (missingProps) {
+  if (incorrectData) {
     const message = ReasonPhrases.BAD_REQUEST;
     const status = StatusCodes.BAD_REQUEST;
-    const errOpts: Options = { req, res, next, message, status };
+    const errOpts: Options = { req, res, message, status };
     handleError(errOpts);
     return;
   }
 
+  const { users } = db;
   const exists = users.findIndex((u) => u.name === name) !== -1;
 
-  if (name && exists) {
+  if (exists) {
     const message = `User "${name}" exists`;
-    const errOpts: Options = { req, res, next, message };
+    const errOpts: Options = { req, res, message };
     handleError(errOpts);
     return;
   }
 
-  const newUserProps = {
+  const newUserProps: Pick<User, 'id' | 'hidden'> = {
     id: users.length + 1,
     hidden: false,
   };
 
-  const newUser = { ...newUserProps, ...body };
+  const newUser: User = { ...newUserProps, ...userProps };
 
   users.push(newUser);
 
