@@ -4,12 +4,12 @@ API for [RS Clone](https://github.com/altsep/rs-clone) app done as part of the [
 
 ## Setup
 
-- Node.js version must be `16.9` or higher
+- Node.js `16.9` or higher must be installed
 - Clone this repo: `$ git clone https://github.com/altsep/rs-clone-server.git`.
 - Install pnpm: `$ npm -g i pnpm`
 - Navigate to the folder: `$ cd rs-clone-server`
 - Install dependencies: `$ pnpm i`
-- Start server: `$ pnpm start` or run build and start the bundle `$ pnpm build; pnpm start`
+- Start server: `$ pnpm dev` or run build and start the bundle `$ pnpm build; pnpm start`
 - Now you should be able to send requests to the address: `http://127.0.0.1:3000` or the port specified as the env variable
 
 ## Usage
