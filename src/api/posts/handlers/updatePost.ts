@@ -1,15 +1,16 @@
 import { Handler } from 'express';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
-import { ALLOWED_POST_KEYS } from '../../../constants';
 import { db } from '../../../db';
 import { Post } from '../../../types';
 import { handleError, hasWrongKeys, Options } from '../../utils';
+
+const allowedPostKeys: (keyof Post)[] = ['description', 'likes', 'commentsIds'];
 
 export const updatePost: Handler = (req, res) => {
   const { id } = req.params;
   const postProps = req.body as Partial<Post>;
 
-  const wrongKeys = hasWrongKeys(postProps, ALLOWED_POST_KEYS);
+  const wrongKeys = hasWrongKeys(postProps, allowedPostKeys);
   const incorrectData = !postProps || wrongKeys;
 
   if (incorrectData) {

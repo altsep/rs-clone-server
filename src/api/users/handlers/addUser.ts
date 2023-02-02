@@ -1,16 +1,17 @@
 import { Handler } from 'express';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
-import { ALLOWED_USER_KEYS } from '../../../constants';
 import { db } from '../../../db';
 import { User } from '../../../types';
 import { handleError, hasKeysMissing, hasWrongKeys, Options } from '../../utils';
+
+const allowedUserKeys: (keyof User)[] = ['name', 'password', 'alias', 'birthDate', 'country', 'createdAt'];
 
 export const addUser: Handler = (req, res) => {
   const userProps = req.body as Exclude<User, 'id'>;
   const { name } = userProps;
 
-  const keysMissing = hasKeysMissing(userProps, ALLOWED_USER_KEYS);
-  const wrongKeys = hasWrongKeys(userProps, ALLOWED_USER_KEYS);
+  const keysMissing = hasKeysMissing(userProps, allowedUserKeys);
+  const wrongKeys = hasWrongKeys(userProps, allowedUserKeys);
   const incorrectData = keysMissing || wrongKeys;
 
   if (incorrectData) {

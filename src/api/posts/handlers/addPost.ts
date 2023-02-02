@@ -1,15 +1,16 @@
 import { Handler } from 'express';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
-import { ALLOWED_POST_KEYS } from '../../../constants';
 import { db } from '../../../db';
 import { Post } from '../../../types';
 import { handleError, hasKeysMissing, hasWrongKeys, Options } from '../../utils';
 
+const allowedPostKeys: (keyof Post)[] = ['userId', 'description', 'createdAt'];
+
 export const addPost: Handler = (req, res) => {
   const postProps = req.body as Exclude<Post, 'id'>;
 
-  const keysMissing = hasKeysMissing(postProps, ALLOWED_POST_KEYS);
-  const wrongKeys = hasWrongKeys(postProps, ALLOWED_POST_KEYS);
+  const keysMissing = hasKeysMissing(postProps, allowedPostKeys);
+  const wrongKeys = hasWrongKeys(postProps, allowedPostKeys);
   const incorrectData = keysMissing || wrongKeys;
 
   if (incorrectData) {

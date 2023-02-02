@@ -1,15 +1,25 @@
 import { Handler } from 'express';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
-import { ALLOWED_USER_KEYS } from '../../../constants';
 import { db } from '../../../db';
 import { User } from '../../../types';
 import { handleError, hasWrongKeys, Options } from '../../utils';
+
+const allowedUserKeys: (keyof User)[] = [
+  'name',
+  'password',
+  'alias',
+  'birthDate',
+  'country',
+  'avatarURL',
+  'postsIds',
+  'friendsIds',
+];
 
 export const updateUser: Handler = (req, res) => {
   const { id } = req.params;
   const userProps = req.body as Partial<User>;
 
-  const wrongKeys = hasWrongKeys(userProps, ALLOWED_USER_KEYS);
+  const wrongKeys = hasWrongKeys(userProps, allowedUserKeys);
   const incorrectData = !userProps || wrongKeys;
 
   if (incorrectData) {
