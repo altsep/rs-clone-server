@@ -1,6 +1,6 @@
 # rs-clone-server
 
-API for [RS Clone](https://github.com/altsep/rs-clone) app done as part of the [eponymous task](https://github.com/rolling-scopes-school/tasks/blob/master/tasks/rsclone/rsclone.md).
+API for the [RS Clone](https://github.com/altsep/rs-clone) app done as part of the [eponymous task](https://github.com/rolling-scopes-school/tasks/blob/master/tasks/rsclone/rsclone.md).
 
 ## Setup
 
@@ -32,7 +32,7 @@ API for [RS Clone](https://github.com/altsep/rs-clone) app done as part of the [
 
 ## **Get users**
 
-Returns a json collection of all users.
+Returns a collection of all users.
 
 <details>
 
@@ -96,7 +96,7 @@ Returns a json collection of all users.
 
 ## **Get user**
 
-Returns json data about the specified user.
+Returns information about the specified user.
 
 <details>
 

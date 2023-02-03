@@ -2,6 +2,9 @@ import express from 'express';
 import expressWs from 'express-ws';
 import compression from 'compression';
 import morgan from 'morgan';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const appBase = express();
 const wsInstance = expressWs(appBase);
@@ -16,7 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 app.set('json spaces', 2);
 
 app.use((_req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
+  const origin = process.env.ORIGIN || '*';
+  res.header('Access-Control-Allow-Origin', origin);
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
