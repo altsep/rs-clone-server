@@ -4,8 +4,8 @@ import { db } from '../../../db';
 import { User } from '../../../types';
 import { handleError, hasKeysMissing, hasWrongKeys, ErrorHandlerOptions } from '../../utils';
 
-const allowedKeys: (keyof User<number>)[] = ['email', 'name', 'password', 'alias', 'birthDate', 'country', 'createdAt'];
-const requiredKeys: (keyof User<number>)[] = ['email', 'password', 'birthDate', 'country', 'createdAt'];
+const allowedKeys: (keyof User<number>)[] = ['email', 'name', 'password', 'alias', 'birthDate', 'country'];
+const requiredKeys: (keyof User<number>)[] = ['email', 'password'];
 
 export const addUser: Handler = (req, res) => {
   const userProps = req.body as Exclude<User<number>, 'id'>;

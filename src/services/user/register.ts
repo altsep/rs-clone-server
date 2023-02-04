@@ -15,8 +15,6 @@ export const register = async (req: Request, res: Response, data: User<string>):
   const { email, password } = data;
   const candidate = await userModel.findOne({ email });
 
-  console.log('register');
-
   if (candidate) {
     const message = `User with email ${email} exists`;
     handleError({ req, res, message });

@@ -36,12 +36,12 @@ interface IPost<TypeOfUserId> {
 interface IUser<TypeOfId> {
   id?: TypeOfId;
   email: string;
-  name?: string;
+  name: string;
   password: string;
   hidden: boolean;
   createdAt: string;
-  country?: string;
-  birthDate?: string;
+  country: string;
+  birthDate: string;
   alias?: string;
   avatarURL?: string;
   postsIds?: number[];

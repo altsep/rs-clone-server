@@ -5,11 +5,11 @@ class UserDto {
 
   public password: string;
 
-  public name: string | undefined;
+  public name: string;
 
-  public country: string | undefined;
+  public country: string;
 
-  public birthDate: string | undefined;
+  public birthDate: string;
 
   public id: string | undefined;
 

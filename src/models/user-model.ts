@@ -21,12 +21,15 @@ const UserSchema = new Schema({
   },
   name: {
     type: String,
+    default: '',
   },
   country: {
     type: String,
+    default: '',
   },
   birthDate: {
     type: String,
+    default: '',
   },
   alias: {
     type: String,
@@ -34,6 +37,7 @@ const UserSchema = new Schema({
   },
   avatarURL: {
     type: String,
+    default: '',
   },
   postIds: [
     {
