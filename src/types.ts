@@ -24,8 +24,8 @@ interface IComment {
   likes: number;
 }
 
-interface IPost<TypeOfUserId> {
-  userId: TypeOfUserId;
+interface IPost<T> {
+  userId: T;
   id: number;
   description: string;
   createdAt: string;
@@ -33,8 +33,8 @@ interface IPost<TypeOfUserId> {
   commentsIds?: number[];
 }
 
-interface IUser<TypeOfId> {
-  id?: TypeOfId;
+interface IUser<T> {
+  id?: T;
   email: string;
   name: string;
   password: string;
