@@ -25,7 +25,7 @@ export const handleRegistration: Handler = (req, res, next): void => {
 
   const newUserProps: Pick<User<string>, 'hidden' | 'createdAt'> = {
     hidden: false,
-    createdAt: getIsoString(Date.now()),
+    createdAt: getIsoString(),
   };
 
   Object.assign(userProps, newUserProps);

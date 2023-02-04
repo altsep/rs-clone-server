@@ -3,9 +3,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { userModel } from '../../models/user-model';
 import { sendActivationMail } from '../mail/sendActivationMail';
 import { UserDto } from '../../dtos/user-dto';
-import { generateTokens } from '../token/generateTokens';
+import { generateTokens, ITokens as Tokens } from '../token/generateTokens';
 import { saveToken } from '../token/saveToken';
-import { Tokens, User, UserSchema } from '../../types';
+import { UserSchema } from '../../models/types';
+import { User } from '../../types';
 
 type TResponseData = { user: UserSchema } & Tokens;
 
@@ -13,7 +14,8 @@ const throwOnCandidate = async (filter: Partial<User<string>>): Promise<void> =>
   const candidate = await userModel.findOne(filter);
 
   if (candidate) {
-    const message = `User with ${JSON.stringify(filter)} exists`;
+    const [key, value] = Object.entries(filter)[0];
+    const message = `User with ${key} ${String(value)} exists`;
     throw new Error(message);
   }
 };
