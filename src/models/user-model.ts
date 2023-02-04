@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
-import { UserModel } from '../types';
+import { UserSchema } from '../types';
 
-const UserSchema = new Schema<UserModel>({
+const userSchema = new Schema<UserSchema>({
   email: {
     type: String,
     unique: true,
@@ -60,6 +60,6 @@ const UserSchema = new Schema<UserModel>({
   },
 });
 
-const userModel = model('User', UserSchema);
+const userModel = model('User', userSchema);
 
 export { userModel };

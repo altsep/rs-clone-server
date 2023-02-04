@@ -1,4 +1,4 @@
-import { UserModel } from '../types';
+import { UserSchema } from '../types';
 
 class UserDto {
   public id: string | undefined;
@@ -27,7 +27,7 @@ class UserDto {
 
   public activationLink: string;
 
-  constructor(model: UserModel) {
+  constructor(model: UserSchema) {
     this.id = model.id;
     this.email = model.email;
     this.password = model.password;

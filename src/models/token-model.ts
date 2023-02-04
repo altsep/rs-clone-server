@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
-import { TokenModel } from '../types';
+import { TokenSchema } from '../types';
 
-const TokenSchema = new Schema<TokenModel>({
+const tokenSchema = new Schema<TokenSchema>({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -12,6 +12,6 @@ const TokenSchema = new Schema<TokenModel>({
   },
 });
 
-const tokenModel = model('Token', TokenSchema);
+const tokenModel = model('Token', tokenSchema);
 
-export { tokenModel, TokenSchema };
+export { tokenModel };

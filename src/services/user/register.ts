@@ -5,9 +5,9 @@ import { sendActivationMail } from '../mail/sendActivationMail';
 import { UserDto } from '../../dtos/user-dto';
 import { generateTokens } from '../token/generateTokens';
 import { saveToken } from '../token/saveToken';
-import { Tokens, User, UserModel } from '../../types';
+import { Tokens, User, UserSchema } from '../../types';
 
-type ResponseData = { user: UserModel } & Tokens;
+type ResponseData = { user: UserSchema } & Tokens;
 
 const throwOnCandidate = async (filter: Partial<User<string>>): Promise<void> => {
   const candidate = await userModel.findOne(filter);

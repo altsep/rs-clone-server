@@ -1,4 +1,4 @@
-interface ITokenModel {
+interface ITokenSchema {
   user: IUser<string>;
   refreshToken: string;
 }
@@ -13,7 +13,7 @@ interface IActivation {
   isActivated: boolean;
 }
 
-type IUserModel = Exclude<IUser<string>, 'id'> & IActivation;
+type IUserSchema = Exclude<IUser<string>, 'id'> & IActivation;
 
 interface IComment {
   userId: string;
@@ -50,8 +50,8 @@ interface IUser<TypeOfId> {
 
 export {
   ITokens as Tokens,
-  IUserModel as UserModel,
-  ITokenModel as TokenModel,
+  IUserSchema as UserSchema,
+  ITokenSchema as TokenSchema,
   IComment as Comment,
   IPost as Post,
   IUser as User,
