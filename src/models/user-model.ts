@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
+import { UserModel } from '../types';
 
-const UserSchema = new Schema({
+const UserSchema = new Schema<UserModel>({
   email: {
     type: String,
     unique: true,
@@ -39,7 +40,7 @@ const UserSchema = new Schema({
     type: String,
     default: '',
   },
-  postIds: [
+  postsIds: [
     {
       type: Number,
     },

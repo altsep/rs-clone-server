@@ -1,4 +1,4 @@
-interface IToken {
+interface ITokenModel {
   user: IUser<string>;
   refreshToken: string;
 }
@@ -51,7 +51,7 @@ interface IUser<TypeOfId> {
 export {
   ITokens as Tokens,
   IUserModel as UserModel,
-  IToken as Token,
+  ITokenModel as TokenModel,
   IComment as Comment,
   IPost as Post,
   IUser as User,
