@@ -1,7 +1,7 @@
 import { Handler } from 'express';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { db } from '../../../db';
-import { handleError, Options } from '../../utils';
+import { handleError, ErrorHandlerOptions } from '../../utils';
 
 export const getUser: Handler = (req, res) => {
   const { id } = req.params;
@@ -10,7 +10,7 @@ export const getUser: Handler = (req, res) => {
   if (id == null) {
     const message = ReasonPhrases.BAD_REQUEST;
     const status = StatusCodes.BAD_REQUEST;
-    const errOpts: Options = { req, res, message, status };
+    const errOpts: ErrorHandlerOptions = { req, res, message, status };
     handleError(errOpts);
     return;
   }
@@ -20,7 +20,7 @@ export const getUser: Handler = (req, res) => {
   if (!user) {
     const message = ReasonPhrases.NOT_FOUND;
     const status = StatusCodes.NOT_FOUND;
-    const errOpts: Options = { req, res, message, status };
+    const errOpts: ErrorHandlerOptions = { req, res, message, status };
     handleError(errOpts);
     return;
   }

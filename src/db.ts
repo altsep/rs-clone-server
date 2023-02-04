@@ -1,8 +1,8 @@
 import { Post, User } from './types';
 
 interface Db {
-  users: User[];
-  posts: Post[];
+  users: User<number>[];
+  posts: Post<number>[];
 }
 
 export const db: Db = {

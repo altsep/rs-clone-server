@@ -2,13 +2,13 @@ import { Handler } from 'express';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 import { db } from '../../../db';
 import { User } from '../../../types';
-import { handleError, hasKeysMissing, hasWrongKeys, Options } from '../../utils';
+import { handleError, hasKeysMissing, hasWrongKeys, ErrorHandlerOptions } from '../../utils';
 
-const allowedKeys: (keyof User)[] = ['email', 'name', 'password', 'alias', 'birthDate', 'country'];
-const requiredKeys: (keyof User)[] = ['email', 'password'];
+const allowedKeys: (keyof User<number>)[] = ['email', 'name', 'password', 'alias', 'birthDate', 'country'];
+const requiredKeys: (keyof User<number>)[] = ['email', 'password'];
 
 export const addUser: Handler = (req, res) => {
-  const userProps = req.body as Exclude<User, 'id'>;
+  const userProps = req.body as User<number>;
   const { email } = userProps;
 
   const wrongKeys = hasWrongKeys(userProps, allowedKeys);
@@ -18,7 +18,7 @@ export const addUser: Handler = (req, res) => {
   if (incorrectData) {
     const message = ReasonPhrases.BAD_REQUEST;
     const status = StatusCodes.BAD_REQUEST;
-    const errOpts: Options = { req, res, message, status };
+    const errOpts: ErrorHandlerOptions = { req, res, message, status };
     handleError(errOpts);
     return;
   }
@@ -28,18 +28,17 @@ export const addUser: Handler = (req, res) => {
 
   if (exists) {
     const message = 'User already exists';
-    const errOpts: Options = { req, res, message };
+    const errOpts: ErrorHandlerOptions = { req, res, message };
     handleError(errOpts);
     return;
   }
 
-  const newUserProps: Pick<User, 'id' | 'hidden' | 'createdAt'> = {
+  const newUserProps: Pick<User<number>, 'id' | 'hidden'> = {
     id: users.length + 1,
     hidden: false,
-    createdAt: new Date(Date.now()).toISOString(),
   };
 
-  const newUser: User = { ...newUserProps, ...userProps };
+  const newUser: User<number> = { ...newUserProps, ...userProps };
 
   users.push(newUser);
 

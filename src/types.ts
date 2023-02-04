@@ -1,5 +1,22 @@
+interface ITokenSchema {
+  user: IUser<string>;
+  refreshToken: string;
+}
+
+interface ITokens {
+  accessToken: string;
+  refreshToken: string;
+}
+
+interface IActivation {
+  activationLink: string;
+  isActivated: boolean;
+}
+
+type TUserSchema = Exclude<IUser<string>, 'id'> & IActivation;
+
 interface IComment {
-  userId: number;
+  userId: string;
   postId: number;
   id: number;
   description: string;
@@ -7,8 +24,8 @@ interface IComment {
   likes: number;
 }
 
-interface IPost {
-  userId: number;
+interface IPost<T> {
+  userId: T;
   id: number;
   description: string;
   createdAt: string;
@@ -16,19 +33,26 @@ interface IPost {
   commentsIds?: number[];
 }
 
-interface IUser {
+interface IUser<T> {
+  id?: T;
   email: string;
-  id: number;
   name: string;
   password: string;
   hidden: boolean;
+  createdAt: string;
   country: string;
   birthDate: string;
-  createdAt: string;
   alias?: string;
   avatarURL?: string;
   postsIds?: number[];
   friendsIds?: number[];
 }
 
-export { IComment as Comment, IPost as Post, IUser as User };
+export {
+  ITokens as Tokens,
+  TUserSchema as UserSchema,
+  ITokenSchema as TokenSchema,
+  IComment as Comment,
+  IPost as Post,
+  IUser as User,
+};
