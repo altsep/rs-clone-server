@@ -4,8 +4,8 @@ import { db } from '../../../db';
 import { User } from '../../../types';
 import { handleError, hasKeysMissing, hasWrongKeys, Options } from '../../utils';
 
-const allowedKeys: (keyof User)[] = ['email', 'name', 'password', 'alias', 'birthDate', 'country', 'createdAt'];
-const requiredKeys: (keyof User)[] = ['email', 'password', 'birthDate', 'country', 'createdAt'];
+const allowedKeys: (keyof User)[] = ['email', 'name', 'password', 'alias', 'birthDate', 'country'];
+const requiredKeys: (keyof User)[] = ['email', 'password'];
 
 export const addUser: Handler = (req, res) => {
   const userProps = req.body as Exclude<User, 'id'>;
@@ -33,9 +33,10 @@ export const addUser: Handler = (req, res) => {
     return;
   }
 
-  const newUserProps: Pick<User, 'id' | 'hidden'> = {
+  const newUserProps: Pick<User, 'id' | 'hidden' | 'createdAt'> = {
     id: users.length + 1,
     hidden: false,
+    createdAt: new Date(Date.now()).toISOString(),
   };
 
   const newUser: User = { ...newUserProps, ...userProps };
