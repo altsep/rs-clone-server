@@ -8,7 +8,7 @@ const allowedKeys: (keyof User<number>)[] = ['email', 'name', 'password', 'alias
 const requiredKeys: (keyof User<number>)[] = ['email', 'password'];
 
 export const addUser: Handler = (req, res) => {
-  const userProps = req.body as Exclude<User<number>, 'id'>;
+  const userProps = req.body as User<number>;
   const { email } = userProps;
 
   const wrongKeys = hasWrongKeys(userProps, allowedKeys);

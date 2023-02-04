@@ -4,6 +4,9 @@ import { getUsers } from './handlers/getUsers';
 import { updateUser } from './handlers/updateUser';
 import { hideUser } from './handlers/hideUser';
 import { authUser } from './handlers/authUser';
+import { addUser } from './handlers/addUser';
+
+app.post('/api/users', addUser);
 
 app.get('/api/users', getUsers);
 
