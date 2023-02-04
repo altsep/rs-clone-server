@@ -30,6 +30,86 @@ API for the [RS Clone](https://github.com/altsep/rs-clone) app done as part of t
   - [Delete posts](https://github.com/altsep/rs-clone-server#delete-post)
   - [Update posts](https://github.com/altsep/rs-clone-server#update-post)
 
+## **Register**
+
+Registers a new user by writing their information and access tokens to the database.
+
+<details>
+
+- **URL**
+
+  /api/registration
+
+- **Method:**
+
+  `POST`
+
+- **Headers:**
+
+  none
+
+- **URL params**
+
+  None
+
+- **Query params**
+
+  None
+
+- **Data params**
+
+  ```ts
+  {
+    email: string;
+    password: string;
+    name?: string;
+    country?: string;
+    birthDate?: string;
+    alias?: string;
+  }
+  ```
+
+- **Success response:**
+
+  - **Code:** 201 Created <br />
+    **Content:**
+    ```json
+    {
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZGRhYWExN2IyZTIzZmRhNTM3NDEwMyIsImVtYWlsIjoid2XRg2VlZWVlZWVlZUBleGFtcGxlLmNvbSIsInBhc3N3b3JkIjoiJDJiJDA1JGtqV1BtZUlYZ3paYVNzSXRxRXVHQWU1ampFbkx6UlllNi4yUUkyYmNqV3F5S051SVUxVDEyIiwiaGlkZGVuIjpmYWxzZSwiY3JlYXRlZEF0IjoiMjAyMy0wMi0wNFQwMDo0NToyMS4xOThaIiwicG9zdHNJZHMiOltdLCJmcmllbmRzSWRzIjpbXSwiYWN0aXZhdGlvbkxpbmsiOiIyMDI0MmFlZC0wNDE0LTRjYmItYTM1Ni1mNjBmNzdlY2YwY2UiLCJpc0FjdGl2YXRlZCI6ZmFsc2UsImlhdCI6MTY3NTQ3MTUyMSwiZXhwIjoxNjc1NDczMzIxfQ.xUOVbpzGTV13nIqyDSf07RuudSineUGY3W-MWns64u4",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZGRhYWExN2IyZTIzZmRhNTM3NDEwMyIsImVtYWlsIjoid2XRg2VlZWVlZWVlZUBleGFtcGxlLmNvbSIsInBhc3N3b3JkIjoiJDJiJDA1JGtqV1BtZUlYZ3paYVNzSXRxRXVHQWU1ampFbkx6UlllNi4yUUkyYmNqV3F5S051SVUxVDEyIiwiaGlkZGVuIjpmYWxzZSwiY3JlYXRlZEF0IjoiMjAyMy0wMi0wNFQwMDo0NToyMS4xOThaIiwicG9zdHNJZHMiOltdLCJmcmllbmRzSWRzIjpbXSwiYWN0aXZhdGlvbkxpbmsiOiIyMDI0MmFlZC0wNDE0LTRjYmItYTM1Ni1mNjBmNzdlY2YwY2UiLCJpc0FjdGl2YXRlZCI6ZmFsc2UsImlhdCI6MTY3NTQ3MTUyMSwiZXhwIjoxNjc4MDYzNTIxfQ.GJYvL8y9PErLRHcn9TaO-y6vOgwMj2_prExPs7ev6WE",
+      "user": {
+        "id": "63ddaaa17b2e23fda5374103",
+        "email": "qwe@example.com",
+        "password": "$2b$05$kjWPmeIXgzZaSsItqEuGAe5jjEnLzRYe6.2QI2bcjWqyKNuIU1T12",
+        "hidden": false,
+        "createdAt": "2023-02-04T00:45:21.198Z",
+        "postsIds": [],
+        "friendsIds": [],
+        "activationLink": "20242aed-0414-4cbb-a356-f60f77ecf0ce",
+        "isActivated": false
+      }
+    }
+    ```
+
+- **Error response:**
+
+  - **Code:** 400 Bad Request <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "message": "Bad Request",
+      "status": 400,
+      "instance": "/api/api/registration"
+    }
+    ```
+
+- **Notes:**
+
+  None
+
+</details>
+
 ## **Get users**
 
 Returns a collection of all users.
@@ -268,9 +348,9 @@ Sets the `hidden` field of the specified user to `true`.
 
   ```ts
   {
-    password: string
+    password: string;
   }
-  ````
+  ```
 
 - **Success response:**
 
@@ -436,7 +516,7 @@ Updates user properties.
 
 </details>
 
-## **Authorize user** 
+## **Authorize user**
 
 Checks user credentials.
 
