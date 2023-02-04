@@ -30,11 +30,15 @@ export const handleRegistration: Handler = (req, res, next): void => {
 
   Object.assign(userProps, newUserProps);
 
-  register(req, res, userProps)
+  register(userProps)
     .then((userData) => {
       const status = StatusCodes.CREATED;
       res.cookie('refreshToken', userData.refreshToken, { maxAge: MS_IN_A_MONTH, httpOnly: true });
       res.status(status).send(userData);
     })
-    .catch((e) => next(e));
+    .catch((e) => {
+      const message = (e instanceof Error && e.message) || '';
+      handleError({ req, res, message });
+      next(e);
+    });
 };

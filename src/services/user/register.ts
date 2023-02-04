@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 import { userModel } from '../../models/user-model';
@@ -7,17 +6,25 @@ import { UserDto } from '../../dtos/user-dto';
 import { generateTokens } from '../token/generateTokens';
 import { saveToken } from '../token/saveToken';
 import { Tokens, User, UserModel } from '../../types';
-import { handleError } from '../../api/utils';
 
 type ResponseData = { user: UserModel } & Tokens;
 
-export const register = async (req: Request, res: Response, data: User<string>): Promise<ResponseData> => {
-  const { email, password } = data;
-  const candidate = await userModel.findOne({ email });
+const findCandidate = async (filter: Partial<User<string>>): Promise<void> => {
+  const candidate = await userModel.findOne(filter);
 
   if (candidate) {
-    const message = `User with email ${email} exists`;
-    handleError({ req, res, message });
+    const message = `User with ${JSON.stringify(filter)} exists`;
+    throw new Error(message);
+  }
+};
+
+export const register = async (data: User<string>): Promise<ResponseData> => {
+  const { email, password, alias } = data;
+
+  await findCandidate({ email });
+
+  if (alias) {
+    await findCandidate({ alias });
   }
 
   const hashPassword = await bcrypt.hash(password, 5);

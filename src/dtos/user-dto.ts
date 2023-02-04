@@ -1,17 +1,19 @@
 import { UserModel } from '../types';
 
 class UserDto {
+  public id: string | undefined;
+
   public email: string;
 
   public password: string;
 
   public name: string;
 
+  public alias: string | undefined;
+
   public country: string;
 
   public birthDate: string;
-
-  public id: string | undefined;
 
   public hidden: boolean;
 
@@ -30,6 +32,7 @@ class UserDto {
     this.email = model.email;
     this.password = model.password;
     this.name = model.name;
+    this.alias = model.alias;
     this.country = model.country;
     this.birthDate = model.birthDate;
     this.hidden = model.hidden;
