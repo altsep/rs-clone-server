@@ -21,6 +21,7 @@ app.set('json spaces', 2);
 app.use((_req, res, next) => {
   const origin = process.env.ORIGIN || '*';
   res.header('Access-Control-Allow-Origin', origin);
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, DELETE, PATCH');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
