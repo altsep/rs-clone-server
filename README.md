@@ -100,7 +100,7 @@ Registers a new user by writing their information and access tokens to the datab
       "error": true,
       "message": "Bad Request",
       "status": 400,
-      "instance": "/api/api/registration"
+      "instance": "/api/registration"
     }
     ```
 
