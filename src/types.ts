@@ -13,7 +13,7 @@ interface IActivation {
   isActivated: boolean;
 }
 
-type IUserSchema = Exclude<IUser<string>, 'id'> & IActivation;
+type TUserSchema = Exclude<IUser<string>, 'id'> & IActivation;
 
 interface IComment {
   userId: string;
@@ -50,7 +50,7 @@ interface IUser<TypeOfId> {
 
 export {
   ITokens as Tokens,
-  IUserSchema as UserSchema,
+  TUserSchema as UserSchema,
   ITokenSchema as TokenSchema,
   IComment as Comment,
   IPost as Post,

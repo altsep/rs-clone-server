@@ -7,7 +7,7 @@ import { generateTokens } from '../token/generateTokens';
 import { saveToken } from '../token/saveToken';
 import { Tokens, User, UserSchema } from '../../types';
 
-type ResponseData = { user: UserSchema } & Tokens;
+type TResponseData = { user: UserSchema } & Tokens;
 
 const throwOnCandidate = async (filter: Partial<User<string>>): Promise<void> => {
   const candidate = await userModel.findOne(filter);
@@ -18,7 +18,7 @@ const throwOnCandidate = async (filter: Partial<User<string>>): Promise<void> =>
   }
 };
 
-export const register = async (data: User<string>): Promise<ResponseData> => {
+export const register = async (data: User<string>): Promise<TResponseData> => {
   const { email, password, alias } = data;
 
   await throwOnCandidate({ email });
