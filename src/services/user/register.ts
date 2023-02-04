@@ -9,7 +9,7 @@ import { Tokens, User, UserModel } from '../../types';
 
 type ResponseData = { user: UserModel } & Tokens;
 
-const findCandidate = async (filter: Partial<User<string>>): Promise<void> => {
+const throwOnCandidate = async (filter: Partial<User<string>>): Promise<void> => {
   const candidate = await userModel.findOne(filter);
 
   if (candidate) {
@@ -21,10 +21,10 @@ const findCandidate = async (filter: Partial<User<string>>): Promise<void> => {
 export const register = async (data: User<string>): Promise<ResponseData> => {
   const { email, password, alias } = data;
 
-  await findCandidate({ email });
+  await throwOnCandidate({ email });
 
   if (alias) {
-    await findCandidate({ alias });
+    await throwOnCandidate({ alias });
   }
 
   const hashPassword = await bcrypt.hash(password, 5);
