@@ -15,7 +15,8 @@
     "build": "esbuild src/index.ts --outdir=build --allow-overwrite --bundle --platform=node --packages=external --log-limit=0",
     "test": "jest",
     "lint": "tsc && eslint src --ext .ts --cache",
-    "lint-fix": "tsc && eslint src --fix --ext .ts --cache"
+    "lint-fix": "tsc && eslint src --fix --ext .ts --cache",
+    "format": "prettier --check --write src"
   },
   "dependencies": {
     "@types/ws": "^8.5.4",
