@@ -11,6 +11,11 @@ import { User } from '../../types';
 type TResponseData = { user: UserSchema } & Tokens;
 
 const throwOnCandidate = async (filter: Partial<User<string>>): Promise<void> => {
+  if (Object.keys(filter).length > 1) {
+    const message = 'Only one filter property is allowed';
+    throw new Error(message);
+  }
+
   const candidate = await userModel.findOne(filter);
 
   if (candidate) {
