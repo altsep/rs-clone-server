@@ -5,7 +5,7 @@ interface IComment {
   description: string;
   createdAt: string;
   likes: number;
-  likedUserIds: number[];
+  likedUserIds?: number[];
 }
 
 interface IPost {
@@ -14,7 +14,7 @@ interface IPost {
   description: string;
   createdAt: string;
   likes: number;
-  likedUserIds: number[];
+  likedUserIds?: number[];
   commentsIds?: number[];
 }
 
