@@ -10,15 +10,15 @@ import { User } from '../../types';
 
 type TResponseData = { user: UserSchema } & Tokens;
 
-const throwOnCandidate = async (filter: Partial<User<string>>): Promise<void> => {
+const throwOnUser = async (filter: Partial<User<string>>): Promise<void> => {
   if (Object.keys(filter).length > 1) {
     const message = 'Only one filter property is allowed';
     throw new Error(message);
   }
 
-  const candidate = await userModel.findOne(filter);
+  const user = await userModel.findOne(filter);
 
-  if (candidate) {
+  if (user) {
     const [key, value] = Object.entries(filter)[0];
     const message = `User with ${key} ${String(value)} exists`;
     throw new Error(message);
@@ -28,17 +28,24 @@ const throwOnCandidate = async (filter: Partial<User<string>>): Promise<void> =>
 export const register = async (data: User<string>): Promise<TResponseData> => {
   const { email, password, alias } = data;
 
-  await throwOnCandidate({ email });
+  await throwOnUser({ email });
 
   if (alias) {
-    await throwOnCandidate({ alias });
+    await throwOnUser({ alias });
   }
 
   const hashPassword = await bcrypt.hash(password, 5);
   const activationLink = uuidv4();
+
   const user = await userModel.create({ ...data, password: hashPassword, activationLink });
 
-  await sendActivationMail(email, activationLink);
+  const mailActivation = process.env.MODE !== 'dev';
+
+  if (mailActivation) {
+    const baseURL = process.env.API_URL || 'localhost:3000';
+    const fullActivationLink = `${baseURL}/api/activate/${activationLink}`;
+    await sendActivationMail(email, fullActivationLink);
+  }
 
   const userDto = new UserDto(user);
   const tokens: Tokens = generateTokens({ ...userDto });

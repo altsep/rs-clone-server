@@ -30,7 +30,7 @@ export const handleRegistration: Handler = (req, res, next): void => {
       res.status(status).send(userData);
     })
     .catch((e) => {
-      const message = e instanceof Error && e.message;
+      const message = e instanceof Error ? e.message : undefined;
       handleError({ req, res, message });
       next(e);
     });

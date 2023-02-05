@@ -1,3 +1,3 @@
 import './auth';
-import './users';
-import './posts';
+import './users-dev';
+import './posts-dev';

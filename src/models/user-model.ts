@@ -57,7 +57,7 @@ const userSchema = new Schema<UserSchema>({
   },
   isActivated: {
     type: Boolean,
-    default: false,
+    default: process.env.MODE === 'dev',
   },
 });
 
