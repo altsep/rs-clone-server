@@ -3,7 +3,7 @@ import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { MS_IN_A_MONTH } from '../../../constants';
 import { register } from '../../../services/user/register';
 import { User } from '../../../types';
-import { hasKeysMissing, hasWrongKeys, ErrorHandlerOptions, handleError, getIsoString } from '../../utils';
+import { hasKeysMissing, hasWrongKeys, ErrorHandlerOptions, handleError } from '../../utils';
 
 const allowedKeys: (keyof User<string>)[] = ['email', 'name', 'password', 'alias', 'birthDate', 'country'];
 const requiredKeys: (keyof User<string>)[] = ['email', 'password'];
@@ -23,13 +23,6 @@ export const handleRegistration: Handler = (req, res, next): void => {
     return;
   }
 
-  const newUserProps: Pick<User<string>, 'hidden' | 'createdAt'> = {
-    hidden: false,
-    createdAt: getIsoString(Date.now()),
-  };
-
-  Object.assign(userProps, newUserProps);
-
   register(userProps)
     .then((userData) => {
       const status = StatusCodes.CREATED;
@@ -37,7 +30,7 @@ export const handleRegistration: Handler = (req, res, next): void => {
       res.status(status).send(userData);
     })
     .catch((e) => {
-      const message = (e instanceof Error && e.message) || '';
+      const message = e instanceof Error ? e.message : undefined;
       handleError({ req, res, message });
       next(e);
     });

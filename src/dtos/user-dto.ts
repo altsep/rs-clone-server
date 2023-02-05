@@ -1,4 +1,4 @@
-import { UserSchema } from '../types';
+import { UserSchema } from '../models/types';
 
 class UserDto {
   public id: string | undefined;

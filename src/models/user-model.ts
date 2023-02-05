@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
-import { UserSchema } from '../types';
+import { getIsoString } from '../api/utils';
+import { UserSchema } from './types';
 
 const userSchema = new Schema<UserSchema>({
   email: {
@@ -56,8 +57,16 @@ const userSchema = new Schema<UserSchema>({
   },
   isActivated: {
     type: Boolean,
-    default: false,
+    default: process.env.MODE === 'dev',
   },
+});
+
+userSchema.pre('validate', function (next) {
+  if (!this.createdAt) {
+    this.createdAt = getIsoString();
+  }
+
+  next();
 });
 
 const userModel = model('User', userSchema);

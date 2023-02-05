@@ -1,20 +1,3 @@
-interface ITokenSchema {
-  user: IUser<string>;
-  refreshToken: string;
-}
-
-interface ITokens {
-  accessToken: string;
-  refreshToken: string;
-}
-
-interface IActivation {
-  activationLink: string;
-  isActivated: boolean;
-}
-
-type TUserSchema = Exclude<IUser<string>, 'id'> & IActivation;
-
 interface IComment {
   userId: string;
   postId: number;
@@ -22,6 +5,7 @@ interface IComment {
   description: string;
   createdAt: string;
   likes: number;
+  likedUserIds?: number[];
 }
 
 interface IPost<T> {
@@ -30,6 +14,7 @@ interface IPost<T> {
   description: string;
   createdAt: string;
   likes: number;
+  likedUserIds?: number[];
   commentsIds?: number[];
 }
 
@@ -48,11 +33,4 @@ interface IUser<T> {
   friendsIds?: number[];
 }
 
-export {
-  ITokens as Tokens,
-  TUserSchema as UserSchema,
-  ITokenSchema as TokenSchema,
-  IComment as Comment,
-  IPost as Post,
-  IUser as User,
-};
+export { IComment as Comment, IPost as Post, IUser as User };

@@ -1,5 +1,5 @@
 import { app } from '../../app';
-import { activate } from './handlers/activate';
+import { handleActivation } from './handlers/activate';
 import { login } from './handlers/login';
 import { logout } from './handlers/logout';
 import { refresh } from './handlers/refresh';
@@ -11,6 +11,6 @@ app.post('/api/login', login);
 
 app.post('/api/logout', logout);
 
-app.get('/api/activate/:link', activate);
+app.get('/api/activate/:link', handleActivation);
 
 app.get('/api/refresh', refresh);

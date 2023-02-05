@@ -15,7 +15,8 @@
     "build": "esbuild src/index.ts --outdir=build --allow-overwrite --bundle --platform=node --packages=external --log-limit=0",
     "test": "jest",
     "lint": "tsc && eslint src --ext .ts --cache",
-    "lint-fix": "tsc && eslint src --fix --ext .ts --cache"
+    "lint-fix": "tsc && eslint src --fix --ext .ts --cache",
+    "format": "prettier --check --write src"
   },
   "dependencies": {
     "@types/ws": "^8.5.4",
@@ -32,6 +33,7 @@
     "mongodb": "^5.0.0",
     "mongoose": "^6.9.0",
     "morgan": "^1.10.0",
+    "nodemailer": "^6.9.1",
     "tsx": "^3.12.2",
     "uuid": "^9.0.0"
   },
@@ -45,6 +47,7 @@
     "@types/jsonwebtoken": "^9.0.1",
     "@types/morgan": "^1.9.4",
     "@types/node": "^18.11.18",
+    "@types/nodemailer": "^6.4.7",
     "@types/uuid": "^9.0.0",
     "eslint": "^8.33.0",
     "eslint-config-airbnb-base": "^15.0.0",

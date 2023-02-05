@@ -30,7 +30,7 @@ const hasKeysMissing = (
   requiredKeyArr: string[]
 ): boolean => requiredKeyArr.some((k) => !Object.hasOwn(props, k));
 
-const getIsoString = (date: number | string): string => new Date(date).toISOString();
+const getIsoString = (date: number | string = Date.now()): string => new Date(date).toISOString();
 
 export type { IErrorHandlerOptions as ErrorHandlerOptions };
 

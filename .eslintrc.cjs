@@ -29,6 +29,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 0,
     '@typescript-eslint/explicit-member-accessibility': 0,
     'import/prefer-default-export': 0,
+    'func-names': 0,
   },
   settings: {
     'import/parsers': {
