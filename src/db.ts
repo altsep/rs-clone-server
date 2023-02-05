@@ -17,6 +17,7 @@ export const db: Db = {
       country: 'Antarctica',
       birthDate: '1955-11-11T21:00:00.000Z',
       createdAt: '2023-02-02T03:04:59.717Z',
+      postsIds: [1],
     },
     {
       id: 2,
