@@ -4,7 +4,7 @@ import { db } from '../../../db';
 import { Post } from '../../../types';
 import { handleError, hasWrongKeys, ErrorHandlerOptions } from '../../utils';
 
-const allowedKeys: (keyof Post<number>)[] = ['description', 'likes', 'commentsIds'];
+const allowedKeys: (keyof Post<number>)[] = ['description', 'likes', 'commentsIds', 'likedUserIds'];
 
 export const updatePost: Handler = (req, res) => {
   const { id } = req.params;

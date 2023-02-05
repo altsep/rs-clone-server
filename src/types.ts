@@ -5,6 +5,7 @@ interface IComment {
   description: string;
   createdAt: string;
   likes: number;
+  likedUserIds?: number[];
 }
 
 interface IPost<T> {
@@ -13,6 +14,7 @@ interface IPost<T> {
   description: string;
   createdAt: string;
   likes: number;
+  likedUserIds?: number[];
   commentsIds?: number[];
 }
 
