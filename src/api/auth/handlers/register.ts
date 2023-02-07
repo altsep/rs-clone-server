@@ -11,7 +11,7 @@ export const handleRegistration: Handler = (req, res, next): void => {
 
   if (!errors.isEmpty()) {
     const data = handleError(req.originalUrl, 'BAD_REQUEST', errors.array());
-    res.status(data.status).end(data);
+    res.status(data.status).send(data);
   }
 
   const userProps = req.body as Exclude<User, 'id'>;
@@ -23,6 +23,11 @@ export const handleRegistration: Handler = (req, res, next): void => {
       res.status(status).send(userData);
     })
     .catch((e) => {
+      const data = handleError(req.originalUrl);
+      if (e instanceof Error) {
+        data.message = e.message;
+      }
+      res.status(data.status).send(data);
       next(e);
     });
 };
