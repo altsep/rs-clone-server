@@ -1,7 +1,7 @@
 import { UserSchema } from '../models/types';
 
 class UserDto {
-  public id: string | undefined;
+  public id: number;
 
   public email: string;
 
@@ -28,7 +28,7 @@ class UserDto {
   public activationLink: string;
 
   constructor(model: UserSchema) {
-    this.id = model.id;
+    this.id = model.userId;
     this.email = model.email;
     this.password = model.password;
     this.name = model.name;

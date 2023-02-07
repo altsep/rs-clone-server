@@ -3,6 +3,11 @@ import { getIsoString } from '../api/utils';
 import { UserSchema } from './types';
 
 const userSchema = new Schema<UserSchema>({
+  userId: {
+    type: Number,
+    unique: true,
+    required: true,
+  },
   email: {
     type: String,
     unique: true,

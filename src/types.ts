@@ -1,16 +1,16 @@
 interface IComment {
-  commentId: number;
-  postId: number;
-  userId: string;
+  id: string;
+  postId: string;
+  userId: number;
   description: string;
   createdAt: string;
   likes: number;
   likedUserIds?: number[];
 }
 
-interface IPost<T> {
-  postId: number;
-  userId: T;
+interface IPost {
+  id: string;
+  userId: number;
   description: string;
   createdAt: string;
   likes: number;
@@ -18,8 +18,8 @@ interface IPost<T> {
   commentsIds?: number[];
 }
 
-interface IUser<T> {
-  userId?: T;
+interface IUser {
+  id: number;
   email: string;
   name: string;
   password: string;

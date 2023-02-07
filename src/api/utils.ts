@@ -2,24 +2,32 @@ import { ValidationError } from 'express-validator';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 
 interface IErrorHandlerData {
+  error: boolean;
   message: string;
   status: number;
   instance: string;
   errors: ValidationError[];
-  error: boolean;
 }
 
 const handleError = (
-  errType = 'INTERNAL_SERVER_ERROR',
   instance = '',
+  errType: keyof typeof StatusCodes = 'INTERNAL_SERVER_ERROR',
   errors: ValidationError[] = []
 ): IErrorHandlerData => {
-  const status = StatusCodes[errType as keyof typeof StatusCodes];
-  const message = ReasonPhrases[errType as keyof typeof ReasonPhrases];
-  const data = { status, errors, message, instance, error: true };
+  const status = StatusCodes[errType];
+  const message = ReasonPhrases[errType];
+  const data = { error: true, status, message, instance, errors };
   return data;
 };
 
 const getIsoString = (date: number | string = Date.now()): string => new Date(date).toISOString();
 
-export { handleError, getIsoString };
+const generateHexStr = (amount = 24): string => {
+  let res = '';
+  for (let i = 0; i < amount; i += 1) {
+    res += Math.floor(Math.random() * 0x10).toString(16);
+  }
+  return res;
+};
+
+export { handleError, getIsoString, generateHexStr };

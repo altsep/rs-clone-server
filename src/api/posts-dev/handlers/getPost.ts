@@ -1,24 +1,24 @@
 import { Handler } from 'express';
-import { validationResult } from 'express-validator';
 import { db } from '../../../db';
 import { handleError } from '../../utils';
 
 export const getPost: Handler = (req, res) => {
-  const errors = validationResult(req);
+  const { id } = req.params;
 
-  if (!errors.isEmpty()) {
-    const data = handleError('BAD_REQUEST', req.originalUrl, errors.array());
-    res.status(data.status).end(data);
+  if (id == null) {
+    const data = handleError(req.originalUrl, 'BAD_REQUEST');
+    res.status(data.status).send(data);
+    return;
   }
+
   const { posts } = db;
 
-  const { id: postId } = req.params;
-
-  const post = posts.find((p) => String(p.postId) === postId);
+  const post = posts.find((p) => String(p.id) === id);
 
   if (!post) {
-    const data = handleError('NOT_FOUND', req.originalUrl);
-    res.status(data.status).end(data);
+    const data = handleError(req.originalUrl, 'NOT_FOUND');
+    res.status(data.status).send(data);
+    return;
   }
 
   res.send(post);

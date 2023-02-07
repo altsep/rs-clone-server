@@ -8,16 +8,16 @@ import { removePost } from './handlers/removePost';
 
 app.get('/api/posts', getPosts);
 
-app.post('/api/posts', body('userId').exists(), body('description').exists(), addPost);
+app.post('/api/posts', body('userId').exists().isNumeric(), body('description').exists().isString(), addPost);
 
 app.get('/api/posts/:id', getPost);
 
 app.patch(
   '/api/posts/:id',
-  body('description').optional(),
-  body('commentsIds').optional(),
-  body('likes').optional(),
-  body('likedUserIds').optional(),
+  body('description').optional().isString(),
+  body('commentsIds').optional().isArray(),
+  body('likes').optional().isNumeric(),
+  body('likedUserIds').optional().isArray(),
   updatePost
 );
 

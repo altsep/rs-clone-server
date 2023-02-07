@@ -2,28 +2,26 @@ import { Handler } from 'express';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 import { db } from '../../../db';
 import { User } from '../../../types';
-import { handleError, ErrorHandlerOptions } from '../../utils';
+import { handleError } from '../../utils';
 
 export const authUser: Handler = (req, res) => {
-  const { email, password } = req.body as Pick<User<number>, 'password' | 'email'>;
+  const { email, password } = req.body as Pick<User, 'password' | 'email'>;
   const { originalUrl } = req;
   const { users } = db;
 
   const user = users.find((u) => u.email === email);
 
   if (!user) {
-    const message = ReasonPhrases.NOT_FOUND;
-    const status = StatusCodes.NOT_FOUND;
-    const errOpts: ErrorHandlerOptions = { req, res, message, status };
-    handleError(errOpts);
+    const data = handleError(originalUrl, 'NOT_FOUND');
+    res.status(data.status).send(data);
     return;
   }
 
   if (password !== user.password) {
     const message = `Incorrect password`;
-    const status = StatusCodes.UNAUTHORIZED;
-    const errOpts: ErrorHandlerOptions = { req, res, message, status };
-    handleError(errOpts);
+    const data = handleError(originalUrl, 'UNAUTHORIZED');
+    data.message = message;
+    res.status(data.status).send(data);
     return;
   }
 

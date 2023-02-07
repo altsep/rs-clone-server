@@ -3,23 +3,23 @@ import { validationResult } from 'express-validator';
 import { StatusCodes } from 'http-status-codes';
 import { db } from '../../../db';
 import { Post } from '../../../types';
-import { handleError } from '../../utils';
+import { generateHexStr, handleError } from '../../utils';
 
 export const addPost: Handler = (req, res) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    const data = handleError('BAD_REQUEST', req.originalUrl, errors.array());
-    res.status(data.status).end(data);
+    const data = handleError(req.originalUrl, 'BAD_REQUEST', errors.array());
+    res.status(data.status).send(data);
+    return;
   }
 
-  const postProps = req.body as Exclude<Post<number>, 'id'>;
+  const postProps = req.body as Exclude<Post, 'id'>;
 
   const { posts } = db;
-  const lastPostId = posts[posts.length - 1].postId;
 
-  const newPostProps: Pick<Post<number>, 'postId' | 'likes'> = {
-    postId: lastPostId != null ? lastPostId + 1 : 1,
+  const newPostProps: Pick<Post, 'id' | 'likes'> = {
+    id: generateHexStr(),
     likes: 0,
   };
 
