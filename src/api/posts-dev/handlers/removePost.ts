@@ -1,43 +1,23 @@
 import { Handler } from 'express';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { db } from '../../../db';
-import { User } from '../../../types';
-import { handleError, ErrorHandlerOptions } from '../../utils';
+import { handleError } from '../../utils';
 
 export const removePost: Handler = (req, res) => {
   const { originalUrl } = req;
-  const { id } = req.params;
-  const { password } = req.body as Pick<User<number>, 'password'>;
-
-  if (password == null) {
-    const message = ReasonPhrases.BAD_REQUEST;
-    const status = StatusCodes.BAD_REQUEST;
-    const errOpts: ErrorHandlerOptions = { req, res, message, status };
-    handleError(errOpts);
-    return;
-  }
+  const { id: postId } = req.params;
 
   const { posts, users } = db;
-  const post = posts.find((p) => String(p.id) === id);
-  const user = post && users.find((u) => u.id === post.userId);
+  const post = posts.find((p) => String(p.postId) === postId);
+  const user = post && users.find((u) => u.userId === post.userId);
 
   if (!post || !user) {
-    const message = ReasonPhrases.NOT_FOUND;
-    const status = StatusCodes.NOT_FOUND;
-    const errOpts: ErrorHandlerOptions = { req, res, message, status };
-    handleError(errOpts);
+    const data = handleError('NOT_FOUND', originalUrl);
+    res.status(data.status).send(data);
     return;
   }
 
-  if (password !== user.password) {
-    const message = ReasonPhrases.UNAUTHORIZED;
-    const status = StatusCodes.UNAUTHORIZED;
-    const errOpts: ErrorHandlerOptions = { req, res, message, status };
-    handleError(errOpts);
-    return;
-  }
-
-  db.posts = posts.filter((p) => String(p.id) !== id);
+  db.posts = posts.filter((p) => String(p.postId) !== postId);
 
   const status = StatusCodes.ACCEPTED;
   const message = ReasonPhrases.ACCEPTED;

@@ -1,7 +1,7 @@
 interface IComment {
-  userId: string;
+  commentId: number;
   postId: number;
-  id: number;
+  userId: string;
   description: string;
   createdAt: string;
   likes: number;
@@ -9,8 +9,8 @@ interface IComment {
 }
 
 interface IPost<T> {
+  postId: number;
   userId: T;
-  id: number;
   description: string;
   createdAt: string;
   likes: number;
@@ -19,7 +19,7 @@ interface IPost<T> {
 }
 
 interface IUser<T> {
-  id?: T;
+  userId?: T;
   email: string;
   name: string;
   password: string;

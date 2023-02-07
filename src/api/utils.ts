@@ -6,6 +6,7 @@ interface IErrorHandlerData {
   status: number;
   instance: string;
   errors: ValidationError[];
+  error: boolean;
 }
 
 const handleError = (
@@ -15,14 +16,10 @@ const handleError = (
 ): IErrorHandlerData => {
   const status = StatusCodes[errType as keyof typeof StatusCodes];
   const message = ReasonPhrases[errType as keyof typeof ReasonPhrases];
-
-  const data = { errors, message, status, instance };
-
+  const data = { status, errors, message, instance, error: true };
   return data;
 };
 
 const getIsoString = (date: number | string = Date.now()): string => new Date(date).toISOString();
-
-export type { IErrorHandlerData as ErrorHandlerOptions };
 
 export { handleError, getIsoString };

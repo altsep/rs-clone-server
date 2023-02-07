@@ -1,34 +1,27 @@
 import { Handler } from 'express';
-import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+import { validationResult } from 'express-validator';
 import { db } from '../../../db';
 import { Post } from '../../../types';
-import { handleError, hasWrongKeys, ErrorHandlerOptions } from '../../utils';
-
-const allowedKeys: (keyof Post<number>)[] = ['description', 'likes', 'commentsIds', 'likedUserIds'];
+import { handleError } from '../../utils';
 
 export const updatePost: Handler = (req, res) => {
-  const { id } = req.params;
-  const postProps = req.body as Partial<Post<number>>;
+  const errors = validationResult(req);
 
-  const wrongKeys = hasWrongKeys(postProps, allowedKeys);
-  const incorrectData = !postProps || wrongKeys;
-
-  if (incorrectData) {
-    const message = ReasonPhrases.BAD_REQUEST;
-    const status = StatusCodes.BAD_REQUEST;
-    const errOpts: ErrorHandlerOptions = { req, res, message, status };
-    handleError(errOpts);
+  if (!errors.isEmpty()) {
+    const data = handleError('BAD_REQUEST', req.originalUrl, errors.array());
+    res.status(data.status).send(data);
     return;
   }
 
+  const { postId } = req.params;
+  const postProps = req.body as Partial<Post<number>>;
+
   const { posts } = db;
-  const post = posts.find((u) => String(u.id) === id);
+  const post = posts.find((u) => String(u.postId) === postId);
 
   if (!post) {
-    const message = ReasonPhrases.NOT_FOUND;
-    const status = StatusCodes.NOT_FOUND;
-    const errOpts: ErrorHandlerOptions = { req, res, message, status };
-    handleError(errOpts);
+    const data = handleError('NOT_FOUND', req.originalUrl);
+    res.status(data.status).send(data);
     return;
   }
 

@@ -1,28 +1,24 @@
 import { Handler } from 'express';
-import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+import { validationResult } from 'express-validator';
 import { db } from '../../../db';
-import { handleError, ErrorHandlerOptions } from '../../utils';
+import { handleError } from '../../utils';
 
 export const getPost: Handler = (req, res) => {
-  const { id } = req.params;
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    const data = handleError('BAD_REQUEST', req.originalUrl, errors.array());
+    res.status(data.status).end(data);
+  }
   const { posts } = db;
 
-  if (id == null) {
-    const message = ReasonPhrases.BAD_REQUEST;
-    const status = StatusCodes.BAD_REQUEST;
-    const errOpts: ErrorHandlerOptions = { req, res, message, status };
-    handleError(errOpts);
-    return;
-  }
+  const { id: postId } = req.params;
 
-  const post = posts.find((p) => String(p.id) === id);
+  const post = posts.find((p) => String(p.postId) === postId);
 
   if (!post) {
-    const message = ReasonPhrases.NOT_FOUND;
-    const status = StatusCodes.NOT_FOUND;
-    const errOpts: ErrorHandlerOptions = { req, res, message, status };
-    handleError(errOpts);
-    return;
+    const data = handleError('NOT_FOUND', req.originalUrl);
+    res.status(data.status).end(data);
   }
 
   res.send(post);
