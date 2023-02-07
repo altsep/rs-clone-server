@@ -1,37 +1,28 @@
-import { Response, Request } from 'express';
+import { ValidationError } from 'express-validator';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
-import { Post, User } from '../types';
 
-interface IErrorHandlerOptions {
-  req: Request;
-  res: Response;
-  message?: string;
-  status?: number;
+interface IErrorHandlerData {
+  message: string;
+  status: number;
+  instance: string;
+  errors: ValidationError[];
 }
 
-const handleError = (options: IErrorHandlerOptions): void => {
-  options.status = options.status || StatusCodes.INTERNAL_SERVER_ERROR;
-  options.message = options.message || ReasonPhrases.INTERNAL_SERVER_ERROR;
-  const { req, res, message, status } = options;
-  const { originalUrl } = req;
+const handleError = (
+  errType = 'INTERNAL_SERVER_ERROR',
+  instance = '',
+  errors: ValidationError[] = []
+): IErrorHandlerData => {
+  const status = StatusCodes[errType as keyof typeof StatusCodes];
+  const message = ReasonPhrases[errType as keyof typeof ReasonPhrases];
 
-  const data = { error: true, message, status, instance: originalUrl };
+  const data = { errors, message, status, instance };
 
-  res.status(status).send(data);
+  return data;
 };
-
-const hasWrongKeys = (
-  props: Partial<User<string | number>> | Partial<Post<string | number>>,
-  requiredKeyArr: string[]
-): boolean => Object.keys(props).some((k) => !requiredKeyArr.includes(k));
-
-const hasKeysMissing = (
-  props: Partial<User<string | number>> | Partial<Post<string | number>>,
-  requiredKeyArr: string[]
-): boolean => requiredKeyArr.some((k) => !Object.hasOwn(props, k));
 
 const getIsoString = (date: number | string = Date.now()): string => new Date(date).toISOString();
 
-export type { IErrorHandlerOptions as ErrorHandlerOptions };
+export type { IErrorHandlerData as ErrorHandlerOptions };
 
-export { handleError, hasWrongKeys, hasKeysMissing, getIsoString };
+export { handleError, getIsoString };
