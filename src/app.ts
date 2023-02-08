@@ -25,7 +25,8 @@ app.use(express.json({ limit: '128kb' }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 const origin = process.env.ORIGIN || '*';
-app.use(cors({ origin }));
+const corsOpts = { credentials: true, origin };
+app.use(cors(corsOpts));
 
 app.set('json spaces', 2);
 
