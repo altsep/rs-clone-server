@@ -1,7 +1,7 @@
-import { Document } from 'mongoose';
+import { Document, ObjectId } from 'mongoose';
 import { tokenModel } from '../../models/token-model';
 
-export const saveToken = async (id: string | undefined, refreshToken: string): Promise<Document<unknown>> => {
+export const saveToken = async (id: ObjectId, refreshToken: string): Promise<Document<unknown>> => {
   const tokenData = await tokenModel.findOne({ user: id });
 
   if (tokenData) {

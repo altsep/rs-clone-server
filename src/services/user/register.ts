@@ -49,8 +49,7 @@ export const register = async (data: User): Promise<ResponseData> => {
   const tokens: Tokens = generateTokens({ ...userDto });
 
   // eslint-disable-next-line no-underscore-dangle
-  const id = user._id.toString();
-  await saveToken(id, tokens.refreshToken);
+  await saveToken(user._id, tokens.refreshToken);
 
   return { ...tokens, user: userDto };
 };
