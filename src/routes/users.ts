@@ -2,6 +2,8 @@ import { body } from 'express-validator';
 import { app } from '../app';
 import { usersController } from '../controllers/users';
 
+app.get('/api/users', usersController.getUsers);
+
 app.post(
   '/api/users',
   body('email').isEmail().exists().isString(),
@@ -11,8 +13,6 @@ app.post(
   body('birthDate').exists().isString(),
   usersController.addUser
 );
-
-app.get('/api/users', usersController.getUsers);
 
 app.get('/api/users/:id', usersController.getUser);
 

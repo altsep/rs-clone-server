@@ -48,7 +48,9 @@ export const register = async (data: User): Promise<ResponseData> => {
   const userDto = new UserDto(user);
   const tokens: Tokens = generateTokens({ ...userDto });
 
-  await saveToken(user.id, tokens.refreshToken);
+  // eslint-disable-next-line no-underscore-dangle
+  const id = user._id.toString();
+  await saveToken(id, tokens.refreshToken);
 
   return { ...tokens, user: userDto };
 };

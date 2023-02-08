@@ -21,7 +21,9 @@ export const login = async (email: string, password: string): Promise<ResponseDa
   const userDto = new UserDto(user);
   const tokens: Tokens = generateTokens({ ...userDto });
 
-  await saveToken(user.id, tokens.refreshToken);
+  // eslint-disable-next-line no-underscore-dangle
+  const id = user._id.toString();
+  await saveToken(id, tokens.refreshToken);
 
   return { ...tokens, user: userDto };
 };
