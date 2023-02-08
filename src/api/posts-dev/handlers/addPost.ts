@@ -3,7 +3,7 @@ import { validationResult } from 'express-validator';
 import { StatusCodes } from 'http-status-codes';
 import { db } from '../../../db';
 import { Post } from '../../../types';
-import { generateHexStr, handleError } from '../../utils';
+import { getIsoString, handleError } from '../../utils';
 
 export const addPost: Handler = (req, res) => {
   const errors = validationResult(req);
@@ -18,9 +18,11 @@ export const addPost: Handler = (req, res) => {
 
   const { posts } = db;
 
-  const newPostProps: Pick<Post, 'id' | 'likes'> = {
-    id: generateHexStr(),
+  const newPostProps: Pick<Post, 'id' | 'likes' | 'likedUserIds' | 'createdAt'> = {
+    id: posts.length + 1,
     likes: 0,
+    likedUserIds: [],
+    createdAt: getIsoString(),
   };
 
   const newPost = { ...newPostProps, ...postProps };

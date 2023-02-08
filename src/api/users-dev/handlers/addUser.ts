@@ -3,7 +3,7 @@ import { validationResult } from 'express-validator';
 import { StatusCodes } from 'http-status-codes';
 import { db } from '../../../db';
 import { User } from '../../../types';
-import { handleError } from '../../utils';
+import { getIsoString, handleError } from '../../utils';
 
 export const addUser: Handler = (req, res) => {
   const errors = validationResult(req);
@@ -28,9 +28,10 @@ export const addUser: Handler = (req, res) => {
     return;
   }
 
-  const newUserProps: Pick<User, 'id' | 'hidden'> = {
+  const newUserProps: Pick<User, 'id' | 'hidden' | 'createdAt'> = {
     id: users.length + 1,
     hidden: false,
+    createdAt: getIsoString(),
   };
 
   const newUser: User = { ...newUserProps, ...userProps };
