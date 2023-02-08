@@ -7,6 +7,7 @@ import { generateTokens, Tokens } from '../token/generateTokens';
 import { saveToken } from '../token/saveToken';
 import { User } from '../../types';
 import { ResponseData } from './types';
+import { UserSchema } from '../../models/types';
 
 const throwOnUser = async (filter: Partial<User>): Promise<void> => {
   if (Object.keys(filter).length > 1) {
@@ -23,7 +24,7 @@ const throwOnUser = async (filter: Partial<User>): Promise<void> => {
   }
 };
 
-export const register = async (data: User): Promise<ResponseData> => {
+export const register = async (data: UserSchema): Promise<ResponseData> => {
   const { email, password, alias } = data;
 
   await throwOnUser({ email });
@@ -34,6 +35,9 @@ export const register = async (data: User): Promise<ResponseData> => {
 
   const hashPassword = await bcrypt.hash(password, 5);
   const activationLink = uuidv4();
+
+  const count = await userModel.estimatedDocumentCount();
+  data.userId = count + 1;
 
   const user = await userModel.create({ ...data, password: hashPassword, activationLink });
 
