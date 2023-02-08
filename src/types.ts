@@ -1,5 +1,5 @@
 interface IComment {
-  id: string;
+  id: number;
   postId: string;
   userId: number;
   description: string;
@@ -9,7 +9,7 @@ interface IComment {
 }
 
 interface IPost {
-  id: string;
+  id: number;
   userId: number;
   description: string;
   createdAt: string;
