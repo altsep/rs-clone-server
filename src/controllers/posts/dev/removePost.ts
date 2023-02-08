@@ -1,7 +1,7 @@
 import { Handler } from 'express';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
-import { db } from '../../db';
-import { handleError } from '../../utils';
+import { db } from '../../../db';
+import { handleError } from '../../../utils';
 
 export const removePost: Handler = (req, res) => {
   const { originalUrl } = req;

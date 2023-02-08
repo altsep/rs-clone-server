@@ -1,26 +1,25 @@
 import { body } from 'express-validator';
 import { app } from '../app';
-import { getPost } from '../controllers/posts-dev/getPost';
-import { getPosts } from '../controllers/posts-dev/getPosts';
-import { addPost } from '../controllers/posts-dev/addPost';
-import { updatePost } from '../controllers/posts-dev/updatePost';
-import { removePost } from '../controllers/posts-dev/removePost';
+import { postsController } from '../controllers/posts';
 
-if (process.env.MODE === 'dev') {
-  app.get('/api/posts', getPosts);
+app.get('/api/posts', postsController.getPosts);
 
-  app.post('/api/posts', body('userId').exists().isNumeric(), body('description').exists().isString(), addPost);
+app.post(
+  '/api/posts',
+  body('userId').exists().isNumeric(),
+  body('description').exists().isString(),
+  postsController.addPost
+);
 
-  app.get('/api/posts/:id', getPost);
+app.get('/api/posts/:id', postsController.getPost);
 
-  app.patch(
-    '/api/posts/:id',
-    body('description').optional().isString(),
-    body('commentsIds').optional().isArray(),
-    body('likes').optional().isNumeric(),
-    body('likedUserIds').optional().isArray(),
-    updatePost
-  );
+app.patch(
+  '/api/posts/:id',
+  body('description').optional().isString(),
+  body('commentsIds').optional().isArray(),
+  body('likes').optional().isNumeric(),
+  body('likedUserIds').optional().isArray(),
+  postsController.updatePost
+);
 
-  app.delete('/api/posts/:id', removePost);
-}
+app.delete('/api/posts/:id', postsController.removePost);

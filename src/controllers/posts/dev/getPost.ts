@@ -1,10 +1,9 @@
 import { Handler } from 'express';
-import { db } from '../../db';
-import { handleError } from '../../utils';
+import { db } from '../../../db';
+import { handleError } from '../../../utils';
 
-export const getUser: Handler = (req, res) => {
+export const getPost: Handler = (req, res) => {
   const { id } = req.params;
-  const { users } = db;
 
   if (id == null) {
     const data = handleError(req.originalUrl, 'BAD_REQUEST');
@@ -12,15 +11,15 @@ export const getUser: Handler = (req, res) => {
     return;
   }
 
-  const user = users.find((u) => String(u.id) === id);
+  const { posts } = db;
 
-  if (!user) {
+  const post = posts.find((p) => String(p.id) === id);
+
+  if (!post) {
     const data = handleError(req.originalUrl, 'NOT_FOUND');
     res.status(data.status).send(data);
     return;
   }
 
-  const { password, ...userData } = { ...user };
-
-  res.send(userData);
+  res.send(post);
 };
