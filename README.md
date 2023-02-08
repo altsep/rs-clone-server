@@ -122,6 +122,103 @@ Registers a new user by writing their information and access tokens to the datab
 
 </details>
 
+# **Login**
+
+Authorize a user by comparing the sent password with the one stored in the DB and responds with full user data on success.
+
+<details>
+
+- **URL**
+
+  /api/login
+
+- **Method:**
+
+  `POST`
+
+- **Headers:**
+
+  none
+
+- **URL params**
+
+  None
+
+- **Query params**
+
+  None
+
+- **Data params**
+
+  ```ts
+  {
+    email: string;
+    password: string;
+  }
+  ```
+
+- **Success response:**
+
+  - **Code:** 202 Accepted <br />
+    **Content:**
+    ```json
+    {
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InF3ZXF3ZUBleGFtcGxlLmNvbSIsInBhc3N3b3JkIjoiJDJiJDA1JHU5NXZVRTk0Nk1uSVhvMmRZTnVqdHVDNFB4WWJrcVlxUk9sWUE0RUhRZWs5dzlES0lCWmZhIiwibmFtZSI6ImFzZHp4YyIsImNvdW50cnkiOiJhc2QiLCJiaXJ0aERhdGUiOiIiLCJoaWRkZW4iOmZhbHNlLCJjcmVhdGVkQXQiOiIyMDIzLTAyLTA4VDA0OjI0OjA5LjI1MFoiLCJwb3N0c0lkcyI6W10sImZyaWVuZHNJZHMiOltdLCJhY3RpdmF0aW9uTGluayI6IjEzNjk3ZDA3LWI5MjYtNDUwOC04ZGQzLTNhY2E1YWUwY2UyNyIsImlzQWN0aXZhdGVkIjp0cnVlLCJpYXQiOjE2NzU4MzIxMDEsImV4cCI6MTY3NTgzMzkwMX0.WT-K2imrRN5sT97eYQwPRj1-7qpHoEtW8dndBc6xJ0s",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InF3ZXF3ZUBleGFtcGxlLmNvbSIsInBhc3N3b3JkIjoiJDJiJDA1JHU5NXZVRTk0Nk1uSVhvMmRZTnVqdHVDNFB4WWJrcVlxUk9sWUE0RUhRZWs5dzlES0lCWmZhIiwibmFtZSI6ImFzZHp4YyIsImNvdW50cnkiOiJhc2QiLCJiaXJ0aERhdGUiOiIiLCJoaWRkZW4iOmZhbHNlLCJjcmVhdGVkQXQiOiIyMDIzLTAyLTA4VDA0OjI0OjA5LjI1MFoiLCJwb3N0c0lkcyI6W10sImZyaWVuZHNJZHMiOltdLCJhY3RpdmF0aW9uTGluayI6IjEzNjk3ZDA3LWI5MjYtNDUwOC04ZGQzLTNhY2E1YWUwY2UyNyIsImlzQWN0aXZhdGVkIjp0cnVlLCJpYXQiOjE2NzU4MzIxMDEsImV4cCI6MTY3ODQyNDEwMX0.0oMMmNIedEkFkLPkYXRShho27a2ZPBeg98iZFOp8rIY",
+      "user": {
+          "email": "qweqwe@example.com",
+          "password": "$2b$05$u95vUE946MnIXo2dYNujtuC4PxYbkqYqROlYA4EHQek9w9DKIBZfa",
+          "name": "asdzxc",
+          "country": "asd",
+          "birthDate": "",
+          "hidden": false,
+          "createdAt": "2023-02-08T04:24:09.250Z",
+          "postsIds": [],
+          "friendsIds": [],
+          "activationLink": "13697d07-b926-4508-8dd3-3aca5ae0ce27",
+          "isActivated": true
+      }
+    }
+    ```
+
+- **Error response:**
+
+  - **Code:** 400 Bad Request <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "message": "Bad Request",
+      "status": 400,
+      "instance": "/api/login",
+      "errors": [
+          {
+              "msg": "Invalid value",
+              "param": "email",
+              "location": "body"
+          }
+        ],
+    }
+    ```
+
+  - **Code:** 401 Unauthorized <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "message": "Unauthorized",
+      "status": 401,
+      "instance": "/api/login",
+      "errors": [],
+    }
+    ```
+
+- **Notes:**
+
+  None
+
+</details>
+
 ## **Get users**
 
 Returns a collection of all users.

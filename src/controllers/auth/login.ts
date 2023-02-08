@@ -20,7 +20,6 @@ export const handleLogin: Handler = (req, res, next) => {
   login(email, password)
     .then((userData) => {
       const status = StatusCodes.ACCEPTED;
-      console.log(userData, status);
       res.cookie('refreshToken', userData.refreshToken, { maxAge: MS_IN_A_MONTH, httpOnly: true });
       res.status(status).send(userData);
     })
