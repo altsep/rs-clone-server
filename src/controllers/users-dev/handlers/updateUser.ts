@@ -2,7 +2,7 @@ import { Handler } from 'express';
 import { validationResult } from 'express-validator';
 import { db } from '../../../db';
 import { User } from '../../../types';
-import { handleError } from '../../utils';
+import { handleError } from '../../../utils';
 
 export const updateUser: Handler = (req, res) => {
   const errors = validationResult(req);

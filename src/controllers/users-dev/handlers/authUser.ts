@@ -2,7 +2,7 @@ import { Handler } from 'express';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 import { db } from '../../../db';
 import { User } from '../../../types';
-import { handleError } from '../../utils';
+import { handleError } from '../../../utils';
 
 export const authUser: Handler = (req, res) => {
   const { email, password } = req.body as Pick<User, 'password' | 'email'>;

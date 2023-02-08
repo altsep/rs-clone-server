@@ -4,7 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 import { MS_IN_A_MONTH } from '../../../constants';
 import { register } from '../../../services/user/register';
 import { User } from '../../../types';
-import { handleError } from '../../utils';
+import { handleError } from '../../../utils';
 
 export const handleRegistration: Handler = (req, res, next): void => {
   const errors = validationResult(req);
