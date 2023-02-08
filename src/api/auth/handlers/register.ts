@@ -1,27 +1,20 @@
 import { Handler } from 'express';
-import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+import { validationResult } from 'express-validator';
+import { StatusCodes } from 'http-status-codes';
 import { MS_IN_A_MONTH } from '../../../constants';
 import { register } from '../../../services/user/register';
 import { User } from '../../../types';
-import { hasKeysMissing, hasWrongKeys, ErrorHandlerOptions, handleError } from '../../utils';
-
-const allowedKeys: (keyof User<string>)[] = ['email', 'name', 'password', 'alias', 'birthDate', 'country'];
-const requiredKeys: (keyof User<string>)[] = ['email', 'password'];
+import { handleError } from '../../utils';
 
 export const handleRegistration: Handler = (req, res, next): void => {
-  const userProps = req.body as Exclude<User<string>, 'id'>;
+  const errors = validationResult(req);
 
-  const wrongKeys = hasWrongKeys(userProps, allowedKeys);
-  const keysMissing = hasKeysMissing(userProps, requiredKeys);
-  const incorrectData = wrongKeys || keysMissing;
-
-  if (incorrectData) {
-    const message = ReasonPhrases.BAD_REQUEST;
-    const status = StatusCodes.BAD_REQUEST;
-    const errOpts: ErrorHandlerOptions = { req, res, message, status };
-    handleError(errOpts);
-    return;
+  if (!errors.isEmpty()) {
+    const data = handleError(req.originalUrl, 'BAD_REQUEST', errors.array());
+    res.status(data.status).send(data);
   }
+
+  const userProps = req.body as Exclude<User, 'id'>;
 
   register(userProps)
     .then((userData) => {
@@ -30,8 +23,11 @@ export const handleRegistration: Handler = (req, res, next): void => {
       res.status(status).send(userData);
     })
     .catch((e) => {
-      const message = e instanceof Error ? e.message : undefined;
-      handleError({ req, res, message });
+      const data = handleError(req.originalUrl);
+      if (e instanceof Error) {
+        data.message = e.message;
+      }
+      res.status(data.status).send(data);
       next(e);
     });
 };

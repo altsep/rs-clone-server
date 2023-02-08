@@ -1,8 +1,8 @@
 import { Post, User } from './types';
 
 interface Db {
-  users: User<number>[];
-  posts: Post<number>[];
+  users: User[];
+  posts: Post[];
 }
 
 export const db: Db = {
@@ -50,6 +50,7 @@ export const db: Db = {
       userId: 1,
       createdAt: '2023-02-01T04:42:45.449Z',
       likes: 0,
+      likedUserIds: [1],
     },
   ],
 };

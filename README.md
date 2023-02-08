@@ -62,10 +62,9 @@ Registers a new user by writing their information and access tokens to the datab
   {
     email: string;
     password: string;
-    name?: string;
-    country?: string;
-    birthDate?: string;
-    alias?: string;
+    name: string;
+    country: string;
+    birthDate: string;
   }
   ```
 
@@ -78,7 +77,7 @@ Registers a new user by writing their information and access tokens to the datab
       "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZGRhYWExN2IyZTIzZmRhNTM3NDEwMyIsImVtYWlsIjoid2XRg2VlZWVlZWVlZUBleGFtcGxlLmNvbSIsInBhc3N3b3JkIjoiJDJiJDA1JGtqV1BtZUlYZ3paYVNzSXRxRXVHQWU1ampFbkx6UlllNi4yUUkyYmNqV3F5S051SVUxVDEyIiwiaGlkZGVuIjpmYWxzZSwiY3JlYXRlZEF0IjoiMjAyMy0wMi0wNFQwMDo0NToyMS4xOThaIiwicG9zdHNJZHMiOltdLCJmcmllbmRzSWRzIjpbXSwiYWN0aXZhdGlvbkxpbmsiOiIyMDI0MmFlZC0wNDE0LTRjYmItYTM1Ni1mNjBmNzdlY2YwY2UiLCJpc0FjdGl2YXRlZCI6ZmFsc2UsImlhdCI6MTY3NTQ3MTUyMSwiZXhwIjoxNjc1NDczMzIxfQ.xUOVbpzGTV13nIqyDSf07RuudSineUGY3W-MWns64u4",
       "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZGRhYWExN2IyZTIzZmRhNTM3NDEwMyIsImVtYWlsIjoid2XRg2VlZWVlZWVlZUBleGFtcGxlLmNvbSIsInBhc3N3b3JkIjoiJDJiJDA1JGtqV1BtZUlYZ3paYVNzSXRxRXVHQWU1ampFbkx6UlllNi4yUUkyYmNqV3F5S051SVUxVDEyIiwiaGlkZGVuIjpmYWxzZSwiY3JlYXRlZEF0IjoiMjAyMy0wMi0wNFQwMDo0NToyMS4xOThaIiwicG9zdHNJZHMiOltdLCJmcmllbmRzSWRzIjpbXSwiYWN0aXZhdGlvbkxpbmsiOiIyMDI0MmFlZC0wNDE0LTRjYmItYTM1Ni1mNjBmNzdlY2YwY2UiLCJpc0FjdGl2YXRlZCI6ZmFsc2UsImlhdCI6MTY3NTQ3MTUyMSwiZXhwIjoxNjc4MDYzNTIxfQ.GJYvL8y9PErLRHcn9TaO-y6vOgwMj2_prExPs7ev6WE",
       "user": {
-        "id": "63ddaaa17b2e23fda5374103",
+        "id": 1,
         "email": "qwe@example.com",
         "password": "$2b$05$kjWPmeIXgzZaSsItqEuGAe5jjEnLzRYe6.2QI2bcjWqyKNuIU1T12",
         "hidden": false,
@@ -100,7 +99,20 @@ Registers a new user by writing their information and access tokens to the datab
       "error": true,
       "message": "Bad Request",
       "status": 400,
-      "instance": "/api/registration"
+      "instance": "/api/registration",
+      "errors": [],
+    }
+    ```
+
+  - **Code:** 500 Internal Server Error <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "message": "User with email qwe@example.com exists",
+      "status": 500,
+      "instance": "/api/registration",
+      "errors": [],
     }
     ```
 
@@ -149,13 +161,15 @@ Returns a collection of all users.
     [
       {
         "id": 1,
+        "email": "test@example.com",
         "name": "Clark",
         "password": "",
         "alias": "santa661",
         "hidden": false,
         "country": "Antarctica",
         "birthDate": "1955-11-11T21:00:00.000Z",
-        "createdAt": "2023-02-02T03:04:59.717Z"
+        "createdAt": "2023-02-02T03:04:59.717Z",
+        "postsIds": [1]
       }
     ]
     ```
@@ -213,6 +227,7 @@ Returns information about the specified user.
     ```json
     {
       "id": 1,
+      "email": "test@example.com",
       "name": "Clark",
       "password": "",
       "alias": "santa661",
@@ -232,7 +247,8 @@ Returns information about the specified user.
       "error": true,
       "message": "Not Found",
       "status": 404,
-      "instance": "/api/api/users/15"
+      "instance": "/api/api/users/15",
+      "errors": []
     }
     ```
 
@@ -273,11 +289,10 @@ Creates a new user.
   ```ts
   {
     name: string;
+    email: string;
     password: string;
     country: string;
     birthDate: string;
-    createdAt: string;
-    alias?: string;
   }
   ```
 
@@ -290,6 +305,7 @@ Creates a new user.
       "id": 4,
       "hidden": false,
       "name": "Q",
+      "email": "test@example.com",
       "password": "213",
       "birthDate": "1955-11-11T21:00:00.000Z",
       "createdAt": "2023-02-02T03:04:59.717Z",
@@ -306,7 +322,8 @@ Creates a new user.
       "error": true,
       "message": "Bad Request",
       "status": 400,
-      "instance": "/api/api/users"
+      "instance": "/api/api/users",
+      "errors": []
     }
     ```
 
@@ -360,6 +377,7 @@ Sets the `hidden` field of the specified user to `true`.
     {
       "id": 3,
       "name": "h1dd3nUs3r99",
+      "email": "test@example.com",
       "password": 1,
       "alias": "",
       "hidden": true,
@@ -379,7 +397,8 @@ Sets the `hidden` field of the specified user to `true`.
       "error": true,
       "message": "Bad Request",
       "status": 400,
-      "instance": "/api/api/users/1"
+      "instance": "/api/api/users/1",
+      "errors": []
     }
     ```
 
@@ -391,7 +410,8 @@ Sets the `hidden` field of the specified user to `true`.
       "error": true,
       "message": "Incorrect password",
       "status": 401,
-      "instance": "/api/api/users/1"
+      "instance": "/api/api/users/1",
+      "errors": []
     }
     ```
 
@@ -403,7 +423,8 @@ Sets the `hidden` field of the specified user to `true`.
       "error": true,
       "message": "Not Found",
       "status": 404,
-      "instance": "/api/api/users/51"
+      "instance": "/api/api/users/51",
+      "errors": []
     }
     ```
 
@@ -446,6 +467,7 @@ Updates user properties.
   ```ts
     {
       name?: string;
+      email?: string;
       password?: string;
       country?: string;
       birthDate?: string;
@@ -464,6 +486,7 @@ Updates user properties.
     {
       "id": 2,
       "name": "Asdfg",
+      "email": "test@example.com",
       "password": "",
       "alias": "",
       "hidden": false,
@@ -483,7 +506,8 @@ Updates user properties.
       "error": true,
       "message": "Bad Request",
       "status": 400,
-      "instance": "/api/api/users/1"
+      "instance": "/api/api/users/1",
+      "errors": []
     }
     ```
 
@@ -495,7 +519,8 @@ Updates user properties.
       "error": true,
       "message": "Not Found",
       "status": 404,
-      "instance": "/api/api/users/25"
+      "instance": "/api/api/users/25",
+      "errors": []
     }
     ```
 
@@ -506,7 +531,8 @@ Updates user properties.
       "error": true,
       "message": "User \"Clark\" exists",
       "status": 500,
-      "instance": "/api/api/users/2"
+      "instance": "/api/api/users/2",
+      "errors": []
     }
     ```
 
@@ -524,7 +550,7 @@ Checks user credentials.
 
 - **URL**
 
-  /api/users/auth
+  /api/users-auth
 
 - **Method:**
 
@@ -572,7 +598,8 @@ Checks user credentials.
       "error": true,
       "message": "Incorrect password",
       "status": 401,
-      "instance": "/api/users-auth"
+      "instance": "/api/users-auth",
+      "errors": []
     }
     ```
 
@@ -698,7 +725,8 @@ Returns json data for the specified post.
       "error": true,
       "message": "Not Found",
       "status": 404,
-      "api/instance": "/api/posts/15"
+      "api/instance": "/api/posts/15",
+      "errors": []
     }
     ```
 
@@ -740,7 +768,6 @@ Creates a new post.
   {
     userId: number;
     description: string;
-    createdAt: string;
   }
   ```
 
@@ -767,7 +794,8 @@ Creates a new post.
       "error": true,
       "message": "Bad Request",
       "status": 400,
-      "api/instance": "/api/posts"
+      "api/instance": "/api/posts",
+      "errors": []
     }
     ```
 
@@ -807,11 +835,7 @@ Removes the specified post from the database
 
 - **Data params**
 
-  ```ts
-  {
-    password: string;
-  }
-  ```
+  None
 
 - **Success response:**
 
@@ -827,30 +851,6 @@ Removes the specified post from the database
 
 - **Error response:**
 
-  - **Code:** 400 Bad request <br />
-    **Content:**
-
-    ```json
-    {
-      "error": true,
-      "message": "Bad Request",
-      "status": 400,
-      "api/instance": "/api/posts/1"
-    }
-    ```
-
-  - **Code:** 401 Unauthorized <br />
-    **Content:**
-
-    ```json
-    {
-      "error": true,
-      "message": "Incorrect password",
-      "status": 401,
-      "api/instance": "/api/posts/1"
-    }
-    ```
-
   - **Code:** 404 Not found <br />
     **Content:**
 
@@ -859,7 +859,8 @@ Removes the specified post from the database
       "error": true,
       "message": "Not Found",
       "status": 404,
-      "api/instance": "/api/posts/51"
+      "api/instance": "/api/posts/51",
+      "errors": []
     }
     ```
 
@@ -904,6 +905,7 @@ Updates post properties.
       description?: string;
       likes?: number;
       commentsIds?: number[];
+      likedUserIds?: number[];
     }
   ```
 
@@ -914,10 +916,11 @@ Updates post properties.
     ```json
     {
       "id": 5,
-      "likes": 2,
       "userId": 1,
       "description": "asd",
-      "createdAt": "2023-02-01T04:42:45.449Z"
+      "likes": 2,
+      "likedUserIds": [1],
+      "createdAt": "2023-02-01T04:42:45.449Z",
     }
     ```
 
@@ -931,7 +934,8 @@ Updates post properties.
       "error": true,
       "message": "Bad Request",
       "status": 400,
-      "api/instance": "/api/posts/1"
+      "api/instance": "/api/posts/1",
+      "errors": []
     }
     ```
 
@@ -943,7 +947,8 @@ Updates post properties.
       "error": true,
       "message": "Not Found",
       "status": 404,
-      "instance": "/api/api/users/25"
+      "instance": "/api/api/users/25",
+      "errors": []
     }
     ```
 

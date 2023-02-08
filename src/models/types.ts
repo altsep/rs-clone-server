@@ -1,7 +1,7 @@
 import { User } from '../types';
 
 interface ITokenSchema {
-  user: User<string>;
+  user: User;
   refreshToken: string;
 }
 
@@ -10,6 +10,10 @@ interface IActivation {
   isActivated: boolean;
 }
 
-type TUserSchema = Exclude<User<string>, 'id'> & IActivation;
+interface IId {
+  userId: number;
+}
+
+type TUserSchema = Exclude<User, 'id'> & IActivation & IId;
 
 export { TUserSchema as UserSchema, ITokenSchema as TokenSchema };

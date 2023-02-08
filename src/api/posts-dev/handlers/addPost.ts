@@ -1,32 +1,28 @@
 import { Handler } from 'express';
-import { StatusCodes, ReasonPhrases } from 'http-status-codes';
+import { validationResult } from 'express-validator';
+import { StatusCodes } from 'http-status-codes';
 import { db } from '../../../db';
 import { Post } from '../../../types';
-import { handleError, hasKeysMissing, hasWrongKeys, ErrorHandlerOptions } from '../../utils';
-
-const allowedKeys: (keyof Post<number>)[] = ['userId', 'description', 'createdAt'];
+import { getIsoString, handleError } from '../../utils';
 
 export const addPost: Handler = (req, res) => {
-  const postProps = req.body as Exclude<Post<number>, 'id'>;
+  const errors = validationResult(req);
 
-  const keysMissing = hasKeysMissing(postProps, allowedKeys);
-  const wrongKeys = hasWrongKeys(postProps, allowedKeys);
-  const incorrectData = keysMissing || wrongKeys;
-
-  if (incorrectData) {
-    const message = ReasonPhrases.BAD_REQUEST;
-    const status = StatusCodes.BAD_REQUEST;
-    const errOpts: ErrorHandlerOptions = { req, res, message, status };
-    handleError(errOpts);
+  if (!errors.isEmpty()) {
+    const data = handleError(req.originalUrl, 'BAD_REQUEST', errors.array());
+    res.status(data.status).send(data);
     return;
   }
 
-  const { posts } = db;
-  const lastPostId = posts[posts.length - 1].id;
+  const postProps = req.body as Exclude<Post, 'id'>;
 
-  const newPostProps: Pick<Post<number>, 'id' | 'likes'> = {
-    id: lastPostId != null ? lastPostId + 1 : 1,
+  const { posts } = db;
+
+  const newPostProps: Pick<Post, 'id' | 'likes' | 'likedUserIds' | 'createdAt'> = {
+    id: posts.length + 1,
     likes: 0,
+    likedUserIds: [],
+    createdAt: getIsoString(),
   };
 
   const newPost = { ...newPostProps, ...postProps };

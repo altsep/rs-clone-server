@@ -6,7 +6,7 @@ export interface ITokens {
   refreshToken: string;
 }
 
-export const generateTokens = (payload: Partial<User<string>> | string): ITokens => {
+export const generateTokens = (payload: Partial<User> | string): ITokens => {
   const accessOpts = { expiresIn: '30m' };
   const accessSecret = process.env.JWT_ACCESS_SECRET || '';
   const accessToken: string = jwt.sign(payload, accessSecret, accessOpts);

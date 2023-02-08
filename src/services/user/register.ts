@@ -5,12 +5,11 @@ import { sendActivationMail } from '../mail/sendActivationMail';
 import { UserDto } from '../../dtos/user-dto';
 import { generateTokens, ITokens as Tokens } from '../token/generateTokens';
 import { saveToken } from '../token/saveToken';
-import { UserSchema } from '../../models/types';
 import { User } from '../../types';
 
-type TResponseData = { user: UserSchema } & Tokens;
+type TResponseData = { user: User } & Tokens;
 
-const throwOnUser = async (filter: Partial<User<string>>): Promise<void> => {
+const throwOnUser = async (filter: Partial<User>): Promise<void> => {
   if (Object.keys(filter).length > 1) {
     const message = 'Only one filter property is allowed';
     throw new Error(message);
@@ -25,7 +24,7 @@ const throwOnUser = async (filter: Partial<User<string>>): Promise<void> => {
   }
 };
 
-export const register = async (data: User<string>): Promise<TResponseData> => {
+export const register = async (data: User): Promise<TResponseData> => {
   const { email, password, alias } = data;
 
   await throwOnUser({ email });
