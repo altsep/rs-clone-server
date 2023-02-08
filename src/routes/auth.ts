@@ -3,7 +3,7 @@ import { app } from '../app';
 import { handleActivation } from '../controllers/auth/activate';
 import { handleLogin } from '../controllers/auth/login';
 import { handleLogout } from '../controllers/auth/logout';
-import { refresh } from '../controllers/auth/refresh';
+import { handleRefresh } from '../controllers/auth/refresh';
 import { handleRegistration } from '../controllers/auth/register';
 
 app.post(
@@ -22,4 +22,4 @@ app.post('/api/logout', handleLogout);
 
 app.get('/api/activate/:link', handleActivation);
 
-app.get('/api/refresh', refresh);
+app.post('/api/refresh', handleRefresh);

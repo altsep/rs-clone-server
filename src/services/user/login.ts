@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import { UserDto } from '../../dtos/user-dto';
 import { userModel } from '../../models/user-model';
-import { generateTokens } from '../token/generateTokens';
+import { generateTokens, Tokens } from '../token/generateTokens';
 import { ResponseData } from './types';
 import { saveToken } from '../token/saveToken';
 
@@ -19,9 +19,9 @@ export const login = async (email: string, password: string): Promise<ResponseDa
   }
 
   const userDto = new UserDto(user);
-  const tokens = generateTokens({ ...userDto });
+  const tokens: Tokens = generateTokens({ ...userDto });
 
-  await saveToken(userDto.id, tokens.refreshToken);
+  await saveToken(user.id, tokens.refreshToken);
 
   return { ...tokens, user: userDto };
 };

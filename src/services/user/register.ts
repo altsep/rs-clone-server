@@ -48,7 +48,7 @@ export const register = async (data: User): Promise<ResponseData> => {
   const userDto = new UserDto(user);
   const tokens: Tokens = generateTokens({ ...userDto });
 
-  await saveToken(userDto.id, tokens.refreshToken);
+  await saveToken(user.id, tokens.refreshToken);
 
   return { ...tokens, user: userDto };
 };

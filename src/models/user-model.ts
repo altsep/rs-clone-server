@@ -3,6 +3,9 @@ import { getIsoString } from '../utils';
 import { UserSchema } from './types';
 
 const userSchema = new Schema<UserSchema>({
+  _id: {
+    type: Schema.Types.ObjectId,
+  },
   userId: {
     type: Number,
     unique: true,
