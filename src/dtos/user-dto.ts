@@ -28,7 +28,7 @@ class UserDto {
   public activationLink: string;
 
   constructor(model: UserSchema) {
-    this.id = model.id;
+    this.id = model.userId;
     this.email = model.email;
     this.password = model.password;
     this.name = model.name;
