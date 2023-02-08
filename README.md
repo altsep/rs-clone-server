@@ -285,6 +285,85 @@ Removes refresh token from the DB if one exists. The token is read from the corr
 
 </details>
 
+# **Refresh**
+
+Updates access tokens.
+
+<details>
+
+- **URL**
+
+  /api/refresh
+
+- **Method:**
+
+  `POST`
+
+- **Headers:**
+
+  none
+
+- **URL params**
+
+  None
+
+- **Query params**
+
+  None
+
+- **Data params**
+
+  None
+
+- **Cookies**
+
+  refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InF3ZXF3ZUBleGFtcGxlLmNvbSIsInBhc3N3b3JkIjoiJDJiJDA1JGJQdXA1dk9Ram5kRFZmMC5nZGNTL3VzQ0Z5a1FwaWw0a3h3QzdRdGIzczZ6Nlh3ekEwVzJTIiwibmFtZSI6ImFzZHp4YyIsImNvdW50cnkiOiJhc2QiLCJiaXJ0aERhdGUiOiIiLCJoaWRkZW4iOmZhbHNlLCJjcmVhdGVkQXQiOiIyMDIzLTAyLTA4VDA1OjQzOjE2LjMyNFoiLCJwb3N0c0lkcyI6W10sImZyaWVuZHNJZHMiOltdLCJhY3RpdmF0aW9uTGluayI6IjJlMDRhOGJiLTM2ODYtNGZkNC1hNTdhLTllMzU3MzVhM2Q4NiIsImlzQWN0aXZhdGVkIjp0cnVlLCJpYXQiOjE2NzU4MzY3NDQsImV4cCI6MTY3ODQyODc0NH0.Bm7GMucFHV6JY2tI4UylLGyIYVuT9iQRGdHP2uyjduI; Path=/; HttpOnly; Expires=Wed, 06 Sep 2023 06:12:24 GMT;
+
+- **Success response:**
+
+  - **Code:** 200 OK <br />
+    **Content:**
+    ```json
+    {
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZTM0OTdmZjJlNjFhNzcwYmIxNzM4MyIsImVtYWlsIjoicXdlcXdlQGV4YW1wbGUuY29tIiwicGFzc3dvcmQiOiIkMmIkMDUkWUtINkl0UUdPTDdGR1EuYkF4ellRLjVsYVlVRzFHVG1PLlBaMWtUQlJaVXdwN0hKRWJ3M0ciLCJuYW1lIjoiYXNkenhjIiwiY291bnRyeSI6ImFzZCIsImJpcnRoRGF0ZSI6IiIsImhpZGRlbiI6ZmFsc2UsImNyZWF0ZWRBdCI6IjIwMjMtMDItMDhUMDc6MDQ6MzEuOTExWiIsInBvc3RzSWRzIjpbXSwiZnJpZW5kc0lkcyI6W10sImFjdGl2YXRpb25MaW5rIjoiMjBkYmZiMjEtNjI0NS00ZWY2LWEzODctYzQ0ODZhZGY1ZGVjIiwiaXNBY3RpdmF0ZWQiOnRydWUsImlhdCI6MTY3NTg0MjA2NCwiZXhwIjoxNjc1ODQzODY0fQ.EGKaUWtV178u3fKThGLll9xgh0d50VFsrgORUddbq9E",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZTM0OTdmZjJlNjFhNzcwYmIxNzM4MyIsImVtYWlsIjoicXdlcXdlQGV4YW1wbGUuY29tIiwicGFzc3dvcmQiOiIkMmIkMDUkWUtINkl0UUdPTDdGR1EuYkF4ellRLjVsYVlVRzFHVG1PLlBaMWtUQlJaVXdwN0hKRWJ3M0ciLCJuYW1lIjoiYXNkenhjIiwiY291bnRyeSI6ImFzZCIsImJpcnRoRGF0ZSI6IiIsImhpZGRlbiI6ZmFsc2UsImNyZWF0ZWRBdCI6IjIwMjMtMDItMDhUMDc6MDQ6MzEuOTExWiIsInBvc3RzSWRzIjpbXSwiZnJpZW5kc0lkcyI6W10sImFjdGl2YXRpb25MaW5rIjoiMjBkYmZiMjEtNjI0NS00ZWY2LWEzODctYzQ0ODZhZGY1ZGVjIiwiaXNBY3RpdmF0ZWQiOnRydWUsImlhdCI6MTY3NTg0MjA2NCwiZXhwIjoxNjc4NDM0MDY0fQ.jA0sEKuhOtjCOiGH_Qm_yoPighMQ7rKq-sxoiJEdUR8",
+      "user": {
+          "id": "63e3497ff2e61a770bb17383",
+          "email": "qweqwe@example.com",
+          "password": "$2b$05$YKH6ItQGOL7FGQ.bAxzYQ.5laYUG1GTmO.PZ1kTBRZUwp7HJEbw3G",
+          "name": "asdzxc",
+          "country": "asd",
+          "birthDate": "",
+          "hidden": false,
+          "createdAt": "2023-02-08T07:04:31.911Z",
+          "postsIds": [],
+          "friendsIds": [],
+          "activationLink": "20dbfb21-6245-4ef6-a387-c4486adf5dec",
+          "isActivated": true
+      }
+    }
+    ```
+
+- **Error response:**
+
+  - **Code:** 401 Unauthorized <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "message": "Unauthorized",
+      "status": 401,
+      "instance": "/api/logout",
+      "errors": [],
+    }
+    ```
+
+- **Notes:**
+
+  None
+
+</details>
+
 ## **Get users**
 
 Returns a collection of all users.
