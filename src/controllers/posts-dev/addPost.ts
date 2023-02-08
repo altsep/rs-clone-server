@@ -1,9 +1,9 @@
 import { Handler } from 'express';
 import { validationResult } from 'express-validator';
 import { StatusCodes } from 'http-status-codes';
-import { db } from '../../../db';
-import { Post } from '../../../types';
-import { getIsoString, handleError } from '../../../utils';
+import { db } from '../../db';
+import { Post } from '../../types';
+import { getIsoString, handleError } from '../../utils';
 
 export const addPost: Handler = (req, res) => {
   const errors = validationResult(req);

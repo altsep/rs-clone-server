@@ -1,7 +1,7 @@
 import { Handler } from 'express';
-import { db } from '../../../db';
-import { User } from '../../../types';
-import { handleError } from '../../../utils';
+import { db } from '../../db';
+import { User } from '../../types';
+import { handleError } from '../../utils';
 
 export const hideUser: Handler = (req, res) => {
   const { id } = req.params;

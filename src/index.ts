@@ -1,3 +1,3 @@
 import './app';
-import './controllers';
+import './routes';
 import './ws';

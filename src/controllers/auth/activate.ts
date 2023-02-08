@@ -1,5 +1,5 @@
 import { Handler } from 'express';
-import { activate } from '../../../services/user/activate';
+import { activate } from '../../services/user/activate';
 
 export const handleActivation: Handler = (req, res) => {
   const { link: activationLink } = req.params;

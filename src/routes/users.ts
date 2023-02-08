@@ -1,11 +1,11 @@
 import { body } from 'express-validator';
-import { app } from '../../app';
-import { getUser } from './handlers/getUser';
-import { getUsers } from './handlers/getUsers';
-import { updateUser } from './handlers/updateUser';
-import { hideUser } from './handlers/hideUser';
-import { authUser } from './handlers/authUser';
-import { addUser } from './handlers/addUser';
+import { app } from '../app';
+import { getUser } from '../controllers/users-dev/getUser';
+import { getUsers } from '../controllers/users-dev/getUsers';
+import { updateUser } from '../controllers/users-dev/updateUser';
+import { hideUser } from '../controllers/users-dev/hideUser';
+import { authUser } from '../controllers/users-dev/authUser';
+import { addUser } from '../controllers/users-dev/addUser';
 
 if (process.env.MODE === 'dev') {
   app.post(
