@@ -219,6 +219,72 @@ Authorize a user by comparing the sent password with the one stored in the DB an
 
 </details>
 
+# **Logout**
+
+Removes refresh token from the DB if one exists. The token is read from the corresponding cookie.
+
+<details>
+
+- **URL**
+
+  /api/logout
+
+- **Method:**
+
+  `POST`
+
+- **Headers:**
+
+  none
+
+- **URL params**
+
+  None
+
+- **Query params**
+
+  None
+
+- **Data params**
+
+  None
+
+- **Cookies**
+
+  refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InF3ZXF3ZUBleGFtcGxlLmNvbSIsInBhc3N3b3JkIjoiJDJiJDA1JGJQdXA1dk9Ram5kRFZmMC5nZGNTL3VzQ0Z5a1FwaWw0a3h3QzdRdGIzczZ6Nlh3ekEwVzJTIiwibmFtZSI6ImFzZHp4YyIsImNvdW50cnkiOiJhc2QiLCJiaXJ0aERhdGUiOiIiLCJoaWRkZW4iOmZhbHNlLCJjcmVhdGVkQXQiOiIyMDIzLTAyLTA4VDA1OjQzOjE2LjMyNFoiLCJwb3N0c0lkcyI6W10sImZyaWVuZHNJZHMiOltdLCJhY3RpdmF0aW9uTGluayI6IjJlMDRhOGJiLTM2ODYtNGZkNC1hNTdhLTllMzU3MzVhM2Q4NiIsImlzQWN0aXZhdGVkIjp0cnVlLCJpYXQiOjE2NzU4MzY3NDQsImV4cCI6MTY3ODQyODc0NH0.Bm7GMucFHV6JY2tI4UylLGyIYVuT9iQRGdHP2uyjduI; Path=/; HttpOnly; Expires=Wed, 06 Sep 2023 06:12:24 GMT;
+
+- **Success response:**
+
+  - **Code:** 200 OK <br />
+    **Content:**
+    ```json
+    {
+      "acknowledged": true,
+      "deletedCount": 1,
+      "instance": "/api/logout"
+    }
+    ```
+
+- **Error response:**
+
+  - **Code:** 400 Bad Request <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "message": "Bad Request",
+      "status": 400,
+      "instance": "/api/logout",
+      "errors": [],
+    }
+    ```
+
+- **Notes:**
+
+  None
+
+</details>
+
 ## **Get users**
 
 Returns a collection of all users.

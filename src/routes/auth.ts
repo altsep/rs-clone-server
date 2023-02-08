@@ -2,7 +2,7 @@ import { body } from 'express-validator';
 import { app } from '../app';
 import { handleActivation } from '../controllers/auth/activate';
 import { handleLogin } from '../controllers/auth/login';
-import { logout } from '../controllers/auth/logout';
+import { handleLogout } from '../controllers/auth/logout';
 import { refresh } from '../controllers/auth/refresh';
 import { handleRegistration } from '../controllers/auth/register';
 
@@ -18,7 +18,7 @@ app.post(
 
 app.post('/api/login', body('email').isEmail().exists(), body('password').exists(), handleLogin);
 
-app.post('/api/logout', logout);
+app.post('/api/logout', handleLogout);
 
 app.get('/api/activate/:link', handleActivation);
 
