@@ -1,5 +1,4 @@
-import { Schema, model, connection } from 'mongoose';
-import autoIncrement from 'mongoose-auto-increment';
+import { Schema, model } from 'mongoose';
 import { getIsoString } from '../utils';
 import { UserSchema } from './types';
 
@@ -73,10 +72,6 @@ userSchema.pre('validate', function (next) {
 
   next();
 });
-
-autoIncrement.initialize(connection);
-
-userSchema.plugin(autoIncrement.plugin, { model: 'User', field: 'userId', startAt: 1 });
 
 const userModel = model('User', userSchema);
 
