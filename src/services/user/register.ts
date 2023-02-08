@@ -3,11 +3,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { userModel } from '../../models/user-model';
 import { sendActivationMail } from '../mail/sendActivationMail';
 import { UserDto } from '../../dtos/user-dto';
-import { generateTokens, ITokens as Tokens } from '../token/generateTokens';
+import { generateTokens, Tokens } from '../token/generateTokens';
 import { saveToken } from '../token/saveToken';
 import { User } from '../../types';
-
-type TResponseData = { user: User } & Tokens;
+import { ResponseData } from './types';
 
 const throwOnUser = async (filter: Partial<User>): Promise<void> => {
   if (Object.keys(filter).length > 1) {
@@ -24,7 +23,7 @@ const throwOnUser = async (filter: Partial<User>): Promise<void> => {
   }
 };
 
-export const register = async (data: User): Promise<TResponseData> => {
+export const register = async (data: User): Promise<ResponseData> => {
   const { email, password, alias } = data;
 
   await throwOnUser({ email });
