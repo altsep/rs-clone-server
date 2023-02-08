@@ -32,7 +32,7 @@ app.patch(
 
 app.delete('/api/users/:id', usersController.hideUser);
 
-app.get(
+app.post(
   '/api/users-auth',
   body('email').exists().isEmail(),
   body('password').exists().isString(),

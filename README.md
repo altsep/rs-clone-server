@@ -796,7 +796,7 @@ Checks user credentials.
 
 - **Method:**
 
-  `GET`
+  `POST`
 
 - **Headers:**
 
