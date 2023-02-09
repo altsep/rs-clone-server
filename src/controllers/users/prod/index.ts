@@ -1,4 +1,4 @@
-import { getUser } from './getUser';
+import { handleGetUser as getUser } from './getUser';
 import { getUsers } from './getUsers';
 import { updateUser } from './updateUser';
 import { hideUser } from './hideUser';
