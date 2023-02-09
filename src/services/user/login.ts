@@ -9,7 +9,7 @@ export const login = async (email: string, password: string): Promise<ResponseDa
   const user = await userModel.findOne({ email });
 
   if (!user) {
-    throw new Error('Bad Request');
+    throw new Error('Not Found');
   }
 
   const isPasswordCorrect = await bcrypt.compare(password, user.password);
