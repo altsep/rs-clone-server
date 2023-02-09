@@ -8,7 +8,7 @@ export const handleRefresh: Handler = (req, res, next) => {
   const { refreshToken } = req.cookies as { refreshToken?: string };
 
   if (!refreshToken) {
-    const data = handleError(req.originalUrl, 'UNAUTHORIZED');
+    const data = handleError(req.originalUrl, 401);
     res.status(data.status).send(data);
     return;
   }

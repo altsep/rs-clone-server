@@ -7,7 +7,7 @@ export const handleLogout: Handler = (req, res, next) => {
   const { refreshToken } = req.cookies as { refreshToken?: string };
 
   if (!refreshToken) {
-    const data = handleError(req.originalUrl, 'BAD_REQUEST');
+    const data = handleError(req.originalUrl, 400);
     res.status(data.status).send(data);
     return;
   }

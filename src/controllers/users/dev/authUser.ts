@@ -12,14 +12,14 @@ export const authUser: Handler = (req, res) => {
   const user = users.find((u) => u.email === email);
 
   if (!user) {
-    const data = handleError(originalUrl, 'NOT_FOUND');
+    const data = handleError(originalUrl, 404);
     res.status(data.status).send(data);
     return;
   }
 
   if (password !== user.password) {
     const message = `Incorrect password`;
-    const data = handleError(originalUrl, 'UNAUTHORIZED');
+    const data = handleError(originalUrl, 401);
     data.message = message;
     res.status(data.status).send(data);
     return;

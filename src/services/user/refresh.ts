@@ -12,7 +12,7 @@ export const refresh = async (refreshToken: string): Promise<ResponseData> => {
   const tokenData = await findToken(refreshToken);
 
   if (!userData || !tokenData) {
-    throw new Error('Unauthorized');
+    throw new Error(401);
   }
 
   const user = await userModel.findById(userData.id);

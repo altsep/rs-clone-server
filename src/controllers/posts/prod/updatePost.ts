@@ -8,7 +8,7 @@ export const updatePost: Handler = (req, res) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    const data = handleError(req.originalUrl, 'BAD_REQUEST', errors.array());
+    const data = handleError(req.originalUrl, 400, errors.array());
     res.status(data.status).send(data);
     return;
   }
@@ -20,7 +20,7 @@ export const updatePost: Handler = (req, res) => {
   const post = posts.find((p) => String(p.id) === id);
 
   if (!post) {
-    const data = handleError(req.originalUrl, 'NOT_FOUND');
+    const data = handleError(req.originalUrl, 404);
     res.status(data.status).send(data);
     return;
   }
