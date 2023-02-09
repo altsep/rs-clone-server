@@ -40,6 +40,7 @@ const userSchema = new Schema<UserSchema>({
   alias: {
     type: String,
     unique: true,
+    sparse: true,
   },
   avatarURL: {
     type: String,
