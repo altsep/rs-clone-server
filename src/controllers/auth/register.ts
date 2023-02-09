@@ -22,12 +22,5 @@ export const handleRegistration: Handler = (req, res, next): void => {
       res.cookie('refreshToken', userData.refreshToken, { maxAge: MS_IN_A_MONTH, httpOnly: true });
       res.status(status).send(userData);
     })
-    .catch((e) => {
-      const data = handleError(req.originalUrl);
-      if (e instanceof Error) {
-        data.message = e.message;
-      }
-      res.status(data.status).send(data);
-      next(e);
-    });
+    .catch((e) => next(e));
 };

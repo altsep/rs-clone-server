@@ -23,14 +23,5 @@ export const handleLogin: Handler = (req, res, next) => {
       res.cookie('refreshToken', userData.refreshToken, { maxAge: MS_IN_A_MONTH, httpOnly: true });
       res.status(status).send(userData);
     })
-    .catch((e) => {
-      let data;
-      if (e instanceof Error && e.message in ReasonPhrases) {
-        data = handleError(req.originalUrl, e.message as keyof typeof ReasonPhrases);
-      } else {
-        data = handleError(req.originalUrl);
-      }
-      res.status(data.status).send(data);
-      next(e);
-    });
+    .catch((e) => next(e));
 };

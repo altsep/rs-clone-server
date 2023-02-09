@@ -8,7 +8,5 @@ export const handleGetUser: Handler = (req, res, next) => {
     .then((userData) => {
       res.send(userData);
     })
-    .catch((e) => {
-      next(e);
-    });
+    .catch((e) => next(e));
 };

@@ -19,7 +19,5 @@ export const handleLogout: Handler = (req, res, next) => {
       const data = { ...deleteResult, instance: req.originalUrl };
       res.status(status).send(data);
     })
-    .catch((e) => {
-      next(e);
-    });
+    .catch((e) => next(e));
 };
