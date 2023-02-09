@@ -5,6 +5,12 @@ import { User } from '../../../types';
 import { handleError } from '../../../utils';
 
 export const handleUpdateUser: Handler = (req, res, next) => {
+  const { refreshToken } = req.cookies as { refreshToken?: string };
+
+  if (!refreshToken) {
+    throw new Error('Unauthorized');
+  }
+
   const errors = validationResult(req);
   const { id } = req.params;
 
@@ -16,9 +22,7 @@ export const handleUpdateUser: Handler = (req, res, next) => {
 
   const data = req.body as Partial<User>;
 
-  updateUser(id, data)
-    .then((userData) => {
-      res.send(userData);
-    })
+  updateUser(id, data, refreshToken)
+    .then((userData) => res.send(userData))
     .catch((e) => next(e));
 };
