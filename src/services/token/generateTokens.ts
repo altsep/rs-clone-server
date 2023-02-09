@@ -1,12 +1,12 @@
 import jwt from 'jsonwebtoken';
 import { User } from '../../types';
 
-export interface ITokens {
+interface ITokens {
   accessToken: string;
   refreshToken: string;
 }
 
-export const generateTokens = (payload: Partial<User> | string): ITokens => {
+const generateTokens = (payload: Partial<User> | string): ITokens => {
   const accessOpts = { expiresIn: '30m' };
   const accessSecret = process.env.JWT_ACCESS_SECRET || '';
   const accessToken: string = jwt.sign(payload, accessSecret, accessOpts);
@@ -17,3 +17,7 @@ export const generateTokens = (payload: Partial<User> | string): ITokens => {
 
   return { accessToken, refreshToken };
 };
+
+export type { ITokens as Tokens };
+
+export { generateTokens };

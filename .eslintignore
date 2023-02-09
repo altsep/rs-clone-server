@@ -3,3 +3,4 @@ build
 *.cjs
 *.config.js
 *setup.js
+**/*.md

@@ -1,7 +1,8 @@
+import { ObjectId } from 'mongoose';
 import { User } from '../types';
 
 interface ITokenSchema {
-  user: User;
+  user: ObjectId;
   refreshToken: string;
 }
 
@@ -11,6 +12,8 @@ interface IActivation {
 }
 
 interface IId {
+  _id: ObjectId;
+  id: string;
   userId: number;
 }
 

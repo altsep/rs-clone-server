@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { getIsoString } from '../api/utils';
+import { getIsoString } from '../utils';
 import { UserSchema } from './types';
 
 const userSchema = new Schema<UserSchema>({

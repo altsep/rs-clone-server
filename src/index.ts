@@ -1,3 +1,3 @@
 import './app';
-import './api';
+import './routes';
 import './ws';

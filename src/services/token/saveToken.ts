@@ -1,8 +1,8 @@
-import { Document } from 'mongoose';
+import { Document, ObjectId } from 'mongoose';
 import { tokenModel } from '../../models/token-model';
 
-export const saveToken = async (userId: number | undefined, refreshToken: string): Promise<Document<unknown>> => {
-  const tokenData = await tokenModel.findOne({ user: userId });
+export const saveToken = async (id: ObjectId, refreshToken: string): Promise<Document<unknown>> => {
+  const tokenData = await tokenModel.findOne({ user: id });
 
   if (tokenData) {
     tokenData.refreshToken = refreshToken;
@@ -10,7 +10,7 @@ export const saveToken = async (userId: number | undefined, refreshToken: string
   }
 
   const token = tokenModel.create({
-    user: userId,
+    user: id,
     refreshToken,
   });
 
