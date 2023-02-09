@@ -1,6 +1,5 @@
 import { Handler } from 'express';
 import { validationResult } from 'express-validator';
-import { db } from '../../../db';
 import { updateUser } from '../../../services/user/updateUser';
 import { User } from '../../../types';
 import { handleError } from '../../../utils';

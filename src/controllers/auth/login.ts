@@ -1,6 +1,6 @@
 import { Handler } from 'express';
 import { validationResult } from 'express-validator';
-import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 import { MS_IN_A_MONTH } from '../../constants';
 import { login } from '../../services/user/login';
 import { User } from '../../types';
