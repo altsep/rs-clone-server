@@ -2,6 +2,7 @@ import { ErrorRequestHandler } from 'express';
 import { getStatusCode } from 'http-status-codes';
 import { handleError } from '../utils';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const errorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
   let data;
 
@@ -10,19 +11,21 @@ export const errorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
       const statusCode = getStatusCode(err.message);
       data = handleError(req.originalUrl, statusCode);
     }
-  } catch (e) {
+  } catch (statusCodeError) {
     data = handleError(req.originalUrl);
 
     if (err instanceof Error) {
       data.message = err.message;
     }
 
-    console.log(e);
+    if (statusCodeError instanceof Error) {
+      console.error(statusCodeError.message);
+    }
   }
 
   if (data) {
     res.status(data.status).send(data);
   }
 
-  next(err);
+  console.error(err);
 };

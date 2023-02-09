@@ -5,7 +5,6 @@ export const validateAccessToken = (token: string): string | JwtPayload | undefi
     const userData = jwt.verify(token, process.env.JWT_ACCESS_SECRET || '');
     return userData;
   } catch (e) {
-    console.error(e);
     return undefined;
   }
 };
@@ -15,7 +14,6 @@ export const validateRefreshToken = (token: string): string | JwtPayload | undef
     const userData = jwt.verify(token, process.env.JWT_REFRESH_SECRET || '');
     return userData;
   } catch (e) {
-    console.error(e);
     return undefined;
   }
 };
