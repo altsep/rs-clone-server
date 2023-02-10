@@ -1,8 +1,8 @@
 import { Handler } from 'express';
-import { db } from '../../../mock-db';
+import { getPost } from '../../../services/post/getPost';
 import { handleError } from '../../../utils';
 
-export const getPost: Handler = (req, res) => {
+export const handleGetPost: Handler = (req, res, next) => {
   const { id } = req.params;
 
   if (id == null) {
@@ -11,15 +11,7 @@ export const getPost: Handler = (req, res) => {
     return;
   }
 
-  const { posts } = db;
-
-  const post = posts.find((p) => String(p.id) === id);
-
-  if (!post) {
-    const data = handleError(req.originalUrl, 404);
-    res.status(data.status).send(data);
-    return;
-  }
-
-  res.send(post);
+  getPost(id)
+    .then((post) => res.send(post))
+    .catch((e) => next(e));
 };

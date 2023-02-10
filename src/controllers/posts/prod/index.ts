@@ -1,4 +1,4 @@
-import { getPost } from './getPost';
+import { handleGetPost as getPost } from './getPost';
 import { getPosts } from './getPosts';
 import { handleAddPost as addPost } from './addPost';
 import { updatePost } from './updatePost';
