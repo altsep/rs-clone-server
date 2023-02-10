@@ -14,10 +14,17 @@ API for the [RS Clone](https://github.com/altsep/rs-clone) app done as part of t
 
 ## Usage
 
+- **Auth**
+
+  - [Register](https://github.com/altsep/rs-clone-server#register)
+  - [Login](https://github.com/altsep/rs-clone-server#login)
+  - [Logout](https://github.com/altsep/rs-clone-server#logout)
+  - [Refresh](https://github.com/altsep/rs-clone-server#refresh)
+
 - **Users**
 
   - [Get users](https://github.com/altsep/rs-clone-server#get-users)
-  - [Get a user](https://github.com/altsep/rs-clone-server#get-user)
+  - [Get user](https://github.com/altsep/rs-clone-server#get-user)
   - [Create user](https://github.com/altsep/rs-clone-server#create-user)
   - [Delete user](https://github.com/altsep/rs-clone-server#delete-user)
   - [Update user](https://github.com/altsep/rs-clone-server#update-user)
