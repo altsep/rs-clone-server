@@ -1,6 +1,6 @@
 import { Handler } from 'express';
 import { validationResult } from 'express-validator';
-import { db } from '../../../db';
+import { db } from '../../../mock-db';
 import { Post } from '../../../types';
 import { handleError } from '../../../utils';
 

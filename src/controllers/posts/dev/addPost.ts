@@ -1,7 +1,7 @@
 import { Handler } from 'express';
 import { validationResult } from 'express-validator';
 import { StatusCodes } from 'http-status-codes';
-import { db } from '../../../db';
+import { db } from '../../../mock-db';
 import { Post } from '../../../types';
 import { getIsoString, handleError } from '../../../utils';
 

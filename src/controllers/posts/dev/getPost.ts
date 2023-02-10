@@ -1,5 +1,5 @@
 import { Handler } from 'express';
-import { db } from '../../../db';
+import { db } from '../../../mock-db';
 import { handleError } from '../../../utils';
 
 export const getPost: Handler = (req, res) => {
