@@ -12,7 +12,7 @@ export const removePost: Handler = (req, res) => {
   const user = post && users.find((u) => u.id === post.userId);
 
   if (!post || !user) {
-    const data = handleError(originalUrl, 'NOT_FOUND');
+    const data = handleError(originalUrl, 404);
     res.status(data.status).send(data);
     return;
   }

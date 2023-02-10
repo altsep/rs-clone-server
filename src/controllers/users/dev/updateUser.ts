@@ -9,8 +9,8 @@ export const updateUser: Handler = (req, res) => {
   const { id } = req.params;
 
   if (id == null || !errors.isEmpty()) {
-    const data = handleError(req.originalUrl, 'BAD_REQUEST', errors.array());
-    res.status(data.status).end(data);
+    const data = handleError(req.originalUrl, 400, errors.array());
+    res.status(data.status).send(data);
     return;
   }
 
@@ -18,7 +18,7 @@ export const updateUser: Handler = (req, res) => {
   const user = users.find((u) => String(u.id) === id);
 
   if (!user) {
-    const data = handleError(req.originalUrl, 'NOT_FOUND');
+    const data = handleError(req.originalUrl, 404);
     res.status(data.status).send(data);
     return;
   }

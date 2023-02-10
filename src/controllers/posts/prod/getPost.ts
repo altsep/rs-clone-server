@@ -6,7 +6,7 @@ export const getPost: Handler = (req, res) => {
   const { id } = req.params;
 
   if (id == null) {
-    const data = handleError(req.originalUrl, 'BAD_REQUEST');
+    const data = handleError(req.originalUrl, 400);
     res.status(data.status).send(data);
     return;
   }
@@ -16,7 +16,7 @@ export const getPost: Handler = (req, res) => {
   const post = posts.find((p) => String(p.id) === id);
 
   if (!post) {
-    const data = handleError(req.originalUrl, 'NOT_FOUND');
+    const data = handleError(req.originalUrl, 404);
     res.status(data.status).send(data);
     return;
   }

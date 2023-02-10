@@ -9,13 +9,13 @@ export const login = async (email: string, password: string): Promise<ResponseDa
   const user = await userModel.findOne({ email });
 
   if (!user) {
-    throw new Error('BAD_REQUEST');
+    throw new Error('Not Found');
   }
 
   const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
   if (!isPasswordCorrect) {
-    throw new Error('UNAUTHORIZED');
+    throw new Error('Unauthorized');
   }
 
   const userDto = new UserDto(user);

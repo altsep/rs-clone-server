@@ -1,5 +1,5 @@
 import { ValidationError } from 'express-validator';
-import { StatusCodes, ReasonPhrases } from 'http-status-codes';
+import { getReasonPhrase } from 'http-status-codes';
 
 interface IErrorHandlerData {
   error: boolean;
@@ -9,13 +9,8 @@ interface IErrorHandlerData {
   errors: ValidationError[];
 }
 
-const handleError = (
-  instance = '',
-  errType: keyof typeof StatusCodes = 'INTERNAL_SERVER_ERROR',
-  errors: ValidationError[] = []
-): IErrorHandlerData => {
-  const status = StatusCodes[errType];
-  const message = ReasonPhrases[errType];
+const handleError = (instance = '', status = 500, errors: ValidationError[] = []): IErrorHandlerData => {
+  const message = getReasonPhrase(status);
   const data = { error: true, status, message, instance, errors };
   return data;
 };

@@ -15,7 +15,7 @@ export const refresh = async (refreshToken: string): Promise<ResponseData> => {
     throw new Error('Unauthorized');
   }
 
-  const user = await userModel.findById(userData.id);
+  const user = await userModel.findOne({ email: userData.email });
 
   if (!user) {
     throw new Error('Not Found');

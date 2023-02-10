@@ -25,13 +25,9 @@ const throwOnUser = async (filter: Partial<User>): Promise<void> => {
 };
 
 export const register = async (data: UserSchema): Promise<ResponseData> => {
-  const { email, password, alias } = data;
+  const { email, password } = data;
 
   await throwOnUser({ email });
-
-  if (alias) {
-    await throwOnUser({ alias });
-  }
 
   const hashPassword = await bcrypt.hash(password, 5);
   const activationLink = uuidv4();

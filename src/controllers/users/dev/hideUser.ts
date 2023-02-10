@@ -9,7 +9,7 @@ export const hideUser: Handler = (req, res) => {
   const { users } = db;
 
   if (id == null || password == null) {
-    const data = handleError(req.originalUrl, 'BAD_REQUEST');
+    const data = handleError(req.originalUrl, 400);
     res.status(data.status).send(data);
     return;
   }
@@ -17,14 +17,14 @@ export const hideUser: Handler = (req, res) => {
   const user = users.find((u) => String(u.id) === id);
 
   if (!user) {
-    const data = handleError(req.originalUrl, 'NOT_FOUND');
+    const data = handleError(req.originalUrl, 404);
     res.status(data.status).send(data);
     return;
   }
 
   if (password !== user.password) {
     const message = 'Incorrect password';
-    const data = handleError(req.originalUrl, 'BAD_REQUEST');
+    const data = handleError(req.originalUrl, 400);
     data.message = message;
     res.status(data.status).send(data);
     return;

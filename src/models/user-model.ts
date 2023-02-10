@@ -6,6 +6,7 @@ const userSchema = new Schema<UserSchema>({
   userId: {
     type: Number,
     unique: true,
+    immutable: true,
   },
   email: {
     type: String,
@@ -40,6 +41,7 @@ const userSchema = new Schema<UserSchema>({
   alias: {
     type: String,
     unique: true,
+    sparse: true,
   },
   avatarURL: {
     type: String,

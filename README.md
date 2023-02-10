@@ -786,7 +786,7 @@ Updates user properties.
 
 ## **Authorize user**
 
-Checks user credentials.
+Checks user's credentials.
 
 <details>
 
@@ -798,56 +798,9 @@ Checks user credentials.
 
   `POST`
 
-- **Headers:**
-
-  none
-
-- **URL params**
-
-  None
-
-- **Query params**
-
-  None
-
-- **Data params**
-
-  ```ts
-  {
-    name: string;
-    password: string;
-  }
-  ```
-
-- **Success response:**
-
-  - **Code:** 202 Accepted <br />
-    **Content:**
-    ```json
-    {
-      "success": true,
-      "message": "Accepted",
-      "instance": "/api/users-auth"
-    }
-    ```
-
-- **Error response:**
-
-  - **Code:** 401 Unauthorized <br />
-    **Content:**
-    ```json
-    {
-      "error": true,
-      "message": "Incorrect password",
-      "status": 401,
-      "instance": "/api/users-auth",
-      "errors": []
-    }
-    ```
-
 - **Notes:**
 
-  None
+  Redirects to `/api/login`
 
 </details>
 

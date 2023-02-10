@@ -1,36 +1,6 @@
 import { Handler } from 'express';
-import { db } from '../../../db';
-import { User } from '../../../types';
-import { handleError } from '../../../utils';
+import { StatusCodes } from 'http-status-codes';
 
-export const hideUser: Handler = (req, res) => {
-  const { id } = req.params;
-  const { password } = req.body as Pick<User, 'password'>;
-  const { users } = db;
-
-  if (id == null || password == null) {
-    const data = handleError(req.originalUrl, 'BAD_REQUEST');
-    res.status(data.status).send(data);
-    return;
-  }
-
-  const user = users.find((u) => String(u.id) === id);
-
-  if (!user) {
-    const data = handleError(req.originalUrl, 'NOT_FOUND');
-    res.status(data.status).send(data);
-    return;
-  }
-
-  if (password !== user.password) {
-    const message = 'Incorrect password';
-    const data = handleError(req.originalUrl, 'BAD_REQUEST');
-    data.message = message;
-    res.status(data.status).send(data);
-    return;
-  }
-
-  user.hidden = true;
-
-  res.send(user);
+export const hideUser: Handler = (_req, res) => {
+  res.status(StatusCodes.BAD_REQUEST).end();
 };
