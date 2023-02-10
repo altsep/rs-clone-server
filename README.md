@@ -846,7 +846,9 @@ Returns a json collection of all posts.
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum et sollicitudin ac orci phasellus egestas tellus rutrum. Cras adipiscing enim eu turpis egestas. Dui nunc mattis enim ut tellus. Congue eu consequat ac felis donec et odio pellentesque diam. Molestie a iaculis at erat pellentesque adipiscing commodo elit at. Magna eget est lorem ipsum dolor sit amet consectetur. Quis commodo odio aenean sed adipiscing diam. A erat nam at lectus urna duis convallis. A arcu cursus vitae congue mauris. Nunc sed velit dignissim sodales ut eu sem integer. Ornare massa eget egestas purus viverra accumsan. Dictum fusce ut placerat orci nulla pellentesque dignissim. In arcu cursus euismod quis viverra. Ut venenatis tellus in metus vulputate. Senectus et netus et malesuada fames ac.",
         "userId": 1,
         "createdAt": "2023-02-01T04:42:45.449Z",
-        "likes": 0
+        "likes": 0,
+        "likedUserIds": [],
+        "commentsIds": []
       }
     ]
     ```
@@ -907,7 +909,9 @@ Returns json data for the specified post.
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum et sollicitudin ac orci phasellus egestas tellus rutrum. Cras adipiscing enim eu turpis egestas. Dui nunc mattis enim ut tellus. Congue eu consequat ac felis donec et odio pellentesque diam. Molestie a iaculis at erat pellentesque adipiscing commodo elit at. Magna eget est lorem ipsum dolor sit amet consectetur. Quis commodo odio aenean sed adipiscing diam. A erat nam at lectus urna duis convallis. A arcu cursus vitae congue mauris. Nunc sed velit dignissim sodales ut eu sem integer. Ornare massa eget egestas purus viverra accumsan. Dictum fusce ut placerat orci nulla pellentesque dignissim. In arcu cursus euismod quis viverra. Ut venenatis tellus in metus vulputate. Senectus et netus et malesuada fames ac.",
       "userId": 1,
       "createdAt": "2023-02-01T04:42:45.449Z",
-      "likes": 0
+      "likes": 0,
+      "likedUserIds": [],
+      "commentsIds": []
     }
     ```
 
@@ -973,10 +977,12 @@ Creates a new post.
     ```json
     {
       "id": 3,
-      "likes": 0,
       "userId": 1,
       "description": "qwe",
-      "createdAt": "2023-02-02T03:04:59.717Z"
+      "createdAt": "2023-02-02T03:04:59.717Z",
+      "likes": 0,
+      "likedUserIds": [],
+      "commentsIds": []
     }
     ```
 
@@ -990,7 +996,13 @@ Creates a new post.
       "message": "Bad Request",
       "status": 400,
       "api/instance": "/api/posts",
-      "errors": []
+      "errors": [
+          {
+              "msg": "Invalid value",
+              "param": "description",
+              "location": "body"
+          }
+      ]
     }
     ```
 
@@ -1034,12 +1046,11 @@ Removes the specified post from the database
 
 - **Success response:**
 
-  - **Code:** 202 Accepted <br />
+  - **Code:** 200 OK <br />
     **Content:**
     ```json
     {
       "success": true,
-      "message": "Accepted",
       "api/instance": "/api/posts/1"
     }
     ```
@@ -1099,8 +1110,8 @@ Updates post properties.
     {
       description?: string;
       likes?: number;
-      commentsIds?: number[];
       likedUserIds?: number[];
+      commentsIds?: number[];
     }
   ```
 
@@ -1113,9 +1124,10 @@ Updates post properties.
       "id": 5,
       "userId": 1,
       "description": "asd",
+      "createdAt": "2023-02-01T04:42:45.449Z",
       "likes": 2,
       "likedUserIds": [1],
-      "createdAt": "2023-02-01T04:42:45.449Z",
+      "commentsIds": number[]
     }
     ```
 
