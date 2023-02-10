@@ -25,6 +25,7 @@ const userSchema = new Schema<UserSchema>({
   createdAt: {
     type: String,
     required: true,
+    immutable: true,
   },
   name: {
     type: String,

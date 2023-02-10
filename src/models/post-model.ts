@@ -11,6 +11,7 @@ const postSchema = new Schema<PostSchema>({
   userId: {
     type: Number,
     required: true,
+    immutable: true,
   },
   description: {
     type: String,
@@ -19,6 +20,7 @@ const postSchema = new Schema<PostSchema>({
   createdAt: {
     type: String,
     required: true,
+    immutable: true,
   },
   likes: {
     type: Number,
