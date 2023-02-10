@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongoose';
-import { User } from '../types';
+import { Post, User } from '../types';
 
 interface ITokenSchema {
   user: ObjectId;
@@ -11,12 +11,18 @@ interface IActivation {
   isActivated: boolean;
 }
 
-interface IId {
+interface IUserId {
   _id: ObjectId;
-  id: string;
   userId: number;
 }
 
-type TUserSchema = Exclude<User, 'id'> & IActivation & IId;
+type TUserSchema = User<string> & IActivation & IUserId;
 
-export { TUserSchema as UserSchema, ITokenSchema as TokenSchema };
+interface IPostId {
+  _id: ObjectId;
+  postId: number;
+}
+
+type TPostSchema = Post<string> & IPostId;
+
+export { TUserSchema as UserSchema, ITokenSchema as TokenSchema, TPostSchema as PostSchema };

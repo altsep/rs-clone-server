@@ -1,6 +1,6 @@
 import { getPost } from './getPost';
 import { getPosts } from './getPosts';
-import { addPost } from './addPost';
+import { handleAddPost as addPost } from './addPost';
 import { updatePost } from './updatePost';
 import { removePost } from './removePost';
 

@@ -1,5 +1,5 @@
-interface IComment {
-  id: number;
+interface IComment<T = number> {
+  id: T;
   postId: string;
   userId: number;
   description: string;
@@ -8,8 +8,8 @@ interface IComment {
   likedUserIds?: number[];
 }
 
-interface IPost {
-  id: number;
+interface IPost<T = number> {
+  id: T;
   userId: number;
   description: string;
   createdAt: string;
@@ -18,8 +18,8 @@ interface IPost {
   commentsIds?: number[];
 }
 
-interface IUser {
-  id: number;
+interface IUser<T = number> {
+  id: T;
   email: string;
   name: string;
   password: string;

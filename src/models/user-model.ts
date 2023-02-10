@@ -47,16 +47,8 @@ const userSchema = new Schema<UserSchema>({
     type: String,
     default: '',
   },
-  postsIds: [
-    {
-      type: Number,
-    },
-  ],
-  friendsIds: [
-    {
-      type: Number,
-    },
-  ],
+  postsIds: [{ type: Number }],
+  friendsIds: [{ type: Number }],
   activationLink: {
     type: String,
     required: true,
