@@ -1,11 +1,11 @@
 import { Handler } from 'express';
 import { validationResult } from 'express-validator';
 import { StatusCodes } from 'http-status-codes';
-import { db } from '../../../mock-db';
+import { addPost } from '../../../services/post/addPost';
 import { Post } from '../../../types';
-import { getIsoString, handleError } from '../../../utils';
+import { handleError } from '../../../utils';
 
-export const addPost: Handler = (req, res) => {
+export const handleAddPost: Handler = (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -16,20 +16,10 @@ export const addPost: Handler = (req, res) => {
 
   const postProps = req.body as Exclude<Post, 'id'>;
 
-  const { posts } = db;
-
-  const newPostProps: Pick<Post, 'id' | 'likes' | 'likedUserIds' | 'createdAt'> = {
-    id: posts.length + 1,
-    likes: 0,
-    likedUserIds: [],
-    createdAt: getIsoString(),
-  };
-
-  const newPost = { ...newPostProps, ...postProps };
-
-  posts.push(newPost);
-
-  const status = StatusCodes.CREATED;
-
-  res.status(status).send(newPost);
+  addPost(postProps)
+    .then((newPost) => {
+      const status = StatusCodes.CREATED;
+      res.status(status).send(newPost);
+    })
+    .catch((e) => next(e));
 };

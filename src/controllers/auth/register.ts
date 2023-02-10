@@ -2,8 +2,8 @@ import { Handler } from 'express';
 import { validationResult } from 'express-validator';
 import { StatusCodes } from 'http-status-codes';
 import { MS_IN_A_MONTH } from '../../constants';
-import { UserSchema } from '../../models/types';
 import { register } from '../../services/user/register';
+import { User } from '../../types';
 import { handleError } from '../../utils';
 
 export const handleRegistration: Handler = (req, res, next): void => {
@@ -14,7 +14,7 @@ export const handleRegistration: Handler = (req, res, next): void => {
     res.status(data.status).send(data);
   }
 
-  const userProps = req.body as Exclude<UserSchema, 'id'>;
+  const userProps = req.body as Exclude<User, 'id'>;
 
   register(userProps)
     .then((userData) => {
