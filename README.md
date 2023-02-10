@@ -4,20 +4,20 @@ API for the [RS Clone](https://github.com/altsep/rs-clone) app done as part of t
 
 ## Setup
 
-- Node.js `16.9` or higher must be installed
+- Install Node.js `16.9` or later
 - Clone this repo: `$ git clone https://github.com/altsep/rs-clone-server.git`.
 - Install pnpm: `$ npm -g i pnpm`
 - Navigate to the folder: `$ cd rs-clone-server`
 - Install dependencies: `$ pnpm i`
 - Start server: `$ pnpm dev` or run build and start the bundle `$ pnpm build; pnpm start`
-- Now you should be able to send requests to the address: `http://127.0.0.1:3000` or the port specified as the env variable
+- Now you should be able to send requests to the address: `http://127.0.0.1:3000` or the port specified in the corresponding env variable
 
 ## Usage
 
 - **Users**
 
   - [Get users](https://github.com/altsep/rs-clone-server#get-users)
-  - [Get user](https://github.com/altsep/rs-clone-server#get-user)
+  - [Get a user](https://github.com/altsep/rs-clone-server#get-user)
   - [Create user](https://github.com/altsep/rs-clone-server#create-user)
   - [Delete user](https://github.com/altsep/rs-clone-server#delete-user)
   - [Update user](https://github.com/altsep/rs-clone-server#update-user)
@@ -25,10 +25,10 @@ API for the [RS Clone](https://github.com/altsep/rs-clone) app done as part of t
 
 - **Posts**
   - [Get posts](https://github.com/altsep/rs-clone-server#get-posts)
-  - [Get posts](https://github.com/altsep/rs-clone-server#get-post)
+  - [Get post](https://github.com/altsep/rs-clone-server#get-post)
   - [Create posts](https://github.com/altsep/rs-clone-server#create-post)
-  - [Delete posts](https://github.com/altsep/rs-clone-server#delete-post)
-  - [Update posts](https://github.com/altsep/rs-clone-server#update-post)
+  - [Delete post](https://github.com/altsep/rs-clone-server#delete-post)
+  - [Update post](https://github.com/altsep/rs-clone-server#update-post)
 
 ## **Register**
 
