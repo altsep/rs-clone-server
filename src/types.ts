@@ -1,6 +1,6 @@
-interface IComment {
-  id: number;
-  postId: string;
+interface IComment<T = number> {
+  id: T;
+  postId: number;
   userId: number;
   description: string;
   createdAt: string;
@@ -8,8 +8,8 @@ interface IComment {
   likedUserIds?: number[];
 }
 
-interface IPost {
-  id: number;
+interface IPost<T = number> {
+  id: T;
   userId: number;
   description: string;
   createdAt: string;
@@ -18,8 +18,8 @@ interface IPost {
   commentsIds?: number[];
 }
 
-interface IUser {
-  id: number;
+interface IUser<T = number> {
+  id: T;
   email: string;
   name: string;
   password: string;
@@ -31,6 +31,7 @@ interface IUser {
   avatarURL?: string;
   postsIds?: number[];
   friendsIds?: number[];
+  pendingFriendsIds?: number[];
 }
 
 export { IComment as Comment, IPost as Post, IUser as User };

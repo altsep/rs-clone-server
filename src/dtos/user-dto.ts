@@ -23,24 +23,27 @@ class UserDto {
 
   public friendsIds: number[];
 
+  public pendingFriendsIds: number[];
+
   public isActivated: boolean;
 
   public activationLink: string;
 
-  constructor(model: UserSchema) {
-    this.id = model.userId;
-    this.email = model.email;
-    this.password = model.password;
-    this.name = model.name;
-    this.alias = model.alias;
-    this.country = model.country;
-    this.birthDate = model.birthDate;
-    this.hidden = model.hidden;
-    this.createdAt = model.createdAt;
-    this.postsIds = model.postsIds || [];
-    this.friendsIds = model.friendsIds || [];
-    this.activationLink = model.activationLink;
-    this.isActivated = model.isActivated;
+  constructor(document: UserSchema) {
+    this.id = document.userId;
+    this.email = document.email;
+    this.password = document.password;
+    this.name = document.name;
+    this.alias = document.alias;
+    this.country = document.country;
+    this.birthDate = document.birthDate;
+    this.hidden = document.hidden;
+    this.createdAt = document.createdAt;
+    this.postsIds = document.postsIds || [];
+    this.friendsIds = document.friendsIds || [];
+    this.pendingFriendsIds = document.pendingFriendsIds || [];
+    this.activationLink = document.activationLink;
+    this.isActivated = document.isActivated;
   }
 }
 

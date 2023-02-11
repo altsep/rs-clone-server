@@ -25,6 +25,7 @@ const userSchema = new Schema<UserSchema>({
   createdAt: {
     type: String,
     required: true,
+    immutable: true,
   },
   name: {
     type: String,
@@ -47,16 +48,9 @@ const userSchema = new Schema<UserSchema>({
     type: String,
     default: '',
   },
-  postsIds: [
-    {
-      type: Number,
-    },
-  ],
-  friendsIds: [
-    {
-      type: Number,
-    },
-  ],
+  postsIds: [{ type: Number }],
+  friendsIds: [{ type: Number }],
+  pendingFriendsIds: [{ type: Number }],
   activationLink: {
     type: String,
     required: true,

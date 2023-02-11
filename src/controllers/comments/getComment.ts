@@ -1,8 +1,8 @@
 import { Handler } from 'express';
-import { getPost } from '../../../services/post/getPost';
-import { handleError } from '../../../utils';
+import { handleError } from '../../utils';
+import { getComment } from '../../services/comment/getComment';
 
-export const handleGetPost: Handler = (req, res, next) => {
+export const handleGetComment: Handler = (req, res, next) => {
   const { id } = req.params;
 
   if (id == null) {
@@ -11,7 +11,7 @@ export const handleGetPost: Handler = (req, res, next) => {
     return;
   }
 
-  getPost(id)
+  getComment(id)
     .then((post) => res.send(post))
     .catch((e) => next(e));
 };

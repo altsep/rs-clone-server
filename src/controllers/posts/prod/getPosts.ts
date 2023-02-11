@@ -1,7 +1,8 @@
 import { Handler } from 'express';
-import { db } from '../../../db';
+import { getAllPosts } from '../../../services/post/getAllPosts';
 
-export const getPosts: Handler = (_req, res) => {
-  const { posts } = db;
-  res.send(posts);
+export const getPosts: Handler = (_req, res, next) => {
+  getAllPosts()
+    .then((posts) => res.send(posts))
+    .catch((e) => next(e));
 };

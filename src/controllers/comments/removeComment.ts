@@ -1,11 +1,11 @@
 import { Handler } from 'express';
-import { removePost } from '../../../services/post/removePost';
+import { removeComment } from '../../services/comment/removeComment';
 
-export const handleRemovePost: Handler = (req, res, next) => {
+export const handleRemoveComment: Handler = (req, res, next) => {
   const { originalUrl } = req;
   const { id } = req.params;
 
-  removePost(id)
+  removeComment(id)
     .then(() => {
       const data = { success: true, instance: originalUrl };
       res.send(data);

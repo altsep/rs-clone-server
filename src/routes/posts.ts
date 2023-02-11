@@ -16,9 +16,9 @@ app.get('/api/posts/:id', postsController.getPost);
 app.patch(
   '/api/posts/:id',
   body('description').optional().isString(),
-  body('commentsIds').optional().isArray(),
   body('likes').optional().isNumeric(),
   body('likedUserIds').optional().isArray(),
+  body('commentsIds').optional().isArray(),
   postsController.updatePost
 );
 

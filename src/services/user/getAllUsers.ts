@@ -1,8 +1,8 @@
 import { UserDto } from '../../dtos/user-dto';
-import { UserSchema } from '../../models/types';
 import { userModel } from '../../models/user-model';
+import type { User } from '../../types';
 
-export const getAllUsers = async (): Promise<UserDto[]> => {
-  const users: UserSchema[] = await userModel.find();
+export const getAllUsers = async (): Promise<User[]> => {
+  const users = await userModel.find();
   return users.map((u) => new UserDto(u));
 };

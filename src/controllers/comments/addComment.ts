@@ -1,11 +1,11 @@
 import { Handler } from 'express';
 import { validationResult } from 'express-validator';
 import { StatusCodes } from 'http-status-codes';
-import { addPost } from '../../../services/post/addPost';
-import { handleError } from '../../../utils';
-import type { Post } from '../../../types';
+import { handleError } from '../../utils';
+import type { Comment } from '../../types';
+import { addComment } from '../../services/comment/addComment';
 
-export const handleAddPost: Handler = (req, res, next) => {
+export const handleAddComment: Handler = (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -14,12 +14,12 @@ export const handleAddPost: Handler = (req, res, next) => {
     return;
   }
 
-  const postProps = req.body as Exclude<Post, 'id'>;
+  const data = req.body as Exclude<Comment, 'id'>;
 
-  addPost(postProps)
-    .then((newPost) => {
+  addComment(data)
+    .then((comment) => {
       const status = StatusCodes.CREATED;
-      res.status(status).send(newPost);
+      res.status(status).send(comment);
     })
     .catch((e) => next(e));
 };
