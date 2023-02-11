@@ -23,13 +23,7 @@ export const handleUpdateUser: Handler = (req, res, next) => {
 
   const data = req.body as Partial<User>;
 
-  if (Object.hasOwn(data, 'pendingFriendsIds') && Object.keys(data).length === 1) {
-    updatePendingFriendsIds(id, data)
-      .then((userData) => res.send(userData))
-      .catch((e) => next(e));
-  } else {
-    updateUser(id, data, refreshToken)
-      .then((userData) => res.send(userData))
-      .catch((e) => next(e));
-  }
+  updateUser(id, data, refreshToken)
+    .then((userData) => res.send(userData))
+    .catch((e) => next(e));
 };
