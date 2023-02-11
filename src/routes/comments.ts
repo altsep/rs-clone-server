@@ -2,7 +2,7 @@ import { body } from 'express-validator';
 import { app } from '../app';
 import { commentsController } from '../controllers/comments';
 
-// app.get('/api/comments', commentsController.getComments);
+app.get('/api/comments', commentsController.getComments);
 
 app.post(
   '/api/comments',
@@ -12,7 +12,7 @@ app.post(
   commentsController.addComment
 );
 
-// app.get('/api/comments/:id', commentsController.getComment);
+app.get('/api/comments/:id', commentsController.getComment);
 
 // app.patch(
 //   '/api/comments/:id',
