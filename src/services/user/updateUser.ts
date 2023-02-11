@@ -5,10 +5,11 @@ import { findToken } from '../token/findToken';
 import { validateRefreshToken } from '../token/validateAccessToken';
 
 export const updateUser = async (id: string, data: Partial<User>, refreshToken: string): Promise<User> => {
-  const validatedUserData = validateRefreshToken(refreshToken);
+  const validatedUserData = validateRefreshToken(refreshToken) as User | undefined;
   const tokenData = await findToken(refreshToken);
+  const senderIsUser = validatedUserData && String(validatedUserData.id) === id;
 
-  if (!validatedUserData || !tokenData) {
+  if (!validatedUserData || !tokenData || !senderIsUser) {
     throw new Error('Unauthorized');
   }
 
