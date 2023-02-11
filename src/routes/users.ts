@@ -27,6 +27,7 @@ app.patch(
   body('avatarURL').optional().isString(),
   body('postsIds').optional().isArray(),
   body('friendsIds').optional().isArray(),
+  body('pendingFriendsIds').optional().isArray(),
   usersController.updateUser
 );
 

@@ -5,7 +5,7 @@ import { findToken } from '../token/findToken';
 import { validateRefreshToken } from '../token/validateAccessToken';
 
 export const updateUser = async (id: string, data: Partial<User>, refreshToken: string): Promise<User> => {
-  const validatedUserData = validateRefreshToken(refreshToken);
+  const validatedUserData = validateRefreshToken(refreshToken) as User | undefined;
   const tokenData = await findToken(refreshToken);
 
   if (!validatedUserData || !tokenData) {

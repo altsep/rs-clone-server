@@ -23,6 +23,8 @@ class UserDto {
 
   public friendsIds: number[];
 
+  public pendingFriendsIds: number[];
+
   public isActivated: boolean;
 
   public activationLink: string;
@@ -39,6 +41,7 @@ class UserDto {
     this.createdAt = document.createdAt;
     this.postsIds = document.postsIds || [];
     this.friendsIds = document.friendsIds || [];
+    this.pendingFriendsIds = document.pendingFriendsIds || [];
     this.activationLink = document.activationLink;
     this.isActivated = document.isActivated;
   }
