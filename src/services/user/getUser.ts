@@ -5,7 +5,7 @@ export const getUser = async (id: string): Promise<UserDto> => {
   let user;
 
   if (/^id\d+/.test(id)) {
-    const userId = Number(id.split(/(?=\d+)/)[1]);
+    const userId = Number(id.replace('id', ''));
     user = await userModel.findOne({ userId });
   } else {
     user = await userModel.findOne({ alias: id });
