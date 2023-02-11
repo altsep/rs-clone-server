@@ -14,12 +14,12 @@ app.post(
 
 app.get('/api/comments/:id', commentsController.getComment);
 
-// app.patch(
-//   '/api/comments/:id',
-//   body('description').optional().isString(),
-//   body('likes').optional().isNumeric(),
-//   body('likedUserIds').optional().isArray(),
-//   commentsController.updateComment
-// );
+app.patch(
+  '/api/comments/:id',
+  body('description').optional().isString(),
+  body('likes').optional().isNumeric(),
+  body('likedUserIds').optional().isArray(),
+  commentsController.updateComment
+);
 
 // app.delete('/api/comments/:id', commentsController.removeComment);
