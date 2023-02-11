@@ -22,4 +22,4 @@ app.patch(
   commentsController.updateComment
 );
 
-// app.delete('/api/comments/:id', commentsController.removeComment);
+app.delete('/api/comments/:id', commentsController.removeComment);
