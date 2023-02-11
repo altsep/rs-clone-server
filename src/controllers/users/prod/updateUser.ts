@@ -1,5 +1,6 @@
 import { Handler } from 'express';
 import { validationResult } from 'express-validator';
+import { updatePendingFriendsIds } from '../../../services/user/updatePendingFriendsIds';
 import { updateUser } from '../../../services/user/updateUser';
 import { User } from '../../../types';
 import { handleError } from '../../../utils';
@@ -22,7 +23,13 @@ export const handleUpdateUser: Handler = (req, res, next) => {
 
   const data = req.body as Partial<User>;
 
-  updateUser(id, data, refreshToken)
-    .then((userData) => res.send(userData))
-    .catch((e) => next(e));
+  if (Object.hasOwn(data, 'pendingFriendsIds') && Object.keys(data).length === 1) {
+    updatePendingFriendsIds(id, data)
+      .then((userData) => res.send(userData))
+      .catch((e) => next(e));
+  } else {
+    updateUser(id, data, refreshToken)
+      .then((userData) => res.send(userData))
+      .catch((e) => next(e));
+  }
 };

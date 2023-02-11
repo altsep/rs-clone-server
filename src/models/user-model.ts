@@ -50,6 +50,7 @@ const userSchema = new Schema<UserSchema>({
   },
   postsIds: [{ type: Number }],
   friendsIds: [{ type: Number }],
+  pendingFriendsIds: [{ type: Number }],
   activationLink: {
     type: String,
     required: true,

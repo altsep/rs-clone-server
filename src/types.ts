@@ -31,6 +31,7 @@ interface IUser<T = number> {
   avatarURL?: string;
   postsIds?: number[];
   friendsIds?: number[];
+  pendingFriendsIds?: number[];
 }
 
 export { IComment as Comment, IPost as Post, IUser as User };
