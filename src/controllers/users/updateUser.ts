@@ -1,8 +1,8 @@
 import { Handler } from 'express';
 import { validationResult } from 'express-validator';
-import { updateUser } from '../../../services/user/updateUser';
-import { User } from '../../../types';
-import { handleError } from '../../../utils';
+import { updateUser } from '../../services/user/updateUser';
+import { User } from '../../types';
+import { handleError } from '../../utils';
 
 export const handleUpdateUser: Handler = (req, res, next) => {
   const { refreshToken } = req.cookies as { refreshToken?: string };

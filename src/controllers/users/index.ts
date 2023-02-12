@@ -1,6 +1,10 @@
-import { devUsersController } from './dev';
-import { prodUsersController } from './prod';
+import { handleGetUser as getUser } from './getUser';
+import { getUsers } from './getUsers';
+import { handleUpdateUser as updateUser } from './updateUser';
+import { hideUser } from './hideUser';
+import { authUser } from './authUser';
+import { addUser } from './addUser';
 
-const usersController = process.env.MODE === 'dev' ? devUsersController : prodUsersController;
+const usersController = { getUser, getUsers, addUser, updateUser, hideUser, authUser };
 
 export { usersController };

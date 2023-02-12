@@ -1,5 +1,5 @@
 import { Handler } from 'express';
-import { getAllPosts } from '../../../services/post/getAllPosts';
+import { getAllPosts } from '../../services/post/getAllPosts';
 
 export const getPosts: Handler = (_req, res, next) => {
   getAllPosts()
