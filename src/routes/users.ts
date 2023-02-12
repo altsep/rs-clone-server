@@ -31,12 +31,3 @@ app.patch(
   body('pendingFriendsIds').optional().isArray(),
   usersController.updateUser
 );
-
-app.delete('/api/users/:id', usersController.hideUser);
-
-app.post(
-  '/api/users-auth',
-  body('email').exists().isEmail(),
-  body('password').exists().isString(),
-  usersController.authUser
-);
