@@ -25,4 +25,6 @@ const generateHexStr = (amount = 24): string => {
   return res;
 };
 
-export { handleError, getIsoString, generateHexStr };
+const getActionString = (type: string, payload: unknown): string => JSON.stringify({ type, payload });
+
+export { handleError, getIsoString, generateHexStr, getActionString };

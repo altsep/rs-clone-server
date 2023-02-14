@@ -2,6 +2,7 @@ import './auth';
 import './users';
 import './posts';
 import './comments';
+import './ws';
 import { app } from '../app';
 import { errorMiddleware } from '../middlewares/error-middleware';
 
