@@ -1,5 +1,7 @@
-import { body } from 'express-validator';
+import { body, query } from 'express-validator';
 import { app } from '../app';
-import { handleAddChat } from '../controllers/chats/addChat';
+import { chatsController } from '../controllers/chats';
 
-app.post('/api/chats', body('userIds').isArray({ min: 2 }), handleAddChat);
+app.post('/api/chats', body('userIds').isArray({ min: 2 }), chatsController.addChat);
+
+app.get('/api/chats', query('userId').exists(), chatsController.getUserChats);
