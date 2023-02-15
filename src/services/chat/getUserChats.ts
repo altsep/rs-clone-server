@@ -4,7 +4,7 @@ import { chatModel } from '../../models/chat-model';
 export const getUserChats = async (userId: number): Promise<ChatDto[]> => {
   const chats = await chatModel.find({ userIds: userId });
 
-  if (!chats) {
+  if (!chats.length) {
     throw new Error('Not found');
   }
 
