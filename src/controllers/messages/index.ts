@@ -1,10 +1,11 @@
 import { WebsocketRequestHandler } from 'express-ws';
-import { WebSocket } from 'ws';
 import { getActionString } from '../../utils';
+import { WsHandler } from './types';
+import { handleSendMessage as send } from './sendMessage';
 
-type WsHandler = (ws: WebSocket, payload: unknown) => void;
-
-const obj: Record<string, WsHandler> = {};
+const messagesController: Record<string, WsHandler> = {
+  send,
+};
 
 const handleMessages: WebsocketRequestHandler = (ws, _req, next) => {
   ws.on('open', () => {
@@ -13,9 +14,9 @@ const handleMessages: WebsocketRequestHandler = (ws, _req, next) => {
 
   ws.on('message', (message: string) => {
     try {
-      const { type, payload } = JSON.parse(message) as { type: keyof typeof obj; payload: unknown };
+      const { type, payload } = JSON.parse(message) as { type: keyof typeof messagesController; payload: unknown };
 
-      if (!Object.hasOwn(obj, type)) {
+      if (!Object.hasOwn(messagesController, type)) {
         const errMessage = `Incorrect WS message type. Requested "${type}"`;
         const err = new Error(errMessage);
         const res = getActionString('error', { error: true, message: errMessage });
@@ -23,11 +24,13 @@ const handleMessages: WebsocketRequestHandler = (ws, _req, next) => {
         next(err);
       }
 
-      const handler = obj[type];
-      handler(ws, payload);
-      console.log('received: %s', message);
-      const res = getActionString('system', `You sent the following: "${message}"`);
-      ws.send(res);
+      const handler = messagesController[type];
+
+      handler(ws, payload).catch((e) => next(e));
+
+      // console.log('received: %s', message);
+      // const res = getActionString('system', `You sent the following: "${message}"`);
+      // ws.send(res);
     } catch (e) {
       next(e);
     }

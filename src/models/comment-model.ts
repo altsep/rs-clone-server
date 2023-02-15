@@ -1,5 +1,4 @@
 import { Schema, model } from 'mongoose';
-import { getIsoString } from '../utils';
 import { CommentSchema } from './types';
 import { setCreatedAt } from './utils';
 

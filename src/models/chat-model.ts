@@ -1,8 +1,9 @@
 import { Schema, model } from 'mongoose';
-import { ChatSchema, MessageSchema } from './types';
+import { Message } from '../types';
+import { ChatSchema } from './types';
 import { setCreatedAt } from './utils';
 
-const messageSchema = new Schema<MessageSchema>({
+const messageSchema = new Schema<Message>({
   description: {
     type: String,
     default: '',
@@ -10,9 +11,6 @@ const messageSchema = new Schema<MessageSchema>({
   userId: {
     type: Number,
     required: true,
-  },
-  createdAt: {
-    type: String,
   },
 });
 
