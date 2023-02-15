@@ -27,10 +27,6 @@ const handleMessages: WebsocketRequestHandler = (ws, _req, next) => {
       const handler = messagesController[type];
 
       handler(ws, payload).catch((e) => next(e));
-
-      // console.log('received: %s', message);
-      // const res = getActionString('system', `You sent the following: "${message}"`);
-      // ws.send(res);
     } catch (e) {
       next(e);
     }
