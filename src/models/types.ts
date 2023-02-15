@@ -32,9 +32,26 @@ interface ICommentId {
 
 type TCommentSchema = Comment<string> & ICommentId;
 
+interface IMessageSchema {
+  _id: ObjectId;
+  description: string;
+  userId: number;
+  createdAt: string;
+}
+
+interface IChatSchema {
+  id: string;
+  _id: ObjectId;
+  userIds: number[];
+  createdAt: string;
+  messages: IMessageSchema[];
+}
+
 export {
   TUserSchema as UserSchema,
   ITokenSchema as TokenSchema,
   TPostSchema as PostSchema,
   TCommentSchema as CommentSchema,
+  IMessageSchema as MessageSchema,
+  IChatSchema as ChatSchema,
 };
