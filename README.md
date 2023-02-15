@@ -35,6 +35,15 @@ API for the [RS Clone](https://github.com/altsep/rs-clone) app done as part of t
   - [Delete post](https://github.com/altsep/rs-clone-server#delete-post)
   - [Update post](https://github.com/altsep/rs-clone-server#update-post)
 
+- **Chats**
+  - [Create chat](https://github.com/altsep/rs-clone-server#create-chat)
+  - [Get user chats](https://github.com/altsep/rs-clone-server#get-user-chats)
+
+- **Messages**
+  - [Send message](https://github.com/altsep/rs-clone-server#send-message)
+
+## **API**
+
 ## **Register**
 
 Registers a new user by writing their information and access tokens to the database.
@@ -48,18 +57,6 @@ Registers a new user by writing their information and access tokens to the datab
 - **Method:**
 
   `POST`
-
-- **Headers:**
-
-  none
-
-- **URL params**
-
-  None
-
-- **Query params**
-
-  None
 
 - **Data params**
 
@@ -121,10 +118,6 @@ Registers a new user by writing their information and access tokens to the datab
     }
     ```
 
-- **Notes:**
-
-  None
-
 </details>
 
 # **Login**
@@ -140,18 +133,6 @@ Authorize a user by comparing the sent password with the one stored in the DB an
 - **Method:**
 
   `POST`
-
-- **Headers:**
-
-  none
-
-- **URL params**
-
-  None
-
-- **Query params**
-
-  None
 
 - **Data params**
 
@@ -218,10 +199,6 @@ Authorize a user by comparing the sent password with the one stored in the DB an
     }
     ```
 
-- **Notes:**
-
-  None
-
 </details>
 
 # **Logout**
@@ -237,22 +214,6 @@ Removes refresh token from the DB if one exists. The token is read from the corr
 - **Method:**
 
   `POST`
-
-- **Headers:**
-
-  none
-
-- **URL params**
-
-  None
-
-- **Query params**
-
-  None
-
-- **Data params**
-
-  None
 
 - **Cookies**
 
@@ -284,10 +245,6 @@ Removes refresh token from the DB if one exists. The token is read from the corr
     }
     ```
 
-- **Notes:**
-
-  None
-
 </details>
 
 # **Refresh**
@@ -303,22 +260,6 @@ Updates access tokens.
 - **Method:**
 
   `POST`
-
-- **Headers:**
-
-  none
-
-- **URL params**
-
-  None
-
-- **Query params**
-
-  None
-
-- **Data params**
-
-  None
 
 - **Cookies**
 
@@ -363,10 +304,6 @@ Updates access tokens.
     }
     ```
 
-- **Notes:**
-
-  None
-
 </details>
 
 ## **Get users**
@@ -382,22 +319,6 @@ Returns a collection of all users.
 - **Method:**
 
   `GET`
-
-- **Headers:**
-
-  None
-
-- **URL params**
-
-  None
-
-- **Query params**
-
-  None
-
-- **Data params**
-
-  None
 
 - **Success response:**
 
@@ -421,18 +342,6 @@ Returns a collection of all users.
     ]
     ```
 
-    **Headers:**
-
-    None
-
-- **Error response:**
-
-  None
-
-- **Notes:**
-
-  None
-
 </details>
 
 ## **Get user**
@@ -449,23 +358,11 @@ Returns information about the specified user.
 
   `GET`
 
-- **Headers:**
-
-  None
-
 - **URL params**
 
   **Required:**
 
   `id=[integer]`
-
-- **Query params**
-
-  None
-
-- **Data params**
-
-  None
 
 - **Success response:**
 
@@ -499,10 +396,6 @@ Returns information about the specified user.
     }
     ```
 
-- **Notes:**
-
-  None
-
 </details>
 
 ## **Add user**
@@ -518,18 +411,6 @@ Creates a new user.
 - **Method:**
 
   `POST`
-
-- **Headers:**
-
-  none
-
-- **URL params**
-
-  None
-
-- **Query params**
-
-  None
 
 - **Data params**
 
@@ -574,10 +455,6 @@ Creates a new user.
     }
     ```
 
-- **Notes:**
-
-  None
-
 </details>
 
 ## **Hide user**
@@ -594,19 +471,11 @@ Sets the `hidden` field of the specified user to `true`.
 
   `DELETE`
 
-- **Headers:**
-
-  None
-
 - **URL params**
 
   **Required:**
 
   `id=[integer]`
-
-- **Query params**
-
-  None
 
 - **Data params**
 
@@ -675,10 +544,6 @@ Sets the `hidden` field of the specified user to `true`.
     }
     ```
 
-- **Notes:**
-
-  None
-
 </details>
 
 ## **Update user**
@@ -695,19 +560,10 @@ Updates user properties.
 
   `PATCH`
 
-- **Headers:**
-
-  none
-
 - **URL params**
 
   **Required:**
 
-  `id=[integer]`
-
-- **Query params**
-
-  None
 
 - **Data params**
 
@@ -783,10 +639,6 @@ Updates user properties.
     }
     ```
 
-- **Notes:**
-
-  None
-
 </details>
 
 ## **Get posts**
@@ -802,22 +654,6 @@ Returns a json collection of all posts.
 - **Method:**
 
   `GET`
-
-- **Headers:**
-
-  None
-
-- **URL params**
-
-  None
-
-- **Query params**
-
-  None
-
-- **Data params**
-
-  None
 
 - **Success response:**
 
@@ -838,18 +674,6 @@ Returns a json collection of all posts.
     ]
     ```
 
-    **Headers:**
-
-    None
-
-- **Error response:**
-
-  None
-
-- **Notes:**
-
-  None
-
 </details>
 
 ## **Get post**
@@ -866,23 +690,11 @@ Returns json data for the specified post.
 
   `GET`
 
-- **Headers:**
-
-  None
-
 - **URL params**
 
   **Required:**
 
   `id=[integer]`
-
-- **Query params**
-
-  None
-
-- **Data params**
-
-  None
 
 - **Success response:**
 
@@ -914,10 +726,6 @@ Returns json data for the specified post.
     }
     ```
 
-- **Notes:**
-
-  None
-
 </details>
 
 ## **Add post**
@@ -933,18 +741,6 @@ Creates a new post.
 - **Method:**
 
   `POST`
-
-- **Headers:**
-
-  none
-
-- **URL params**
-
-  None
-
-- **Query params**
-
-  None
 
 - **Data params**
 
@@ -1011,23 +807,11 @@ Removes the specified post from the database
 
   `DELETE`
 
-- **Headers:**
-
-  None
-
 - **URL params**
 
   **Required:**
 
   `id=[integer]`
-
-- **Query params**
-
-  None
-
-- **Data params**
-
-  None
 
 - **Success response:**
 
@@ -1055,10 +839,6 @@ Removes the specified post from the database
     }
     ```
 
-- **Notes:**
-
-  None
-
 </details>
 
 ## **Update post**
@@ -1075,19 +855,11 @@ Updates post properties.
 
   `PATCH`
 
-- **Headers:**
-
-  none
-
 - **URL params**
 
   **Required:**
 
   `id=[integer]`
-
-- **Query params**
-
-  None
 
 - **Data params**
 
@@ -1144,8 +916,210 @@ Updates post properties.
     }
     ```
 
+</details>
+
+## **Create chat**
+
+Creates a conversation between two or more users.
+
+<details>
+
+- **URL**
+
+  /chats
+
+- **Method:**
+
+  `POST`
+
+- **Data params**
+
+  ```ts
+    {
+      userIds: number[];
+    }
+  ```
+
+- **Success response:**
+
+  - **Code:** 201 Created <br />
+    **Content:**
+    ```json
+    {
+    "id": "63ecb254ee45e3d443ae84bb",
+    "userIds": [
+        1,
+        5
+    ],
+    "createdAt": "2023-02-15T10:22:12.697Z"
+    }
+    ```
+
+- **Error response:**
+
+  - **Code:** 500 Internal Server Error <br />
+    **Content:**
+
+    ```json
+    {
+      "error": true,
+      "status": 500,
+      "message": "Chat already exists",
+      "instance": "/api/chats",
+      "errors": []
+    }
+    ```
+
+  - **Code:** 500 Internal Server Error <br />
+    **Content:**
+
+    ```json
+    {
+      "error": true,
+      "status": 500,
+      "message": "Chat can't have one member",
+      "instance": "/api/chats",
+      "errors": []
+    }
+    ```
+
+  - **Code:** 500 Internal Server Error <br />
+    **Content:**
+
+    ```json
+    {
+      "error": true,
+      "status": 400,
+      "message": "Bad Request",
+      "instance": "/api/chats",
+      "errors": [
+          {
+              "value": [
+                  1
+              ],
+              "msg": "Invalid value",
+              "param": "userIds",
+              "location": "body"
+          }
+      ]
+    }
+    ```
+
+</details>
+
+## **Get uset chats**
+
+Returns a list of conversations for a userId specified in the query.
+
+<details>
+
+- **URL**
+
+  /chats
+
+- **Method:**
+
+  `GET`
+
+- **Query params**
+
+  `userId=[integer]`
+
+- **Success response:**
+
+  - **Code:** 200 OK <br />
+    **Content:**
+    ```json
+    [
+      {
+          "id": "63ecb254ee45e3d443ae84bb",
+          "userIds": [
+              1,
+              5
+          ],
+          "createdAt": "2023-02-15T10:22:12.697Z",
+          "messages": []
+      }
+    ]
+    ```
+
+- **Error response:**
+
+  - **Code:** 404 Not Found <br />
+    **Content:**
+
+    ```json
+    {
+      "error": true,
+      "status": 500,
+      "message": "Not found",
+      "instance": "/api/chats?userId=52",
+      "errors": []
+    }
+    ```
+
 - **Notes:**
 
   None
+
+</details>
+
+
+## **WS**
+
+## **Messages**
+
+- **URL**
+
+  /messages/:id
+
+## **Send message**
+
+Allows a user to send a message to a specific conversation which then will get saved to the corresponding subdocument.
+
+<details>
+
+- **Data params**
+
+  ```ts
+    { 
+      "type": "send",
+      "payload": {
+          "chatId": "63ec97b785245f83c0b739be",
+          "userId": 1,
+          "description": "test"
+      }
+    }
+  ```
+
+- **Success response:**
+
+    **Content:**
+    ```json
+    {
+      "type": "send",
+      "payload": {
+          "id": "63ed05ba390aa20988a0f6dd",
+          "userId": 1,
+          "description": "test",
+          "createdAt": "2023-02-15T16:18:02.428Z"
+      }
+    }
+    ```
+
+- **Error response:**
+
+  - **Code:** 400 Bad Request <br />
+    **Content:**
+
+    ```json
+    {
+      "error": true,
+      "message": "Bad Request",
+      "status": 400,
+      "api/instance": "/api/posts/1",
+      "errors": []
+    }
+    ```
 
 </details>
