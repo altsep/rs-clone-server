@@ -1,9 +1,9 @@
 import { Handler } from 'express';
 import { validationResult } from 'express-validator';
 import { StatusCodes } from 'http-status-codes';
-import { addPost } from '../../../services/post/addPost';
-import { handleError } from '../../../utils';
-import type { Post } from '../../../types';
+import { addPost } from '../../services/post/addPost';
+import { handleError } from '../../utils';
+import type { Post } from '../../types';
 
 export const handleAddPost: Handler = (req, res, next) => {
   const errors = validationResult(req);

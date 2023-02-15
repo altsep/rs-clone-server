@@ -1,5 +1,6 @@
 import { body } from 'express-validator';
 import { app } from '../app';
+import { RESERVED_PAGE_NAMES } from '../constants';
 import { usersController } from '../controllers/users';
 
 app.get('/api/users', usersController.getUsers);
@@ -21,7 +22,7 @@ app.patch(
   body('email').optional().isEmail(),
   body('name').optional().isString(),
   body('password').optional().isString(),
-  body('alias').optional().isString(),
+  body('alias').optional().isString().not().isIn(RESERVED_PAGE_NAMES),
   body('birthDate').optional().isString(),
   body('country').optional().isString(),
   body('avatarURL').optional().isString(),
@@ -29,13 +30,4 @@ app.patch(
   body('friendsIds').optional().isArray(),
   body('pendingFriendsIds').optional().isArray(),
   usersController.updateUser
-);
-
-app.delete('/api/users/:id', usersController.hideUser);
-
-app.post(
-  '/api/users-auth',
-  body('email').exists().isEmail(),
-  body('password').exists().isString(),
-  usersController.authUser
 );

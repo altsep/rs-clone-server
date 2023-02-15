@@ -26,9 +26,7 @@ API for the [RS Clone](https://github.com/altsep/rs-clone) app done as part of t
   - [Get users](https://github.com/altsep/rs-clone-server#get-users)
   - [Get user](https://github.com/altsep/rs-clone-server#get-user)
   - [Create user](https://github.com/altsep/rs-clone-server#create-user)
-  - [Delete user](https://github.com/altsep/rs-clone-server#delete-user)
   - [Update user](https://github.com/altsep/rs-clone-server#update-user)
-  - [Authorize user](https://github.com/altsep/rs-clone-server#authorize-user)
 
 - **Posts**
   - [Get posts](https://github.com/altsep/rs-clone-server#get-posts)
@@ -788,26 +786,6 @@ Updates user properties.
 - **Notes:**
 
   None
-
-</details>
-
-## **Authorize user**
-
-Checks user's credentials.
-
-<details>
-
-- **URL**
-
-  /api/users-auth
-
-- **Method:**
-
-  `POST`
-
-- **Notes:**
-
-  Redirects to `/api/login`
 
 </details>
 

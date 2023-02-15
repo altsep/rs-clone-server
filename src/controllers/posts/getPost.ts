@@ -1,6 +1,6 @@
 import { Handler } from 'express';
-import { getPost } from '../../../services/post/getPost';
-import { handleError } from '../../../utils';
+import { getPost } from '../../services/post/getPost';
+import { handleError } from '../../utils';
 
 export const handleGetPost: Handler = (req, res, next) => {
   const { id } = req.params;

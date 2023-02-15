@@ -1,5 +1,5 @@
 import { Handler } from 'express';
-import { getUser } from '../../../services/user/getUser';
+import { getUser } from '../../services/user/getUser';
 
 export const handleGetUser: Handler = (req, res, next) => {
   const { id } = req.params;

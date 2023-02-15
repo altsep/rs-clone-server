@@ -1,5 +1,5 @@
 import { Handler } from 'express';
-import { removePost } from '../../../services/post/removePost';
+import { removePost } from '../../services/post/removePost';
 
 export const handleRemovePost: Handler = (req, res, next) => {
   const { originalUrl } = req;

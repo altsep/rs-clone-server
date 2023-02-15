@@ -9,7 +9,7 @@ class UserDto {
 
   public name: string;
 
-  public alias: string | undefined;
+  public alias: string;
 
   public country: string;
 
@@ -34,7 +34,7 @@ class UserDto {
     this.email = document.email;
     this.password = document.password;
     this.name = document.name;
-    this.alias = document.alias;
+    this.alias = document.alias || '';
     this.country = document.country;
     this.birthDate = document.birthDate;
     this.hidden = document.hidden;

@@ -1,5 +1,5 @@
 import { Handler } from 'express';
-import { getAllUsers } from '../../../services/user/getAllUsers';
+import { getAllUsers } from '../../services/user/getAllUsers';
 
 export const getUsers: Handler = (_req, res, next) => {
   getAllUsers()

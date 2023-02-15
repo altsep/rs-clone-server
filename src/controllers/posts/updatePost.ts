@@ -1,8 +1,8 @@
 import { Handler } from 'express';
 import { validationResult } from 'express-validator';
-import { updatePost } from '../../../services/post/updatePost';
-import { Post } from '../../../types';
-import { handleError } from '../../../utils';
+import { updatePost } from '../../services/post/updatePost';
+import { Post } from '../../types';
+import { handleError } from '../../utils';
 
 export const handleUpdatePost: Handler = (req, res, next) => {
   const errors = validationResult(req);
