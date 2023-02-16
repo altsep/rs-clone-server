@@ -29,6 +29,8 @@ class UserDto {
 
   public activationLink: string;
 
+  public isOnline: boolean;
+
   constructor(document: UserSchema) {
     this.id = document.userId;
     this.email = document.email;
@@ -44,6 +46,7 @@ class UserDto {
     this.pendingFriendsIds = document.pendingFriendsIds || [];
     this.activationLink = document.activationLink;
     this.isActivated = document.isActivated;
+    this.isOnline = document.isOnline || false;
   }
 }
 

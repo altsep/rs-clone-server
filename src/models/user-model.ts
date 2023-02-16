@@ -59,6 +59,10 @@ const userSchema = new Schema<UserSchema>({
     type: Boolean,
     default: process.env.MODE === 'dev',
   },
+  isOnline: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 userSchema.pre('validate', setCreatedAt);

@@ -3,17 +3,15 @@ import { getActionString } from '../../utils';
 import { WsHandler } from './types';
 import { handleSendMessage as send } from './sendMessage';
 import { handleWatchChats as watch } from './watchChats';
+import { handleUserOnlineStatus as userStatus } from './handleOnlineStatus';
 
 const messagesController: Record<string, WsHandler> = {
   send,
   watch,
+  userStatus,
 };
 
 const handleMessages: WebsocketRequestHandler = (ws, _req, next) => {
-  ws.on('open', () => {
-    getActionString('system', 'Connected to WebSocket server');
-  });
-
   ws.on('message', (message: string) => {
     try {
       const { type, payload } = JSON.parse(message) as { type: keyof typeof messagesController; payload: unknown };
