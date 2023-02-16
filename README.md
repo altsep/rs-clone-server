@@ -25,7 +25,6 @@ API for the [RS Clone](https://github.com/altsep/rs-clone) app done as part of t
 
   - [Get users](https://github.com/altsep/rs-clone-server#get-users)
   - [Get user](https://github.com/altsep/rs-clone-server#get-user)
-  - [Create user](https://github.com/altsep/rs-clone-server#create-user)
   - [Update user](https://github.com/altsep/rs-clone-server#update-user)
 
 - **Posts**
@@ -392,65 +391,6 @@ Returns information about the specified user.
       "message": "Not Found",
       "status": 404,
       "instance": "/api/api/users/15",
-      "errors": []
-    }
-    ```
-
-</details>
-
-## **Add user**
-
-Creates a new user.
-
-<details>
-
-- **URL**
-
-  /api/users
-
-- **Method:**
-
-  `POST`
-
-- **Data params**
-
-  ```ts
-  {
-    name: string;
-    email: string;
-    password: string;
-    country: string;
-    birthDate: string;
-  }
-  ```
-
-- **Success response:**
-
-  - **Code:** 201 Created <br />
-    **Content:**
-    ```json
-    {
-      "id": 4,
-      "hidden": false,
-      "name": "Q",
-      "email": "test@example.com",
-      "password": "213",
-      "birthDate": "1955-11-11T21:00:00.000Z",
-      "createdAt": "2023-02-02T03:04:59.717Z",
-      "country": "Iceland"
-    }
-    ```
-
-- **Error response:**
-
-  - **Code:** 400 Bad Request <br />
-    **Content:**
-    ```json
-    {
-      "error": true,
-      "message": "Bad Request",
-      "status": 400,
-      "instance": "/api/api/users",
       "errors": []
     }
     ```
