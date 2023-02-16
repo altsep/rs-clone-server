@@ -1044,7 +1044,7 @@ Removes all messages from a particular chat.
 
 - **URL**
 
-  /messages/:id
+  /messages
 
 ## **Send message**
 
@@ -1052,11 +1052,11 @@ Allows a user to send a message to a specific conversation which then will get s
 
 <details>
 
-- **URL params**
+- **Data params**
 
   ```ts
     { 
-      type: string;
+      type: "send";
       payload: {
           chatId: string;
           userId: number;
@@ -1071,6 +1071,41 @@ Allows a user to send a message to a specific conversation which then will get s
     ```json
     {
       "type": "send",
+      "payload": {
+          "id": "63ed05ba390aa20988a0f6dd",
+          "userId": 1,
+          "description": "test",
+          "createdAt": "2023-02-15T16:18:02.428Z"
+      }
+    }
+    ```
+
+</details>
+
+## **Watch chats**
+
+If a user is logged in, it automatically watches for changes in chats, connected to them, given his access token is valid.
+
+<details>
+
+- **Data params**
+
+  ```ts
+    { 
+      type: "watch";
+      payload: {
+          userId: number;
+          accessToken: string;
+      };
+    }
+  ```
+
+- **Success response:**
+
+    **Content:**
+    ```json
+    {
+      "type": "watch",
       "payload": {
           "id": "63ed05ba390aa20988a0f6dd",
           "userId": 1,
