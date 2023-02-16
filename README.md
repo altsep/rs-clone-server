@@ -1007,7 +1007,7 @@ Creates a conversation between two or more users.
 
 </details>
 
-## **Get uset chats**
+## **Get user chats**
 
 Returns a list of conversations for a userId specified in the query.
 
