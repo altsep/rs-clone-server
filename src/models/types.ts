@@ -43,7 +43,7 @@ interface IChatSchema {
   _id: ObjectId;
   userIds: number[];
   createdAt: string;
-  messages: Message[];
+  messages: IMessageSchema[];
 }
 
 export {

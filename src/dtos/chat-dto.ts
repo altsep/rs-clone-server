@@ -1,5 +1,6 @@
 import { ChatSchema } from '../models/types';
 import { Message } from '../types';
+import { MessageDto } from './message-dto';
 
 class ChatDto {
   public id: string;
@@ -14,7 +15,7 @@ class ChatDto {
     this.id = document.id;
     this.userIds = document.userIds;
     this.createdAt = document.createdAt;
-    this.messages = document.messages || [];
+    this.messages = document.messages ? document.messages.map((m) => new MessageDto(m)) : [];
   }
 }
 

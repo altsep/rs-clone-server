@@ -1,9 +1,8 @@
 import { Schema, model } from 'mongoose';
-import { Message } from '../types';
-import { ChatSchema } from './types';
+import { ChatSchema, MessageSchema } from './types';
 import { setCreatedAt } from './utils';
 
-const messageSchema = new Schema<Message>({
+const messageSchema = new Schema<MessageSchema>({
   description: {
     type: String,
     default: '',
