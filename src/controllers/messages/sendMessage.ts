@@ -1,4 +1,4 @@
-import { sendMessage } from '../../services/chat/sendMessage';
+import { sendMessage } from '../../services/messages/sendMessage';
 import { Message } from '../../types';
 import { getActionString } from '../../utils';
 import { WsHandler } from './types';

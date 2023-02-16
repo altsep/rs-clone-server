@@ -11,6 +11,9 @@ const messageSchema = new Schema<MessageSchema>({
     type: Number,
     required: true,
   },
+  createdAt: {
+    type: String,
+  },
 });
 
 const chatSchema = new Schema<ChatSchema>({
