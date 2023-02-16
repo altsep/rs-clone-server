@@ -789,7 +789,7 @@ Updates post properties.
 
 - **URL**
 
-  /post/:id
+  /api/post/:id
 
 - **Method:**
 
@@ -866,7 +866,7 @@ Creates a conversation between two or more users.
 
 - **URL**
 
-  /chats
+  /api/chats
 
 - **Method:**
 
@@ -955,7 +955,7 @@ Returns a list of conversations for a userId specified in the query.
 
 - **URL**
 
-  /chats
+  /api/chats
 
 - **Method:**
 
@@ -998,12 +998,45 @@ Returns a list of conversations for a userId specified in the query.
     }
     ```
 
-- **Notes:**
-
-  None
-
 </details>
 
+## **Clear all chat messages**
+
+Removes all messages from a particular chat.
+
+<details>
+
+- **URL**
+
+  /api/chats/:id
+
+- **Method:**
+
+  `DELETE`
+  
+- **URL params**
+
+  `id=[string]`
+
+- **Success response:**
+
+  - **Code:** 200 OK <br />
+
+- **Error response:**
+
+  - **Code:** 500 Internal Server Error <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 500,
+      "message": "Cast to ObjectId failed for value \"zxc\" (type string) at path \"_id\" for model \"Chat\"",
+      "instance": "/api/chats/zxc",
+      "errors": []
+    }
+    ```
+
+</details>
 
 ## **WS**
 
@@ -1019,16 +1052,16 @@ Allows a user to send a message to a specific conversation which then will get s
 
 <details>
 
-- **Data params**
+- **URL params**
 
   ```ts
     { 
-      "type": "send",
-      "payload": {
-          "chatId": "63ec97b785245f83c0b739be",
-          "userId": 1,
-          "description": "test"
-      }
+      type: string;
+      payload: {
+          chatId: string;
+          userId: number;
+          description: string;
+      };
     }
   ```
 
@@ -1044,21 +1077,6 @@ Allows a user to send a message to a specific conversation which then will get s
           "description": "test",
           "createdAt": "2023-02-15T16:18:02.428Z"
       }
-    }
-    ```
-
-- **Error response:**
-
-  - **Code:** 400 Bad Request <br />
-    **Content:**
-
-    ```json
-    {
-      "error": true,
-      "message": "Bad Request",
-      "status": 400,
-      "api/instance": "/api/posts/1",
-      "errors": []
     }
     ```
 
