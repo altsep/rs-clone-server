@@ -25,6 +25,7 @@ const chatSchema = new Schema<ChatSchema>({
 });
 
 messageSchema.pre('validate', setCreatedAt);
+
 chatSchema.pre('validate', setCreatedAt);
 
 const chatModel = model('Chat', chatSchema);
