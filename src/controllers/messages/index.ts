@@ -18,27 +18,23 @@ export const messagesController = {
 
 const handleMessages: WebsocketRequestHandler = (ws, _req, next) => {
   ws.on('message', (message: string) => {
-    try {
-      const { type, payload } = JSON.parse(message) as { type: keyof typeof messagesWsController; payload: unknown };
+    const { type, payload } = JSON.parse(message) as { type: keyof typeof messagesWsController; payload: unknown };
 
-      if (!Object.hasOwn(messagesWsController, type)) {
-        const errMessage = `Incorrect WS message type. Requested "${type}".`;
-        const err = new Error(errMessage);
-        const res = getActionString('error', { error: true, message: errMessage });
-        ws.send(res);
-        next(err);
-        return;
-      }
+    if (!Object.hasOwn(messagesWsController, type)) {
+      const errMessage = `Incorrect WS message type. Requested "${type}".`;
+      const err = new Error(errMessage);
+      const res = getActionString('error', { error: true, message: errMessage });
+      ws.send(res);
+      next(err);
+      return;
+    }
 
-      const handler = messagesWsController[type];
+    const handler = messagesWsController[type];
 
-      const res = handler(ws, payload);
+    const res = handler(ws, payload);
 
-      if (res instanceof Promise) {
-        res.catch((e) => next(e));
-      }
-    } catch (e) {
-      next(e);
+    if (res instanceof Promise) {
+      res.catch((e) => next(e));
     }
   });
 
