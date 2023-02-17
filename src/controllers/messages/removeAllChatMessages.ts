@@ -1,5 +1,5 @@
 import { Handler } from 'express';
-import { removeAllChatMessages } from '../../services/chat/removeAllChatMessages';
+import { removeAllChatMessages } from '../../services/messages/removeAllChatMessages';
 import { handleValidationResult } from '../../utils';
 
 export const handleRemoveAllChatMessages: Handler = (req, res, next): void => {

@@ -6,4 +6,4 @@ app.post('/api/chats', body('userIds').isArray({ min: 2 }), chatsController.addC
 
 app.get('/api/chats', query('userId').exists(), chatsController.getUserChats);
 
-app.delete('/api/chats/:id', chatsController.removeAllChatMessages);
+app.delete('/api/chats/:id', chatsController.removeChat);
