@@ -11,7 +11,7 @@ class MessageDto {
 
   constructor(document: MessageSchema) {
     // eslint-disable-next-line no-underscore-dangle
-    this.id = document._id?.toString() || undefined;
+    this.id = document?._id.toString() || undefined;
     this.userId = document.userId;
     this.description = document.description;
     this.createdAt = document.createdAt;
