@@ -31,6 +31,8 @@ class UserDto {
 
   public isOnline: boolean;
 
+  public lastSeen: string | undefined;
+
   constructor(document: UserSchema) {
     this.id = document.userId;
     this.email = document.email;
@@ -47,6 +49,7 @@ class UserDto {
     this.activationLink = document.activationLink;
     this.isActivated = document.isActivated;
     this.isOnline = document.isOnline || false;
+    this.lastSeen = document.lastSeen;
   }
 }
 

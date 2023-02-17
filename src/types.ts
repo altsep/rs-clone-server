@@ -38,6 +38,7 @@ interface IUser<T = number> {
   friendsIds?: number[];
   pendingFriendsIds?: number[];
   isOnline: boolean;
+  lastSeen?: string;
 }
 
 export { IMessage as Message, IComment as Comment, IPost as Post, IUser as User };

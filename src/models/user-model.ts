@@ -63,6 +63,9 @@ const userSchema = new Schema<UserSchema>({
     type: Boolean,
     default: true,
   },
+  lastSeen: {
+    type: String,
+  },
 });
 
 userSchema.pre('validate', setCreatedAt);
