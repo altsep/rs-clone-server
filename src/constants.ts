@@ -13,6 +13,5 @@ const RESERVED_PAGE_NAMES = [
   'settings/language',
   'settings/theme',
 ];
-const RESERVED_PAGE_NAMES = ['messages', 'friends', 'settings', 'registration'];
 
 export { basedir, MS_IN_A_WEEK, MS_IN_A_MONTH, RESERVED_PAGE_NAMES };
