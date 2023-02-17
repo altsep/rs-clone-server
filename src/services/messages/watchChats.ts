@@ -27,7 +27,7 @@ export const watchChats = (ws: WebSocket, userId: number, accessToken: string): 
       const { userIds } = chat;
       const { messages } = chat;
 
-      if (userIds.includes(userId)) {
+      if (userIds.includes(userId) && messages.length) {
         const lastMessage = messages[messages.length - 1];
         const lastMessageDto = new MessageDto(lastMessage);
         const message = getActionString('watch', lastMessageDto);
