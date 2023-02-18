@@ -500,11 +500,6 @@ Updates user properties.
 
   `PATCH`
 
-- **URL params**
-
-  **Required:**
-
-
 - **Data params**
 
   ```ts
@@ -594,11 +589,6 @@ Allows to change the password by converting it to a hash recognizable by login.
 - **Method:**
 
   `PATCH`
-
-- **URL params**
-
-  **Required:**
-
 
 - **Data params**
 
