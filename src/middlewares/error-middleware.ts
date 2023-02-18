@@ -17,10 +17,6 @@ export const errorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
     if (err instanceof Error) {
       data.message = err.message;
     }
-
-    if (statusCodeError instanceof Error) {
-      console.error(statusCodeError.message);
-    }
   }
 
   if (data) {

@@ -1,13 +1,16 @@
-import fs from 'fs';
+import fsPromises from 'fs/promises';
 import { app } from '../app';
 
-app.get('*', (_, res, next) => {
-  fs.readFile('dist/index.html', 'utf-8', (err, data) => {
-    if (err) {
-      next(err);
-      res.status(500).end('Internal server error');
-    }
+const getApp = async (): Promise<string> => {
+  const distPath = 'dist/index.html';
+  const { R_OK } = fsPromises.constants;
+  await fsPromises.access(distPath, R_OK);
+  const data = await fsPromises.readFile(distPath, 'utf-8');
+  return data;
+};
 
-    res.end(data);
-  });
+app.get('*', (_, res, next) => {
+  getApp()
+    .then((data) => res.end(data))
+    .catch((e) => next(e));
 });
