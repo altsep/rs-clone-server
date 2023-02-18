@@ -9,11 +9,10 @@ import cors from 'cors';
 
 dotenv.config();
 
-mongoose.set('strictQuery', false);
-
+const PORT = process.env.PORT || 3000;
 const DB_URI = process.env.DB_URI || '';
-
-mongoose.connect(DB_URI).catch((e) => console.error(e));
+const origin = process.env.ORIGIN;
+const corsOpts = { credentials: true, origin };
 
 const appBase = express();
 const wsInstance = expressWs(appBase);
@@ -24,18 +23,23 @@ app.use(morgan('dev'));
 app.use(express.json({ limit: '128kb' }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-const origin = process.env.ORIGIN;
-const corsOpts = { credentials: true, origin };
 app.use(cors(corsOpts));
-
 app.set('json spaces', 2);
-
-const PORT = process.env.PORT || 3000;
-
 app.use(express.static('dist'));
 
-app.listen(PORT, () => {
-  console.log(`Server listening on PORT ${PORT}`);
-});
+const connectDB = async (): Promise<void> => {
+  try {
+    mongoose.set('strictQuery', false);
+    const conn = await mongoose.connect(DB_URI);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+};
+
+connectDB()
+  .then(() => app.listen(PORT, () => console.log(`Server listening on PORT ${PORT}`)))
+  .catch((e) => console.error(e));
 
 export { app };
