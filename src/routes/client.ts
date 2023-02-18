@@ -9,7 +9,7 @@ const getApp = async (): Promise<string> => {
   return data;
 };
 
-app.get('*', (_, res, next) => {
+app.get('*', (_req, res, next) => {
   getApp()
     .then((data) => {
       res.set({ 'Content-Type': 'text/html' });
