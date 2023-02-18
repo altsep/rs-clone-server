@@ -849,7 +849,7 @@ Creates a new post.
 
 </details>
 
-## **Remove post**
+## **Delete post**
 
 Removes the specified post from the database
 
