@@ -8,7 +8,7 @@ import { validateRefreshToken } from '../token/validateAccessToken';
 import { ResponseData } from './types';
 
 export const refresh = async (refreshToken: string): Promise<ResponseData> => {
-  const userData = validateRefreshToken(refreshToken) as UserSchema;
+  const userData = validateRefreshToken(refreshToken) as UserSchema | undefined;
   const tokenData = await findRefreshToken(refreshToken);
 
   if (!userData || !tokenData) {

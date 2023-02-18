@@ -1,7 +1,6 @@
 import bcrypt from 'bcrypt';
 import { UserDto } from '../../dtos/user-dto';
 import { userModel } from '../../models/user-model';
-import { User } from '../../types';
 import { findRefreshToken } from '../token/findToken';
 import { generateTokens } from '../token/generateTokens';
 import { saveToken } from '../token/saveToken';
@@ -15,7 +14,7 @@ export const changePassword = async (userId: number, password: string, refreshTo
     throw new Error('Not Found');
   }
 
-  const validatedUserData = validateRefreshToken(refreshToken) as User | undefined;
+  const validatedUserData = validateRefreshToken(refreshToken);
   const tokenData = await findRefreshToken(refreshToken);
 
   if (!validatedUserData || !tokenData) {
