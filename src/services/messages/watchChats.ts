@@ -29,9 +29,12 @@ export const watchChats = (ws: WebSocket, userId: number, accessToken: string): 
 
       if (userIds.includes(userId) && messages.length) {
         const lastMessage = messages[messages.length - 1];
-        const lastMessageDto = new MessageDto(lastMessage);
-        const message = getActionString('watch', lastMessageDto);
-        ws.send(message);
+
+        if (lastMessage.userId !== userId) {
+          const lastMessageDto = new MessageDto(lastMessage);
+          const message = getActionString('watch', lastMessageDto);
+          ws.send(message);
+        }
       }
     }
   });
