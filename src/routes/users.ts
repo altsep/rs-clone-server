@@ -21,3 +21,5 @@ app.patch(
   body('pendingFriendsIds').optional().isArray(),
   usersController.updateUser
 );
+
+app.patch('/api/users-pwd', body('userId').isNumeric(), body('password').isString(), usersController.changePassword);
