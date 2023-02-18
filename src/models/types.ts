@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongoose';
-import { Comment, Post, User } from '../types';
+import { Comment, Message, Post, User } from '../types';
 
 interface ITokenSchema {
   user: ObjectId;
@@ -32,9 +32,25 @@ interface ICommentId {
 
 type TCommentSchema = Comment<string> & ICommentId;
 
+type IMessageSchema = Message & {
+  id: string;
+  _id: ObjectId;
+  createdAt: string;
+};
+
+interface IChatSchema {
+  id: string;
+  _id: ObjectId;
+  userIds: number[];
+  createdAt: string;
+  messages: IMessageSchema[];
+}
+
 export {
   TUserSchema as UserSchema,
   ITokenSchema as TokenSchema,
   TPostSchema as PostSchema,
   TCommentSchema as CommentSchema,
+  IMessageSchema as MessageSchema,
+  IChatSchema as ChatSchema,
 };

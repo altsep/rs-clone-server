@@ -1,4 +1,5 @@
-import { ValidationError } from 'express-validator';
+import { Request, Response } from 'express';
+import { ValidationError, validationResult } from 'express-validator';
 import { getReasonPhrase } from 'http-status-codes';
 
 interface IErrorHandlerData {
@@ -15,6 +16,17 @@ const handleError = (instance = '', status = 500, errors: ValidationError[] = []
   return data;
 };
 
+const handleValidationResult = (req: Request, res: Response): boolean => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    const data = handleError(req.originalUrl, 400, errors.array());
+    res.status(data.status).send(data);
+  }
+
+  return errors.isEmpty();
+};
+
 const getIsoString = (date: number | string = Date.now()): string => new Date(date).toISOString();
 
 const generateHexStr = (amount = 24): string => {
@@ -25,4 +37,6 @@ const generateHexStr = (amount = 24): string => {
   return res;
 };
 
-export { handleError, getIsoString, generateHexStr };
+const getActionString = (type: string, payload: unknown): string => JSON.stringify({ type, payload });
+
+export { handleError, handleValidationResult, getIsoString, generateHexStr, getActionString };

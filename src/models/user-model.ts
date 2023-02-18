@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
-import { getIsoString } from '../utils';
 import { UserSchema } from './types';
+import { setCreatedAt } from './utils';
 
 const userSchema = new Schema<UserSchema>({
   userId: {
@@ -59,15 +59,16 @@ const userSchema = new Schema<UserSchema>({
     type: Boolean,
     default: process.env.MODE === 'dev',
   },
+  isOnline: {
+    type: Boolean,
+    default: true,
+  },
+  lastSeen: {
+    type: String,
+  },
 });
 
-userSchema.pre('validate', function (next) {
-  if (!this.createdAt) {
-    this.createdAt = getIsoString();
-  }
-
-  next();
-});
+userSchema.pre('validate', setCreatedAt);
 
 const userModel = model('User', userSchema);
 

@@ -29,6 +29,10 @@ class UserDto {
 
   public activationLink: string;
 
+  public isOnline: boolean;
+
+  public lastSeen: string | undefined;
+
   constructor(document: UserSchema) {
     this.id = document.userId;
     this.email = document.email;
@@ -44,6 +48,8 @@ class UserDto {
     this.pendingFriendsIds = document.pendingFriendsIds || [];
     this.activationLink = document.activationLink;
     this.isActivated = document.isActivated;
+    this.isOnline = document.isOnline || false;
+    this.lastSeen = document.lastSeen;
   }
 }
 

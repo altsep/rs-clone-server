@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
-import { getIsoString } from '../utils';
 import { CommentSchema } from './types';
+import { setCreatedAt } from './utils';
 
 const commentSchema = new Schema<CommentSchema>({
   commentId: {
@@ -35,13 +35,7 @@ const commentSchema = new Schema<CommentSchema>({
   likedUserIds: [{ type: Number }],
 });
 
-commentSchema.pre('validate', function (next) {
-  if (!this.createdAt) {
-    this.createdAt = getIsoString();
-  }
-
-  next();
-});
+commentSchema.pre('validate', setCreatedAt);
 
 const commentModel = model('Comment', commentSchema);
 
