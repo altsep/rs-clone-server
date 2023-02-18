@@ -26,6 +26,8 @@ API for the [RS Clone](https://github.com/altsep/rs-clone) app done as part of t
   - [Get users](https://github.com/altsep/rs-clone-server#get-users)
   - [Get user](https://github.com/altsep/rs-clone-server#get-user)
   - [Update user](https://github.com/altsep/rs-clone-server#update-user)
+  - [Change user password](https://github.com/altsep/rs-clone-server#change-password)
+  - [Hide user](https://github.com/altsep/rs-clone-server#hide-user)
 
 - **Posts**
   - [Get posts](https://github.com/altsep/rs-clone-server#get-posts)
