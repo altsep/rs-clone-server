@@ -26,6 +26,7 @@ API for the [RS Clone](https://github.com/altsep/rs-clone) app done as part of t
   - [Get users](https://github.com/altsep/rs-clone-server#get-users)
   - [Get user](https://github.com/altsep/rs-clone-server#get-user)
   - [Update user](https://github.com/altsep/rs-clone-server#update-user)
+  - [Delete user](https://github.com/altsep/rs-clone-server#delete-user)
 
 - **Posts**
   - [Get posts](https://github.com/altsep/rs-clone-server#get-posts)
@@ -397,15 +398,15 @@ Returns information about the specified user.
 
 </details>
 
-## **Hide user**
+## **Delete user**
 
-Sets the `hidden` field of the specified user to `true`.
+Deletes user from the database.
 
 <details>
 
 - **URL**
 
-  /user/:id
+  /api/user/:id
 
 - **Method:**
 
@@ -428,20 +429,6 @@ Sets the `hidden` field of the specified user to `true`.
 - **Success response:**
 
   - **Code:** 200 OK <br />
-    **Content:**
-    ```json
-    {
-      "id": 3,
-      "name": "h1dd3nUs3r99",
-      "email": "test@example.com",
-      "password": 1,
-      "alias": "",
-      "hidden": true,
-      "country": "",
-      "birthDate": "",
-      "createdAt": ""
-    }
-    ```
 
 - **Error response:**
 
@@ -453,7 +440,7 @@ Sets the `hidden` field of the specified user to `true`.
       "error": true,
       "message": "Bad Request",
       "status": 400,
-      "instance": "/api/api/users/1",
+      "instance": "/api/users/1",
       "errors": []
     }
     ```
@@ -464,9 +451,9 @@ Sets the `hidden` field of the specified user to `true`.
     ```json
     {
       "error": true,
-      "message": "Incorrect password",
+      "message": "Unauthorized",
       "status": 401,
-      "instance": "/api/api/users/1",
+      "instance": "/api/users/1",
       "errors": []
     }
     ```
@@ -479,7 +466,7 @@ Sets the `hidden` field of the specified user to `true`.
       "error": true,
       "message": "Not Found",
       "status": 404,
-      "instance": "/api/api/users/51",
+      "instance": "/api/users/51",
       "errors": []
     }
     ```
