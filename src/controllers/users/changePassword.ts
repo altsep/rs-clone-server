@@ -1,5 +1,6 @@
 import { Handler } from 'express';
 import { validationResult } from 'express-validator';
+import { MS_IN_A_MONTH } from '../../constants';
 import { UserSchema } from '../../models/types';
 import { changePassword } from '../../services/user/changePassword';
 import { handleError } from '../../utils';
@@ -21,6 +22,9 @@ export const handleChangePassword: Handler = (req, res, next) => {
   }
 
   changePassword(userId, password, refreshToken)
-    .then((userData) => res.send(userData))
+    .then((userData) => {
+      res.cookie('refreshToken', userData.refreshToken, { maxAge: MS_IN_A_MONTH, httpOnly: true });
+      res.send(userData);
+    })
     .catch((e) => next(e));
 };
