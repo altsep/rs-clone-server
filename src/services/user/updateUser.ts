@@ -1,12 +1,12 @@
 import { UserDto } from '../../dtos/user-dto';
 import { userModel } from '../../models/user-model';
 import { User } from '../../types';
-import { findToken } from '../token/findToken';
+import { findRefreshToken } from '../token/findToken';
 import { validateRefreshToken } from '../token/validateAccessToken';
 
 export const updateUser = async (id: string, data: Partial<User>, refreshToken: string): Promise<User> => {
   const validatedUserData = validateRefreshToken(refreshToken) as User | undefined;
-  const tokenData = await findToken(refreshToken);
+  const tokenData = await findRefreshToken(refreshToken);
 
   if (!validatedUserData || !tokenData) {
     throw new Error('Unauthorized');

@@ -5,16 +5,6 @@ import { usersController } from '../controllers/users';
 
 app.get('/api/users', usersController.getUsers);
 
-app.post(
-  '/api/users',
-  body('email').isEmail().exists().isString(),
-  body('password').exists().isStrongPassword({ minSymbols: 0 }),
-  body('name').exists().isString(),
-  body('country').exists().isString(),
-  body('birthDate').exists().isString(),
-  usersController.addUser
-);
-
 app.get('/api/users/:id', usersController.getUser);
 
 app.patch(

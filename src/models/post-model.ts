@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
-import { getIsoString } from '../utils';
 import { PostSchema } from './types';
+import { setCreatedAt } from './utils';
 
 const postSchema = new Schema<PostSchema>({
   postId: {
@@ -31,13 +31,7 @@ const postSchema = new Schema<PostSchema>({
   commentsIds: [{ type: Number }],
 });
 
-postSchema.pre('validate', function (next) {
-  if (!this.createdAt) {
-    this.createdAt = getIsoString();
-  }
-
-  next();
-});
+postSchema.pre('validate', setCreatedAt);
 
 const postModel = model('Post', postSchema);
 

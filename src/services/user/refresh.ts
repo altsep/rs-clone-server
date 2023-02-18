@@ -1,7 +1,7 @@
 import { UserDto } from '../../dtos/user-dto';
 import { UserSchema } from '../../models/types';
 import { userModel } from '../../models/user-model';
-import { findToken } from '../token/findToken';
+import { findRefreshToken } from '../token/findToken';
 import { generateTokens, Tokens } from '../token/generateTokens';
 import { saveToken } from '../token/saveToken';
 import { validateRefreshToken } from '../token/validateAccessToken';
@@ -9,7 +9,7 @@ import { ResponseData } from './types';
 
 export const refresh = async (refreshToken: string): Promise<ResponseData> => {
   const userData = validateRefreshToken(refreshToken) as UserSchema;
-  const tokenData = await findToken(refreshToken);
+  const tokenData = await findRefreshToken(refreshToken);
 
   if (!userData || !tokenData) {
     throw new Error('Unauthorized');

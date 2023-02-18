@@ -8,11 +8,11 @@ import { handleRegistration } from '../controllers/auth/register';
 
 app.post(
   '/api/registration',
-  body('email').isEmail().exists(),
+  body('email').normalizeEmail().isEmail(),
   body('password').exists(),
   body('name').exists(),
   body('country').exists(),
-  body('birthDate').exists(),
+  body('birthDate').isISO8601(),
   handleRegistration
 );
 

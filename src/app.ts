@@ -11,15 +11,17 @@ dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 const DB_URI = process.env.DB_URI || '';
-const origin = process.env.ORIGIN;
-const corsOpts = { credentials: true, origin };
+const MODE = process.env.MODE || '';
+const ORIGIN = process.env.ORIGIN || '';
+const corsOpts = { credentials: true, origin: ORIGIN };
+const morganFormat = MODE === 'dev' ? 'dev' : 'short';
 
 const appBase = express();
 const wsInstance = expressWs(appBase);
 const { app } = wsInstance;
 
 app.use(compression());
-app.use(morgan('dev'));
+app.use(morgan(morganFormat));
 app.use(express.json({ limit: '128kb' }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));

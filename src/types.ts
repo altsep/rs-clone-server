@@ -1,3 +1,8 @@
+interface IMessage {
+  description: string;
+  userId: number;
+}
+
 interface IComment<T = number> {
   id: T;
   postId: number;
@@ -32,6 +37,8 @@ interface IUser<T = number> {
   postsIds?: number[];
   friendsIds?: number[];
   pendingFriendsIds?: number[];
+  isOnline: boolean;
+  lastSeen?: string;
 }
 
-export { IComment as Comment, IPost as Post, IUser as User };
+export { IMessage as Message, IComment as Comment, IPost as Post, IUser as User };
