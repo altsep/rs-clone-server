@@ -1,10 +1,10 @@
 import { Handler } from 'express';
 import { validationResult } from 'express-validator';
-import { updateUser } from '../../services/user/updateUser';
+import { deleteUser } from '../../services/user/deleteUser';
 import { User } from '../../types';
 import { handleError } from '../../utils';
 
-export const handleUpdateUser: Handler = (req, res, next) => {
+export const handleDeleteUser: Handler = (req, res, next) => {
   const { refreshToken } = req.cookies as { refreshToken?: string };
 
   if (!refreshToken) {
@@ -13,6 +13,7 @@ export const handleUpdateUser: Handler = (req, res, next) => {
 
   const errors = validationResult(req);
   const { id } = req.params;
+  const { password } = req.body as Pick<User, 'password'>;
 
   if (/\D/.test(id) || !errors.isEmpty()) {
     const data = handleError(req.originalUrl, 400, errors.array());
@@ -20,9 +21,7 @@ export const handleUpdateUser: Handler = (req, res, next) => {
     return;
   }
 
-  const data = req.body as Partial<User>;
-
-  updateUser(id, data, refreshToken)
-    .then((userData) => res.send(userData))
+  deleteUser(Number(id), password, refreshToken)
+    .then(() => res.end())
     .catch((e) => next(e));
 };

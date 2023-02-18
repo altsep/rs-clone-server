@@ -21,3 +21,5 @@ app.patch(
   body('pendingFriendsIds').optional().isArray(),
   usersController.updateUser
 );
+
+app.delete('/api/users/:id', body('password').isString().notEmpty(), usersController.deleteUser);
