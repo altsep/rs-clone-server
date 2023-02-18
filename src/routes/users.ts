@@ -22,4 +22,9 @@ app.patch(
   usersController.updateUser
 );
 
-app.patch('/api/users-pwd', body('userId').isNumeric(), body('password').isString(), usersController.changePassword);
+app.patch(
+  '/api/users-pwd',
+  body('userId').isNumeric(),
+  body('password').isString().notEmpty(),
+  usersController.changePassword
+);
