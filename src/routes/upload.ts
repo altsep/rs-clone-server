@@ -7,15 +7,16 @@ import { basedir } from '../constants';
 import { asyncMiddleware } from '../middlewares/async-middleware';
 import { upload } from '../middlewares/upload-middleware';
 
-const imagesDir = path.resolve(basedir, 'tmp');
-
-const getImage: Handler = (req, res, next) => {
+const getImage: Handler = asyncMiddleware(async (req, res, next): Promise<void> => {
   const { id } = req.params;
-  const ext = '.jpg';
-  res.sendFile(path.resolve(imagesDir, id + ext), (err) => {
+  const imagesDir = path.resolve(basedir, 'tmp');
+  const files = await fsPromises.readdir(imagesDir);
+  const filename = files[+id];
+  const filePath = path.resolve(imagesDir, filename);
+  res.sendFile(filePath, (err) => {
     if (err) next(err);
   });
-};
+});
 
 const uploadImage: Handler = asyncMiddleware(async (req, res): Promise<void> => {
   console.log(req.file);
