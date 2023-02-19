@@ -21,5 +21,5 @@ export const handleAddPost: Handler = (req, res, next) => {
       const status = StatusCodes.CREATED;
       res.status(status).send(newPost);
     })
-    .catch((e) => next(e));
+    .catch(next);
 };

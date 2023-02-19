@@ -21,5 +21,5 @@ export const handleAddComment: Handler = (req, res, next) => {
       const status = StatusCodes.CREATED;
       res.status(status).send(comment);
     })
-    .catch((e) => next(e));
+    .catch(next);
 };

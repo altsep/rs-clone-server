@@ -6,5 +6,5 @@ export const handleActivation: Handler = (req, res, next) => {
 
   activate(activationLink)
     .then(() => res.redirect(process.env.CLIENT_URL || ''))
-    .catch((e) => next(e));
+    .catch(next);
 };

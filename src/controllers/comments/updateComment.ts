@@ -18,5 +18,5 @@ export const handleUpdateComment: Handler = (req, res, next) => {
 
   updateComment(id, postProps)
     .then((updatedComment) => res.send(updatedComment))
-    .catch((e) => next(e));
+    .catch(next);
 };

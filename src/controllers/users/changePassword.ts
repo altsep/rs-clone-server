@@ -26,5 +26,5 @@ export const handleChangePassword: Handler = (req, res, next) => {
       res.cookie('refreshToken', userData.refreshToken, { maxAge: MS_IN_A_MONTH, httpOnly: true });
       res.send(userData);
     })
-    .catch((e) => next(e));
+    .catch(next);
 };
