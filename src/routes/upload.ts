@@ -23,7 +23,6 @@ const uploadImage: Handler = asyncMiddleware(async (req, res): Promise<void> => 
     const outputPath = `${req.file.path}.webp`;
 
     await sharp(req.file.path)
-      .clone()
       .resize(150, 150, {
         fit: 'cover',
       })
