@@ -1,5 +1,4 @@
 import { Handler } from 'express';
-import fs from 'fs';
 import fsPromises from 'fs/promises';
 import path from 'path';
 import sharp from 'sharp';
@@ -16,16 +15,14 @@ const getImage: Handler = (req, res, next) => {
     const ext = '.jpg';
     res.sendFile(path.resolve(imagesDir, id + ext));
   } catch (e) {
-    console.log(e);
-    res.end();
+    next(e);
   }
 };
 
 const uploadImage: Handler = asyncMiddleware(async (req, res): Promise<void> => {
   console.log(req.file);
   if (req.file) {
-    const ext = path.extname(req.file.filename);
-    const outputPath = req.file.path.replace(ext, '.webp');
+    const outputPath = `${req.file.path}.webp`;
 
     await sharp(req.file.path)
       .clone()
@@ -49,8 +46,8 @@ const renderTemplate: Handler = (req, res, next) => {
   }
 };
 
-app.get('/api/upload/:id', getImage);
+app.get('/upload', renderTemplate);
 
-app.get('/', renderTemplate);
+app.get('/api/upload/:id', getImage);
 
 app.post('/api/upload', upload.single('image'), uploadImage);
