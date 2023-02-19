@@ -31,9 +31,11 @@ export const register = async (data: User): Promise<ResponseData> => {
   const hashPassword = await bcrypt.hash(password, 5);
   const activationLink = uuidv4();
 
-  const count = await userModel.estimatedDocumentCount();
+  const lastUser = await userModel.findOne().sort({ userId: -1 });
 
-  const user = await userModel.create({ ...data, userId: count + 1, password: hashPassword, activationLink });
+  const userId = lastUser ? lastUser.userId + 1 : 1;
+
+  const user = await userModel.create({ ...data, userId, password: hashPassword, activationLink });
 
   const mailActivation = process.env.MODE !== 'dev';
 
