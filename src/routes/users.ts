@@ -28,3 +28,5 @@ app.patch(
   body('password').isString().notEmpty(),
   usersController.changePassword
 );
+
+app.delete('/api/users/:id', body('password').isString().notEmpty(), usersController.deleteUser);
