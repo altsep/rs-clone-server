@@ -7,10 +7,12 @@ interface IErrorHandlerData {
   message: string;
   status: number;
   instance: string;
-  errors: ValidationError[];
+  errors: ValidationError[] | undefined;
 }
 
-const handleError = (instance = '', status = 500, errors: ValidationError[] = []): IErrorHandlerData => {
+type THandleError = (instance?: string, status?: number, errors?: ValidationError[] | undefined) => IErrorHandlerData;
+
+const handleError: THandleError = (instance = '', status = 500, errors = undefined) => {
   const message = getReasonPhrase(status);
   const data = { error: true, status, message, instance, errors };
   return data;

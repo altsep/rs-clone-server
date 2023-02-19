@@ -12,6 +12,11 @@ const getImage: Handler = asyncMiddleware(async (req, res, next): Promise<void> 
   const imagesDir = path.resolve(basedir, 'tmp');
   const files = await fsPromises.readdir(imagesDir);
   const filename = files[+id];
+
+  if (!filename) {
+    throw Error('Not Found');
+  }
+
   const filePath = path.resolve(imagesDir, filename);
   res.sendFile(filePath, (err) => {
     if (err) next(err);
