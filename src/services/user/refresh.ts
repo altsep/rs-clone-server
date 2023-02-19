@@ -24,7 +24,6 @@ export const refresh = async (refreshToken: string): Promise<ResponseData> => {
   const userDto = new UserDto(user);
   const tokens: Tokens = generateTokens({ ...userDto });
 
-  // eslint-disable-next-line no-underscore-dangle
   await saveToken(user._id, tokens.refreshToken);
 
   return { ...tokens, user: userDto };

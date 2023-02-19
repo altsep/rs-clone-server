@@ -26,8 +26,8 @@ API for the [RS Clone](https://github.com/altsep/rs-clone) app done as part of t
   - [Get users](https://github.com/altsep/rs-clone-server#get-users)
   - [Get user](https://github.com/altsep/rs-clone-server#get-user)
   - [Update user](https://github.com/altsep/rs-clone-server#update-user)
+  - [Change user password](https://github.com/altsep/rs-clone-server#change-password)
   - [Delete user](https://github.com/altsep/rs-clone-server#delete-user)
-
 - **Posts**
   - [Get posts](https://github.com/altsep/rs-clone-server#get-posts)
   - [Get post](https://github.com/altsep/rs-clone-server#get-post)
@@ -391,7 +391,7 @@ Returns information about the specified user.
       "error": true,
       "message": "Not Found",
       "status": 404,
-      "instance": "/api/api/users/15",
+      "instance": "/api/users/15",
       "errors": []
     }
     ```
@@ -481,16 +481,11 @@ Updates user properties.
 
 - **URL**
 
-  /user/:id
+  /api/user/:id
 
 - **Method:**
 
   `PATCH`
-
-- **URL params**
-
-  **Required:**
-
 
 - **Data params**
 
@@ -536,7 +531,7 @@ Updates user properties.
       "error": true,
       "message": "Bad Request",
       "status": 400,
-      "instance": "/api/api/users/1",
+      "instance": "/api/users/1",
       "errors": []
     }
     ```
@@ -549,7 +544,7 @@ Updates user properties.
       "error": true,
       "message": "Not Found",
       "status": 404,
-      "instance": "/api/api/users/25",
+      "instance": "/api/users/25",
       "errors": []
     }
     ```
@@ -561,7 +556,126 @@ Updates user properties.
       "error": true,
       "message": "User \"Clark\" exists",
       "status": 500,
-      "instance": "/api/api/users/2",
+      "instance": "/api/users/2",
+      "errors": []
+    }
+    ```
+
+</details>
+
+## **Change password**
+
+Allows to change the password by converting it to a hash recognizable by login.
+
+<details>
+
+- **URL**
+
+  /api/user-pwd
+
+- **Method:**
+
+  `PATCH`
+
+- **Data params**
+
+  ```ts
+    {
+      userId: number;
+      password: string;
+    }
+  ```
+
+- **Success response:**
+
+  - **Code:** 200 OK <br />
+    **Content:**
+    ```json
+    {
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJxd2Vxd2VAZXhhbXBsZS5jb20iLCJwYXNzd29yZCI6IiQyYiQwNSRUa1B6N2RWQW5xUmhLVnhZZUVKOTd1Z0VjTUYvaFdUOEZlSE5sdDA5ZDdWbkduS2VXVGVQQyIsIm5hbWUiOiJNciBRV0Vxd2UiLCJhbGlhcyI6InF3ZXNoa2EiLCJjb3VudHJ5IjoiSWNlbGFuZCIsImJpcnRoRGF0ZSI6IjIwMTMtMDItMDlUMDM6NDY6MTguMDU3WiIsImhpZGRlbiI6dHJ1ZSwiY3JlYXRlZEF0IjoiMjAyMy0wMi0wOVQwMzo0NjoxOC4wNTdaIiwicG9zdHNJZHMiOlsyMyw1NF0sImZyaWVuZHNJZHMiOlsyLDcsOCw5LDEzXSwicGVuZGluZ0ZyaWVuZHNJZHMiOltdLCJhY3RpdmF0aW9uTGluayI6Ijk1NmJiMTM1LWVkNWEtNDk0Yi04ZDBmLWE4ZGNhYmFkNGJiMyIsImlzQWN0aXZhdGVkIjp0cnVlLCJpc09ubGluZSI6dHJ1ZSwibGFzdFNlZW4iOiIyMDIzLTAyLTE4VDEyOjIwOjA0Ljc1M1oiLCJpYXQiOjE2NzY3Mzg4MzgsImV4cCI6MTY3Njc0MDYzOH0.k-OJfW6RG0VhIoAvYrKyqMn-gY6TwkyAZqmZ4pilK7I",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJxd2Vxd2VAZXhhbXBsZS5jb20iLCJwYXNzd29yZCI6IiQyYiQwNSRUa1B6N2RWQW5xUmhLVnhZZUVKOTd1Z0VjTUYvaFdUOEZlSE5sdDA5ZDdWbkduS2VXVGVQQyIsIm5hbWUiOiJNciBRV0Vxd2UiLCJhbGlhcyI6InF3ZXNoa2EiLCJjb3VudHJ5IjoiSWNlbGFuZCIsImJpcnRoRGF0ZSI6IjIwMTMtMDItMDlUMDM6NDY6MTguMDU3WiIsImhpZGRlbiI6dHJ1ZSwiY3JlYXRlZEF0IjoiMjAyMy0wMi0wOVQwMzo0NjoxOC4wNTdaIiwicG9zdHNJZHMiOlsyMyw1NF0sImZyaWVuZHNJZHMiOlsyLDcsOCw5LDEzXSwicGVuZGluZ0ZyaWVuZHNJZHMiOltdLCJhY3RpdmF0aW9uTGluayI6Ijk1NmJiMTM1LWVkNWEtNDk0Yi04ZDBmLWE4ZGNhYmFkNGJiMyIsImlzQWN0aXZhdGVkIjp0cnVlLCJpc09ubGluZSI6dHJ1ZSwibGFzdFNlZW4iOiIyMDIzLTAyLTE4VDEyOjIwOjA0Ljc1M1oiLCJpYXQiOjE2NzY3Mzg4MzgsImV4cCI6MTY3OTMzMDgzOH0.F2u4UZb_I9Nphbc-2Ss_fC8t_zn9q0GrkkzUPz8ehRE",
+      "user": {
+          "id": 1,
+          "email": "qweqwe@example.com",
+          "password": "$2b$05$TkPz7dVAnqRhKVxYeEJ97ugEcMF/hWT8FeHNlt09d7VnGnKeWTePC",
+          "name": "Mr QWEqwe",
+          "alias": "qweshka",
+          "country": "Iceland",
+          "birthDate": "2013-02-09T03:46:18.057Z",
+          "hidden": true,
+          "createdAt": "2023-02-09T03:46:18.057Z",
+          "postsIds": [
+              23,
+              54
+          ],
+          "friendsIds": [
+              2,
+              7,
+              8,
+              9,
+              13
+          ],
+          "pendingFriendsIds": [],
+          "activationLink": "956bb135-ed5a-494b-8d0f-a8dcabad4bb3",
+          "isActivated": true,
+          "isOnline": true,
+          "lastSeen": "2023-02-18T12:20:04.753Z"
+      }
+    }
+    ```
+
+- **Error response:**
+
+  - **Code:** 400 Bad Request <br />
+    **Content:**
+
+    ```json
+    {
+      "error": true,
+      "status": 400,
+      "message": "Bad Request",
+      "instance": "/api/users-pwd",
+      "errors": [
+          {
+              "msg": "Invalid value",
+              "param": "userId",
+              "location": "body"
+          },
+          {
+              "msg": "Invalid value",
+              "param": "password",
+              "location": "body"
+          },
+          {
+              "msg": "Invalid value",
+              "param": "password",
+              "location": "body"
+          }
+      ]
+    }
+    ```
+
+  - **Code:** 401 Unauthorized <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 401,
+      "message": "Unauthorized",
+      "instance": "/api/users-pwd",
+      "errors": []
+    }
+    ```
+
+  - **Code:** 404 Not Found <br />
+    **Content:**
+
+    ```json
+    {
+      "error": true,
+      "message": "Not Found",
+      "status": 404,
+      "instance": "/api/users-pwd",
       "errors": []
     }
     ```
@@ -720,7 +834,7 @@ Creates a new post.
 
 </details>
 
-## **Remove post**
+## **Delete post**
 
 Removes the specified post from the database
 
@@ -838,7 +952,7 @@ Updates post properties.
       "error": true,
       "message": "Not Found",
       "status": 404,
-      "instance": "/api/api/users/25",
+      "instance": "/api/users/25",
       "errors": []
     }
     ```
