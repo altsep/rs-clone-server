@@ -16,7 +16,7 @@ app.post(
   handleRegistration
 );
 
-app.post('/api/login', body('email').isEmail().exists(), body('password').exists(), handleLogin);
+app.post('/api/login', body('email').normalizeEmail().isEmail(), body('password').isString().notEmpty(), handleLogin);
 
 app.post('/api/logout', handleLogout);
 
