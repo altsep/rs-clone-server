@@ -10,13 +10,11 @@ import { upload } from '../middlewares/upload-middleware';
 const imagesDir = path.resolve(basedir, 'tmp');
 
 const getImage: Handler = (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const ext = '.jpg';
-    res.sendFile(path.resolve(imagesDir, id + ext));
-  } catch (e) {
-    next(e);
-  }
+  const { id } = req.params;
+  const ext = '.jpg';
+  res.sendFile(path.resolve(imagesDir, id + ext), (err) => {
+    if (err) next(err);
+  });
 };
 
 const uploadImage: Handler = asyncMiddleware(async (req, res): Promise<void> => {
@@ -39,11 +37,9 @@ const uploadImage: Handler = asyncMiddleware(async (req, res): Promise<void> => 
 });
 
 const renderTemplate: Handler = (req, res, next) => {
-  try {
-    res.sendFile(path.resolve(basedir, 'views/upload.html'));
-  } catch (e) {
-    next(e);
-  }
+  res.sendFile(path.resolve(basedir, 'views/upload.html'), (err) => {
+    if (err) next(err);
+  });
 };
 
 app.get('/upload', renderTemplate);
