@@ -33,6 +33,10 @@ class UserDto {
 
   public lastSeen: string | undefined;
 
+  public avatar: string;
+
+  public cover: string;
+
   constructor(document: UserSchema) {
     this.id = document.userId;
     this.email = document.email;
@@ -50,6 +54,8 @@ class UserDto {
     this.isActivated = document.isActivated;
     this.isOnline = document.isOnline || false;
     this.lastSeen = document.lastSeen;
+    this.avatar = document.images.avatar?.data.toString('base64');
+    this.cover = document.images.cover?.data.toString('base64');
   }
 }
 

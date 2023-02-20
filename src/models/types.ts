@@ -63,6 +63,7 @@ interface IChatSchema {
 }
 
 export {
+  IUserImages as UserImages,
   TUserSchema as UserSchema,
   ITokenSchema as TokenSchema,
   TPostSchema as PostSchema,

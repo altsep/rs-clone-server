@@ -1,10 +1,8 @@
 import { Schema } from 'mongoose';
 
 const imageSchema = new Schema({
-  data: { type: Buffer },
-  contentType: {
-    type: String,
-  },
+  data: Buffer,
+  contentType: String,
 });
 
 export { imageSchema };

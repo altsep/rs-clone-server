@@ -67,7 +67,10 @@ const userSchema = new Schema<UserSchema>({
   lastSeen: {
     type: String,
   },
-  images: [imageSchema],
+  images: {
+    avatar: imageSchema,
+    cover: imageSchema,
+  },
 });
 
 userSchema.pre('validate', setCreatedAt);
