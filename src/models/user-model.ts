@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { imageSchema } from './common';
 import { UserSchema } from './types';
 import { setCreatedAt } from './utils';
 
@@ -66,6 +67,7 @@ const userSchema = new Schema<UserSchema>({
   lastSeen: {
     type: String,
   },
+  images: [imageSchema],
 });
 
 userSchema.pre('validate', setCreatedAt);

@@ -1,0 +1,3 @@
+export const setUserCover = async (userId: number, data: Buffer, contentType: string): Promise<void> => {
+  // ...
+};

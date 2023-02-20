@@ -11,19 +11,35 @@ interface IActivation {
   isActivated: boolean;
 }
 
+interface IImageSchema {
+  data: Buffer;
+  contentType: string;
+}
+
 interface IUserId {
   _id: ObjectId;
   userId: number;
 }
 
-type TUserSchema = User<string> & IActivation & IUserId;
+interface IUserImages {
+  images: {
+    avatar: IImageSchema;
+    cover: IImageSchema;
+  };
+}
+
+type TUserSchema = User<string> & IActivation & IUserId & IUserImages;
 
 interface IPostId {
   _id: ObjectId;
   postId: number;
 }
 
-type TPostSchema = Post<string> & IPostId;
+interface IPostImages {
+  images: IImageSchema[];
+}
+
+type TPostSchema = Post<string> & IPostId & IPostImages;
 
 interface ICommentId {
   _id: ObjectId;
@@ -53,4 +69,5 @@ export {
   TCommentSchema as CommentSchema,
   IMessageSchema as MessageSchema,
   IChatSchema as ChatSchema,
+  IImageSchema as ImageSchema,
 };

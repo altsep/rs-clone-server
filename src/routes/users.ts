@@ -1,7 +1,9 @@
-import { body } from 'express-validator';
+import { body, param } from 'express-validator';
 import { app } from '../app';
 import { RESERVED_PAGE_NAMES } from '../constants';
+import { imagesController } from '../controllers/images';
 import { usersController } from '../controllers/users';
+import { upload } from '../middlewares/upload-middleware';
 
 app.get('/api/users', usersController.getUsers);
 
@@ -30,3 +32,7 @@ app.patch(
 );
 
 app.delete('/api/users/:id', body('password').isString().notEmpty(), usersController.deleteUser);
+
+app.post('/api/users-avatar/:id', param('id').isNumeric(), upload.single('user-avatar'), imagesController.uploadImage);
+
+app.post('/api/users-cover/:id', param('id').isNumeric(), upload.single('user-cover'), imagesController.uploadImage);

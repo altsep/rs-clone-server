@@ -5,7 +5,7 @@ import { basedir } from '../constants';
 const dest = path.resolve(basedir, '..', 'tmp');
 
 const fileFilter: multer.Options['fileFilter'] = (req, file, cb) => {
-  const hasCorrectMime = ['image/png', 'image/jpeg', 'image/webp'].some((mimetype) => file.mimetype === mimetype);
+  const hasCorrectMime = ['image/png', 'image/jpeg', 'image/webp'].includes(file.mimetype);
   cb(null, hasCorrectMime);
 };
 

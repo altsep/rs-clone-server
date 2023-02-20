@@ -1,0 +1,3 @@
+export const setPostImage = async (postId: number, data: Buffer, contentType: string): Promise<void> => {
+  // ...
+};

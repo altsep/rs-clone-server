@@ -7,9 +7,42 @@
     <title>Document</title>
   </head>
   <body>
+    <h1>App-related uploads</h1>
+    <form action="/api/users-avatar/1" method="post" enctype="multipart/form-data">
+      <label for="user-avatar">Avatar</label>
+      <input type="file" name="user-avatar" id="user-avatar" />
+      <input type="submit" />
+    </form>
+    <form action="/api/users-cover/1" method="post" enctype="multipart/form-data">
+      <label for="user-cover">Cover</label>
+      <input type="file" name="user-cover" id="user-cover" />
+      <input type="submit" />
+    </form>
+    <form action="/api/posts-img/1" method="post" enctype="multipart/form-data">
+      <label for="post-img">Post image</label>
+      <input type="file" name="post-img" id="post-img" />
+      <input type="submit" />
+    </form>
     <h1>Upload image</h1>
     <form action="/api/upload" method="post" enctype="multipart/form-data">
       <input type="file" name="image" id="" />
+      <input type="file" name="images" id="" multiple />
+      <input type="submit" />
+    </form>
+    <h1>Multiple files upload</h1>
+    <form action="/api/images" method="post" enctype="multipart/form-data">
+      <input type="file" name="posts-imgs" id="post-imgs" multiple />
+    </form>
+    <h1>Multiple fields upload</h1>
+    <form action="/api/images" method="post" enctype="multipart/form-data">
+      <input type="file" name="avatar" id="" />
+      <input type="file" name="cover" id="" />
+      <input
+        type="file"
+        name="post"
+        id=""
+        accept=".jpg, .jpeg, .png, .webp"
+        multiple />
       <input type="submit" />
     </form>
   </body>
