@@ -43,8 +43,6 @@ export const uploadImage: Handler = asyncMiddleware(async (req, res): Promise<vo
     throw Error('Bad Request');
   }
 
-  // console.log(req.file);
-
   const { serviceFn, processOpts } = services[req.file.fieldname];
 
   const sharpInstance = new SharpInstance(req.file.path, processOpts);
@@ -55,13 +53,6 @@ export const uploadImage: Handler = asyncMiddleware(async (req, res): Promise<vo
 
   await serviceFn(Number(id), buffer, sharpInstance.contentType);
 
-  console.log(Buffer.byteLength(buffer));
-
-  const data = buffer.toString('base64');
-  // res.type(sharpInstance.contentType);
-  // res.send(data);
-
-  const img = `<img src="data:${sharpInstance.contentType};base64,${data}"/>`;
-
-  res.send(img);
+  res.type(sharpInstance.contentType);
+  res.send(buffer);
 });
