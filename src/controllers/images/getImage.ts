@@ -1,15 +1,16 @@
 import { Handler } from 'express';
 import { asyncMiddleware } from '../../middlewares/async-middleware';
 import { ImageSchema } from '../../models/types';
+import { getPostImages } from '../../services/post/getPostImages';
 import { getUserAvatar } from '../../services/user/getUserAvatar';
 import { getUserCover } from '../../services/user/getUserCover';
 
-type IImageService = (id: number) => Promise<ImageSchema>;
+type IImageService = (id: number) => Promise<ImageSchema | string[]>;
 
 const imageServices: Record<string, IImageService> = {
   'user-avatar': getUserAvatar,
   'user-cover': getUserCover,
-  // 'post-img': getPostImages,
+  'post-img': getPostImages,
 };
 
 export const getImage: Handler = asyncMiddleware(async (req, res): Promise<void> => {
@@ -21,7 +22,14 @@ export const getImage: Handler = asyncMiddleware(async (req, res): Promise<void>
 
   const serviceFn = imageServices[name];
 
-  const { data, contentType } = await serviceFn(Number(id));
+  const serviceData = await serviceFn(Number(id));
+
+  if (Array.isArray(serviceData)) {
+    res.send(serviceData);
+    return;
+  }
+
+  const { data, contentType } = serviceData;
 
   res.contentType(contentType);
   res.send(data);
