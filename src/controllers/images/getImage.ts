@@ -1,4 +1,5 @@
 import { Handler } from 'express';
+import { validationResult } from 'express-validator';
 import { asyncMiddleware } from '../../middlewares/async-middleware';
 import { ImageSchema } from '../../models/types';
 import { getPostImages } from '../../services/post/getPostImages';
@@ -15,8 +16,9 @@ const imageServices: Record<string, IImageService> = {
 
 export const getImage: Handler = asyncMiddleware(async (req, res): Promise<void> => {
   const { name, id } = req.query;
+  const errors = validationResult(req);
 
-  if (typeof name !== 'string' || !Object.hasOwn(imageServices, name)) {
+  if (typeof name !== 'string' || !Object.hasOwn(imageServices, name) || !errors.isEmpty()) {
     throw Error('Bad Request');
   }
 
