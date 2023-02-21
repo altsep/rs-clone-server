@@ -14,32 +14,36 @@ API for the [RS Clone](https://github.com/altsep/rs-clone) app done as part of t
 
 ## Usage
 
-- **Auth**
+- **[Auth](https://github.com/altsep/rs-clone-server#auth)**
 
   - [Register](https://github.com/altsep/rs-clone-server#register)
   - [Login](https://github.com/altsep/rs-clone-server#login)
   - [Logout](https://github.com/altsep/rs-clone-server#logout)
   - [Refresh](https://github.com/altsep/rs-clone-server#refresh)
 
-- **Users**
+- **[Users](https://github.com/altsep/rs-clone-server#users)**
 
   - [Get users](https://github.com/altsep/rs-clone-server#get-users)
   - [Get user](https://github.com/altsep/rs-clone-server#get-user)
   - [Update user](https://github.com/altsep/rs-clone-server#update-user)
   - [Change user password](https://github.com/altsep/rs-clone-server#change-password)
   - [Delete user](https://github.com/altsep/rs-clone-server#delete-user)
-- **Posts**
+
+- **[Posts](https://github.com/altsep/rs-clone-server#posts)**
+
   - [Get posts](https://github.com/altsep/rs-clone-server#get-posts)
   - [Get post](https://github.com/altsep/rs-clone-server#get-post)
   - [Create posts](https://github.com/altsep/rs-clone-server#create-post)
   - [Delete post](https://github.com/altsep/rs-clone-server#delete-post)
   - [Update post](https://github.com/altsep/rs-clone-server#update-post)
 
-- **Chats**
+- **[Chats](https://github.com/altsep/rs-clone-server#chats)**
+
   - [Create chat](https://github.com/altsep/rs-clone-server#create-chat)
   - [Get user chats](https://github.com/altsep/rs-clone-server#get-user-chats)
 
-- **Images**
+- **[Users](https://github.com/altsep/rs-clone-server#users)**
+
   - [Set user avatar](https://github.com/altsep/rs-clone-server#set-user-avatar)
   - [Get user avatar](https://github.com/altsep/rs-clone-server#get-user-avatar)
   - [Set user cover](https://github.com/altsep/rs-clone-server#set-user-cover)
@@ -47,10 +51,13 @@ API for the [RS Clone](https://github.com/altsep/rs-clone) app done as part of t
   - [Push post image](https://github.com/altsep/rs-clone-server#push-post-image)
   - [Get post images](https://github.com/altsep/rs-clone-server#get-post-images)
 
-- **Messages**
+- **[Messages](https://github.com/altsep/rs-clone-server#messages)**
+
   - [Send message](https://github.com/altsep/rs-clone-server#send-message)
 
 ## **API**
+
+## **Auth**
 
 ## **Register**
 
@@ -313,6 +320,8 @@ Updates access tokens.
     ```
 
 </details>
+
+## **Users**
 
 ## **Get users**
 
@@ -690,6 +699,8 @@ Allows to change the password by converting it to a hash recognizable by login.
 
 </details>
 
+## **Posts**
+
 ## **Get posts**
 
 Returns a json collection of all posts.
@@ -967,6 +978,8 @@ Updates post properties.
 
 </details>
 
+## **Chats**
+
 ## **Create chat**
 
 Creates a conversation between two or more users.
@@ -1147,6 +1160,8 @@ Removes all messages from a particular chat.
 
 </details>
 
+## **Images**
+
 ## **Set user avatar**
 
 Sets user avatar as `user.images.avatar` in DB, available as `user.avatar` in user DTO.
@@ -1253,7 +1268,7 @@ Pushes post image data to `post.images`, in post DTO available as an array of st
 
 - **URL**
 
-  /api/images/post-img/:id
+  /api/images/post/:id
 
 - **Method:**
 
