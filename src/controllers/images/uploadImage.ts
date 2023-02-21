@@ -11,9 +11,7 @@ interface IImageService {
   processOpts: Partial<ProcessOpts>;
 }
 
-type TImageServices = Record<string, IImageService>;
-
-const services: TImageServices = {
+const services: Record<string, IImageService> = {
   'user-avatar': {
     serviceFn: setUserAvatar,
     processOpts: {

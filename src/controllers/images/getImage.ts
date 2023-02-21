@@ -1,37 +1,27 @@
 import { Handler } from 'express';
-import fs from 'fs';
-import fsPromises from 'fs/promises';
-import path from 'path';
-import { basedir } from '../../constants';
 import { asyncMiddleware } from '../../middlewares/async-middleware';
+import { ImageSchema } from '../../models/types';
+import { getUserAvatar } from '../../services/user/getUserAvatar';
+
+type IImageService = (id: number) => Promise<ImageSchema>;
+
+const imageServices: Record<string, IImageService> = {
+  'user-avatar': getUserAvatar,
+  // 'user-cover': getUserCover,
+  // 'post-img': getPostImages,
+};
 
 export const getImage: Handler = asyncMiddleware(async (req, res): Promise<void> => {
-  const { id } = req.params;
-  const imagesDir = path.resolve(basedir, '..', 'tmp');
-  const files = await fsPromises.readdir(imagesDir);
+  const { name, id } = req.query;
 
-  files
-    .map((name) => ({
-      name,
-      time: fs.statSync(`${imagesDir}/${name}`).mtime.getTime(),
-    }))
-    .sort((a, b) => a.time - b.time)
-    .map(({ name }) => name);
-
-  const filename = files[+id];
-
-  if (!filename) {
-    throw Error('Not Found');
+  if (typeof name !== 'string' || !Object.hasOwn(imageServices, name)) {
+    throw Error('Bad Request');
   }
 
-  const filePath = path.resolve(imagesDir, filename);
+  const serviceFn = imageServices[name];
 
-  const file = await fsPromises.readFile(filePath);
+  const { data, contentType } = await serviceFn(Number(id));
 
-  const data = file.toString('base64');
-
-  console.log(data.slice(0, 100));
-
-  res.type('image/webp');
+  res.contentType(contentType);
   res.send(data);
 });
