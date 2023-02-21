@@ -33,6 +33,7 @@ const services: TImageServices = {
     processOpts: {
       width: 500,
       height: 500,
+      quality: 40,
     },
   },
 };

@@ -32,7 +32,3 @@ app.patch(
 );
 
 app.delete('/api/users/:id', body('password').isString().notEmpty(), usersController.deleteUser);
-
-app.post('/api/users-avatar/:id', param('id').isNumeric(), upload.single('user-avatar'), imagesController.uploadImage);
-
-app.post('/api/users-cover/:id', param('id').isNumeric(), upload.single('user-cover'), imagesController.uploadImage);

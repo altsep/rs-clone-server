@@ -25,5 +25,3 @@ app.patch(
 );
 
 app.delete('/api/posts/:id', postsController.removePost);
-
-app.post('/api/posts-img', upload.single('post-img'), uploadImage);
