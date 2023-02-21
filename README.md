@@ -39,6 +39,14 @@ API for the [RS Clone](https://github.com/altsep/rs-clone) app done as part of t
   - [Create chat](https://github.com/altsep/rs-clone-server#create-chat)
   - [Get user chats](https://github.com/altsep/rs-clone-server#get-user-chats)
 
+- **Images**
+  - [Set user avatar](https://github.com/altsep/rs-clone-server#set-user-avatar)
+  - [Get user avatar](https://github.com/altsep/rs-clone-server#get-user-avatar)
+  - [Set user cover](https://github.com/altsep/rs-clone-server#set-user-cover)
+  - [Get user cover](https://github.com/altsep/rs-clone-server#get-user-cover)
+  - [Push post image](https://github.com/altsep/rs-clone-server#push-post-image)
+  - [Get post images](https://github.com/altsep/rs-clone-server#get-post-images)
+
 - **Messages**
   - [Send message](https://github.com/altsep/rs-clone-server#send-message)
 
@@ -1138,6 +1146,156 @@ Removes all messages from a particular chat.
     ```
 
 </details>
+
+## **Set user avatar**
+
+Sets user avatar as `user.images.avatar` in DB, available as `user.avatar` in user DTO.
+
+<details>
+
+- **URL**
+
+  /api/images/user-avatar/:id
+
+- **Method:**
+
+  `POST`
+  
+- **URL params**
+
+  `id=[integer]`
+
+- **Success response:**
+
+  - **Code:** 200 OK <br />
+
+- **Error response:**
+
+  - **Code:** 400 Bad Request <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 400,
+      "message": "Bad Request",
+      "instance": "/api/images/user-avatar",
+    }
+    ```
+
+  - **Code:** 404 Not Found <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 404,
+      "message": "Not Found",
+      "instance": "/api/images/user-avatar",
+    }
+    ```
+
+</details>
+
+## **Set user cover**
+
+Sets user cover as `user.images.cover` in DB, available as `user.cover` in user DTO.
+
+<details>
+
+- **URL**
+
+  /api/images/user-cover/:id
+
+- **Method:**
+
+  `POST`
+  
+- **URL params**
+
+  `id=[integer]`
+
+- **Success response:**
+
+  - **Code:** 200 OK <br />
+
+- **Error response:**
+
+  - **Code:** 400 Bad Request <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 400,
+      "message": "Bad Request",
+      "instance": "/api/images/user-cover",
+    }
+    ```
+
+  - **Code:** 404 Not Found <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 404,
+      "message": "Not Found",
+      "instance": "/api/images/user-cover",
+    }
+    ```
+
+</details>
+
+## **Push post image**
+
+Pushes post image data to `post.images`, in post DTO available as an array of strings at the same key.
+
+<details>
+
+- **URL**
+
+  /api/images/post-img/:id
+
+- **Method:**
+
+  `POST`
+  
+- **Query params**
+
+  `name=[string]`
+  `id=[integer]`
+
+- **Success response:**
+
+  - **Code:** 200 OK <br />
+
+- **Error response:**
+
+  - **Code:** 400 Bad Request <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 400,
+      "message": "Bad Request",
+      "instance": "/api/images/user-avatar",
+    }
+    ```
+
+  - **Code:** 404 Not Found <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 404,
+      "message": "Not Found",
+      "instance": "/api/images/user-avatar",
+    }
+    ```
+
+</details>
+
+  - [Push post image](https://github.com/altsep/rs-clone-server#push-post-image)
+  - [Get user cover](https://github.com/altsep/rs-clone-server#get-user-cover)
+  - [Get user avatar](https://github.com/altsep/rs-clone-server#get-user-avatar)
+  - [Get post images](https://github.com/altsep/rs-clone-server#get-post-images)
 
 ## **WS**
 

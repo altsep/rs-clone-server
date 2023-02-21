@@ -26,3 +26,4 @@ dist
 
 # filesystem
 /**/tmp/*
+!/**/.gitkeep
