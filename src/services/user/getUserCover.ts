@@ -1,12 +1,12 @@
 import { ImageSchema } from '../../models/types';
 import { userModel } from '../../models/user-model';
 
-export const getUserAvatar = async (userId: number): Promise<ImageSchema> => {
+export const getUserCover = async (userId: number): Promise<ImageSchema> => {
   const user = await userModel.findOne({ userId });
 
-  if (!user || user.images.avatar == null) {
+  if (!user || user.images.cover == null) {
     throw new Error('Not Found');
   }
 
-  return user.images.avatar;
+  return user.images.cover;
 };

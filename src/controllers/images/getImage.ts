@@ -2,12 +2,13 @@ import { Handler } from 'express';
 import { asyncMiddleware } from '../../middlewares/async-middleware';
 import { ImageSchema } from '../../models/types';
 import { getUserAvatar } from '../../services/user/getUserAvatar';
+import { getUserCover } from '../../services/user/getUserCover';
 
 type IImageService = (id: number) => Promise<ImageSchema>;
 
 const imageServices: Record<string, IImageService> = {
   'user-avatar': getUserAvatar,
-  // 'user-cover': getUserCover,
+  'user-cover': getUserCover,
   // 'post-img': getPostImages,
 };
 
