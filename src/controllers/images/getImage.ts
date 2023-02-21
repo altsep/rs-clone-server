@@ -10,7 +10,7 @@ type IImageService = (id: number) => Promise<ImageSchema | string[]>;
 const imageServices: Record<string, IImageService> = {
   'user-avatar': getUserAvatar,
   'user-cover': getUserCover,
-  'post-img': getPostImages,
+  post: getPostImages,
 };
 
 export const getImage: Handler = asyncMiddleware(async (req, res): Promise<void> => {

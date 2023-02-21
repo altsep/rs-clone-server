@@ -26,7 +26,7 @@ const services: Record<string, IImageService> = {
       height: 300,
     },
   },
-  'post-img': {
+  post: {
     serviceFn: setPostImage,
     processOpts: {
       width: 500,
