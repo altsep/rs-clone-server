@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { ValidationError, validationResult } from 'express-validator';
 import { getReasonPhrase } from 'http-status-codes';
+import { ImageSchema } from './models/types';
 
 interface IErrorHandlerData {
   error: boolean;
@@ -41,4 +42,7 @@ const generateHexStr = (amount = 24): string => {
 
 const getActionString = (type: string, payload: unknown): string => JSON.stringify({ type, payload });
 
-export { handleError, handleValidationResult, getIsoString, generateHexStr, getActionString };
+const getImageBase64String = ({ data, contentType }: ImageSchema): string =>
+  `data:${contentType};base64,${data.toString('base64')}`;
+
+export { handleError, handleValidationResult, getIsoString, generateHexStr, getActionString, getImageBase64String };

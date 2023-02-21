@@ -1,4 +1,5 @@
 import { postModel } from '../../models/post-model';
+import { getImageBase64String } from '../../utils';
 
 export const getPostImages = async (postId: number): Promise<string[]> => {
   const post = await postModel.findOne({ postId });
@@ -7,7 +8,7 @@ export const getPostImages = async (postId: number): Promise<string[]> => {
     throw new Error('Not Found');
   }
 
-  const images = post.images.map(({ data, contentType }) => `data:${contentType};base64,${data.toString('base64')}`);
+  const images = post.images.map(getImageBase64String);
 
   return images;
 };
