@@ -6,14 +6,14 @@ import { setUserCover } from '../../services/user/setUserCover';
 import { setPostImage } from '../../services/post/setPostImage';
 import { SharpInstance, ProcessOpts } from './SharpInstance';
 
-interface ImageService {
+interface IImageService {
   serviceFn: (id: number, buf: Buffer, contentType: string) => Promise<void>;
   processOpts: Partial<ProcessOpts>;
 }
 
-type ImageServices = Record<string, ImageService>;
+type TImageServices = Record<string, IImageService>;
 
-const services: ImageServices = {
+const services: TImageServices = {
   'user-avatar': {
     serviceFn: setUserAvatar,
     processOpts: {
