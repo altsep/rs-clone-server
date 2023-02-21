@@ -135,7 +135,7 @@ Registers a new user by writing their information and access tokens to the datab
 
 </details>
 
-# **Login**
+## **Login**
 
 Authorize a user by comparing the sent password with the one stored in the DB and responds with full user data on success.
 
@@ -216,7 +216,7 @@ Authorize a user by comparing the sent password with the one stored in the DB an
 
 </details>
 
-# **Logout**
+## **Logout**
 
 Removes refresh token from the DB if one exists. The token is read from the corresponding cookie.
 
@@ -262,7 +262,7 @@ Removes refresh token from the DB if one exists. The token is read from the corr
 
 </details>
 
-# **Refresh**
+## **Refresh**
 
 Updates access tokens.
 
