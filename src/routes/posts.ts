@@ -1,8 +1,6 @@
 import { body } from 'express-validator';
 import { app } from '../app';
-import { uploadImage } from '../controllers/images/uploadImage';
 import { postsController } from '../controllers/posts';
-import { upload } from '../middlewares/upload-middleware';
 
 app.get('/api/posts', postsController.getPosts);
 
