@@ -1,5 +1,4 @@
 import { UserSchema } from '../models/types';
-import { getImageBase64String } from '../utils';
 
 class UserDto {
   public id: number;
