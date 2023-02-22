@@ -33,6 +33,8 @@ class UserDto {
 
   public lastSeen: string | undefined;
 
+  public images: { avatar: string; cover: string };
+
   constructor(document: UserSchema) {
     this.id = document.userId;
     this.email = document.email;
@@ -50,6 +52,10 @@ class UserDto {
     this.isActivated = document.isActivated;
     this.isOnline = document.isOnline ?? false;
     this.lastSeen = document.lastSeen;
+    this.images = {
+      avatar: `/api/images?name=user-avatar&id=${document.userId}`,
+      cover: `/api/images?name=user-cover&id=${document.userId}`,
+    };
   }
 }
 
