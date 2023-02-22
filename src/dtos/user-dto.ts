@@ -34,10 +34,6 @@ class UserDto {
 
   public lastSeen: string | undefined;
 
-  public avatar: string | undefined;
-
-  public cover: string | undefined;
-
   constructor(document: UserSchema) {
     this.id = document.userId;
     this.email = document.email;
@@ -55,8 +51,6 @@ class UserDto {
     this.isActivated = document.isActivated;
     this.isOnline = document.isOnline ?? false;
     this.lastSeen = document.lastSeen;
-    this.avatar = document.images.avatar ? getImageBase64String(document.images.avatar) : undefined;
-    this.cover = document.images.cover ? getImageBase64String(document.images.cover) : undefined;
   }
 }
 
