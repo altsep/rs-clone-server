@@ -50,11 +50,11 @@ class UserDto {
     this.pendingFriendsIds = document.pendingFriendsIds || [];
     this.activationLink = document.activationLink;
     this.isActivated = document.isActivated;
-    this.isOnline = document.isOnline ?? false;
+    this.isOnline = document.isOnline;
     this.lastSeen = document.lastSeen;
     this.images = {
-      avatar: `/api/images?name=user-avatar&id=${document.userId}`,
-      cover: `/api/images?name=user-cover&id=${document.userId}`,
+      avatar: document.images.avatar != null ? `/api/images?name=user-avatar&id=${document.userId}` : '',
+      cover: document.images.cover != null ? `/api/images?name=user-cover&id=${document.userId}` : '',
     };
   }
 }
