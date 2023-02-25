@@ -8,7 +8,7 @@ import { setPostImage } from '../../services/post/setPostImage';
 import { SharpInstance, ProcessOpts } from './SharpInstance';
 
 interface IImageService {
-  serviceFn: (id: number, buf: Buffer, contentType: string) => Promise<void>;
+  serviceFn: (id: number, buf: Buffer, contentType: string) => Promise<unknown>;
   processOpts: Partial<ProcessOpts>;
 }
 
@@ -53,8 +53,7 @@ export const uploadImage: Handler = asyncMiddleware(async (req, res): Promise<vo
 
   await fsPromises.unlink(req.file.path);
 
-  await serviceFn(Number(id), buffer, sharpInstance.contentType);
+  const data = await serviceFn(Number(id), buffer, sharpInstance.contentType);
 
-  res.type(sharpInstance.contentType);
-  res.send(buffer);
+  res.send(data);
 });

@@ -5,13 +5,6 @@ import { upload } from '../middlewares/upload-middleware';
 
 app.post('/api/images/post/:id', param('id').isNumeric(), upload.single('post-img'), imagesController.uploadImage);
 
-app.get(
-  '/api/images?',
-  query('name').isAlpha(undefined, { ignore: '-' }),
-  query('id').isNumeric(),
-  imagesController.getImage
-);
-
 app.post(
   '/api/images/user-avatar/:id',
   param('id').isNumeric(),
@@ -31,11 +24,4 @@ app.post(
   param('id').isNumeric(),
   upload.single('user-cover'),
   imagesController.uploadImage
-);
-
-app.get(
-  '/api/images?',
-  query('name').isAlpha(undefined, { ignore: '-' }),
-  query('id').isNumeric(),
-  imagesController.getImage
 );

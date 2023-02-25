@@ -6,7 +6,7 @@ import { getPostImages } from '../../services/post/getPostImages';
 import { getUserAvatar } from '../../services/user/getUserAvatar';
 import { getUserCover } from '../../services/user/getUserCover';
 
-type IImageService = (id: number) => Promise<ImageSchema | string[]>;
+type IImageService = (id: number) => Promise<ImageSchema | string[] | undefined>;
 
 const imageServices: Record<string, IImageService> = {
   'user-avatar': getUserAvatar,
@@ -31,8 +31,13 @@ export const getImage: Handler = asyncMiddleware(async (req, res): Promise<void>
     return;
   }
 
-  const { data, contentType } = serviceData;
+  let img = '';
 
-  res.contentType(contentType);
-  res.send(data);
+  if (serviceData != null) {
+    const { data, contentType } = serviceData;
+    const base64Str = data.toString('base64');
+    img = `data:${contentType};base64,${base64Str}`;
+  }
+
+  res.send(img);
 });

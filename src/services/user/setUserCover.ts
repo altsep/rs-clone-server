@@ -1,6 +1,8 @@
+import { UserDto } from '../../dtos/user-dto';
 import { userModel } from '../../models/user-model';
+import { User } from '../../types';
 
-export const setUserCover = async (userId: number, data: Buffer, contentType: string): Promise<void> => {
+export const setUserCover = async (userId: number, data: Buffer, contentType: string): Promise<User> => {
   const user = await userModel.findOne({ userId });
 
   if (!user) {
@@ -11,4 +13,8 @@ export const setUserCover = async (userId: number, data: Buffer, contentType: st
   user.images.cover = cover;
 
   await user.save();
+
+  const userDto = new UserDto(user);
+
+  return userDto;
 };
