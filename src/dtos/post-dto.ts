@@ -15,7 +15,7 @@ class PostDto {
 
   public commentsIds: number[];
 
-  public images: string[] | undefined;
+  public images: string[];
 
   constructor(document: PostSchema) {
     this.id = document.postId;
