@@ -18,9 +18,9 @@
       <input type="file" name="user-cover" id="user-cover" />
       <input type="submit" />
     </form>
-    <form action="/api/images/post-img/5" method="post" enctype="multipart/form-data">
+    <form action="/api/images/post/5" method="post" enctype="multipart/form-data">
       <label for="post-img">Post image</label>
-      <input type="file" name="post-img" id="post-img" />
+      <input multiple type="file" name="post-img" id="post-img" />
       <input type="submit" />
     </form>
     <h1>Upload image</h1>
@@ -31,7 +31,8 @@
     </form>
     <h1>Multiple files upload</h1>
     <form action="/api/images" method="post" enctype="multipart/form-data">
-      <input type="file" name="posts-imgs" id="post-imgs" multiple />
+      <input type="file" name="posts-img" id="post-img" multiple />
+      <input type="submit" />
     </form>
     <h1>Multiple fields upload</h1>
     <form action="/api/images" method="post" enctype="multipart/form-data">

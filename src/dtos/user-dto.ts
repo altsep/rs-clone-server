@@ -1,5 +1,4 @@
 import { UserSchema } from '../models/types';
-import { getImageBase64String } from '../utils';
 
 class UserDto {
   public id: number;
@@ -34,9 +33,7 @@ class UserDto {
 
   public lastSeen: string | undefined;
 
-  public avatar: string | undefined;
-
-  public cover: string | undefined;
+  public images: { avatar: string; cover: string };
 
   constructor(document: UserSchema) {
     this.id = document.userId;
@@ -53,10 +50,12 @@ class UserDto {
     this.pendingFriendsIds = document.pendingFriendsIds || [];
     this.activationLink = document.activationLink;
     this.isActivated = document.isActivated;
-    this.isOnline = document.isOnline ?? false;
+    this.isOnline = document.isOnline;
     this.lastSeen = document.lastSeen;
-    this.avatar = document.images.avatar ? getImageBase64String(document.images.avatar) : undefined;
-    this.cover = document.images.cover ? getImageBase64String(document.images.cover) : undefined;
+    this.images = {
+      avatar: document.images.avatar != null ? `/api/images?name=user-avatar&id=${document.userId}` : '',
+      cover: document.images.cover != null ? `/api/images?name=user-cover&id=${document.userId}` : '',
+    };
   }
 }
 
