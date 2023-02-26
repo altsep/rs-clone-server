@@ -1,16 +1,16 @@
 import { UserDto } from '../../dtos/user-dto';
+import { ImageSchema } from '../../models/types';
 import { userModel } from '../../models/user-model';
 import { User } from '../../types';
 
-export const setUserAvatar = async (userId: number, data: Buffer, contentType: string): Promise<User> => {
+export const setUserAvatar = async (userId: number, img: ImageSchema): Promise<User> => {
   const user = await userModel.findOne({ userId });
 
   if (!user) {
     throw new Error('Not Found');
   }
 
-  const avatar = { data, contentType };
-  user.images.avatar = avatar;
+  user.images.avatar = img;
 
   await user.save();
 

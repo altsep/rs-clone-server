@@ -1,20 +1,16 @@
-import { PostDto } from '../../dtos/post-dto';
 import { postModel } from '../../models/post-model';
-import { Post } from '../../types';
+import { PostSchema } from '../../models/types';
 
-export const setPostImage = async (postId: number, data: Buffer, contentType: string): Promise<Post> => {
+export const setPostImage = async (postId: number, images: PostSchema['images']): Promise<string[]> => {
   const post = await postModel.findOne({ postId });
 
   if (!post) {
     throw new Error('Not Found');
   }
 
-  const img = { data, contentType };
-  post.images.push(img);
+  post.images.push(...images);
 
   await post.save();
 
-  const postDto = new PostDto(post);
-
-  return postDto;
+  return images.map(({ data, contentType }) => `data:${contentType};base64,${data.toString('base64')}`);
 };

@@ -15,7 +15,7 @@ class PostDto {
 
   public commentsIds: number[];
 
-  public images: string[] | undefined;
+  public images: string[];
 
   constructor(document: PostSchema) {
     this.id = document.postId;
@@ -25,7 +25,7 @@ class PostDto {
     this.likes = document.likes;
     this.likedUserIds = document.likedUserIds || [];
     this.commentsIds = document.commentsIds || [];
-    this.images = document.images?.map((img) => `data:image/webp;base64,${img.data.toString('base64')}`) || [];
+    this.images = [];
   }
 }
 

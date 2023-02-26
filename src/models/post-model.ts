@@ -16,7 +16,7 @@ const postSchema = new Schema<PostSchema>({
   },
   description: {
     type: String,
-    required: true,
+    default: '',
   },
   createdAt: {
     type: String,

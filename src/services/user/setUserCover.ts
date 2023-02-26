@@ -1,16 +1,15 @@
 import { UserDto } from '../../dtos/user-dto';
+import { ImageSchema } from '../../models/types';
 import { userModel } from '../../models/user-model';
-import { User } from '../../types';
 
-export const setUserCover = async (userId: number, data: Buffer, contentType: string): Promise<User> => {
+export const setUserCover = async (userId: number, img: ImageSchema): Promise<UserDto> => {
   const user = await userModel.findOne({ userId });
 
   if (!user) {
     throw new Error('Not Found');
   }
 
-  const cover = { data, contentType };
-  user.images.cover = cover;
+  user.images.cover = img;
 
   await user.save();
 
