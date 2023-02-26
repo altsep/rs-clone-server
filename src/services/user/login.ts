@@ -6,7 +6,7 @@ import { ResponseData } from './types';
 import { saveToken } from '../token/saveToken';
 
 export const login = async (email: string, password: string): Promise<ResponseData> => {
-  const user = await userModel.findOne({ email });
+  const user = await userModel.findOne({ email, deleted: { $ne: true } });
 
   if (!user) {
     throw new Error('Not Found');
