@@ -15,7 +15,7 @@ class PostDto {
 
   public commentsIds: number[];
 
-  public images: string[];
+  public hasImages: boolean | undefined;
 
   constructor(document: PostSchema) {
     this.id = document.postId;
@@ -25,7 +25,7 @@ class PostDto {
     this.likes = document.likes;
     this.likedUserIds = document.likedUserIds || [];
     this.commentsIds = document.commentsIds || [];
-    this.images = [];
+    this.hasImages = document.hasImages;
   }
 }
 

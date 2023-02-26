@@ -3,7 +3,7 @@ import { app } from '../app';
 import { imagesController } from '../controllers/images';
 import { upload } from '../middlewares/upload-middleware';
 
-app.post('/api/images/post/:id', param('id').isNumeric(), upload.array('post-img'), imagesController.uploadImage);
+app.post('/api/images/post/:id', param('id').isNumeric(), upload.array('post-img', 10), imagesController.uploadImage);
 
 app.post(
   '/api/images/user-avatar/:id',

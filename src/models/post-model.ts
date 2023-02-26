@@ -31,6 +31,10 @@ const postSchema = new Schema<PostSchema>({
   likedUserIds: [{ type: Number }],
   commentsIds: [{ type: Number }],
   images: [imageSchema],
+  hasImages: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 postSchema.pre('validate', setCreatedAt);

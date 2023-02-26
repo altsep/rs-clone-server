@@ -38,6 +38,7 @@ interface IPostId {
 
 interface IPostImages {
   images: IImageSchema[];
+  hasImages: boolean;
 }
 
 type TPostSchema = Post<string> & IPostId & IPostImages;

@@ -73,9 +73,9 @@ export const uploadImage: Handler = asyncMiddleware(async (req, res): Promise<vo
       })
     );
 
-    const data = await serviceFn(Number(id), imgs);
+    await serviceFn(Number(id), imgs);
 
-    res.send(data);
+    res.end();
 
     return;
   }

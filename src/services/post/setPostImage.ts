@@ -1,7 +1,7 @@
 import { postModel } from '../../models/post-model';
 import { PostSchema } from '../../models/types';
 
-export const setPostImage = async (postId: number, images: PostSchema['images']): Promise<string[]> => {
+export const setPostImage = async (postId: number, images: PostSchema['images']): Promise<void> => {
   const post = await postModel.findOne({ postId });
 
   if (!post) {
@@ -10,7 +10,7 @@ export const setPostImage = async (postId: number, images: PostSchema['images'])
 
   post.images.push(...images);
 
-  await post.save();
+  post.hasImages = true;
 
-  return images.map(({ data, contentType }) => `data:${contentType};base64,${data.toString('base64')}`);
+  await post.save();
 };
