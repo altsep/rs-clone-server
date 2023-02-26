@@ -1,15 +1,19 @@
+import { FilterQuery } from 'mongoose';
 import { UserDto } from '../../dtos/user-dto';
+import { UserSchema } from '../../models/types';
 import { userModel } from '../../models/user-model';
 
 export const getUser = async (id: string): Promise<UserDto> => {
-  let user;
+  const query: FilterQuery<UserSchema> = { deleted: { $ne: true } };
 
   if (/^id\d+/.test(id)) {
     const userId = Number(id.replace('id', ''));
-    user = await userModel.findOne({ userId });
+    query.userId = userId;
   } else {
-    user = await userModel.findOne({ alias: id });
+    query.alias = id;
   }
+
+  const user = await userModel.findOne(query);
 
   if (!user) {
     throw new Error('Not Found');

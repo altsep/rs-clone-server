@@ -65,6 +65,10 @@ const userSchema = new Schema<UserSchema>({
     avatar: imageSchema,
     cover: imageSchema,
   },
+  deleted: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 userSchema.pre('validate', setCreatedAt);

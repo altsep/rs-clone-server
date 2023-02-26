@@ -19,6 +19,7 @@ interface IImageSchema {
 interface IUserId {
   _id: ObjectId;
   userId: number;
+  deleted: boolean;
 }
 
 interface IUserImages {
