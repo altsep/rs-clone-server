@@ -11,6 +11,9 @@ const getApp = async (): Promise<string> => {
 
 app.get('*', (_req, res, next) => {
   getApp()
-    .then((data) => res.end(data))
-    .catch(next);
+    .then((data) => {
+      res.set({ 'Content-Type': 'text/html' });
+      res.end(data);
+    })
+    .catch((e) => next(e));
 });
