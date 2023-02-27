@@ -20,6 +20,8 @@ export const deleteUser = async (userId: number, password: string, refreshToken:
   }
 
   user.deleted = true;
+  user.alias = undefined;
+  user.email = undefined;
 
   await user.save();
 };
