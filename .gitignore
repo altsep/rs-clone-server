@@ -22,7 +22,6 @@ yarn-error.log*
 
 # bundle
 build
-dist
 
 # filesystem
 /**/tmp/*
