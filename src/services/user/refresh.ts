@@ -11,8 +11,6 @@ export const refresh = async (refreshToken: string): Promise<ResponseData> => {
   const userData = validateRefreshToken(refreshToken) as User | undefined;
   const tokenData = await findRefreshToken(refreshToken);
 
-  console.log(!!userData, !!tokenData);
-
   if (!userData || !tokenData) {
     throw new Error('Unauthorized');
   }
