@@ -22,6 +22,9 @@ export const handleDeleteUser: Handler = (req, res, next) => {
   }
 
   deleteUser(Number(id), password, refreshToken)
-    .then(() => res.end())
-    .catch((e) => next(e));
+    .then(() => {
+      res.clearCookie('refreshToken');
+      res.end();
+    })
+    .catch(next);
 };

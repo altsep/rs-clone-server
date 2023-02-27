@@ -19,5 +19,7 @@ export const deleteUser = async (userId: number, password: string, refreshToken:
     throw new Error('Unauthorized');
   }
 
-  await user.remove();
+  user.deleted = true;
+
+  await user.save();
 };

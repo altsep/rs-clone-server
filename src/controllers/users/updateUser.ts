@@ -25,5 +25,5 @@ export const handleUpdateUser: Handler = (req, res, next) => {
 
   updateUser(Number(id), data, refreshToken)
     .then((userData) => res.send(userData))
-    .catch((e) => next(e));
+    .catch(next);
 };

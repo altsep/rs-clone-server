@@ -18,5 +18,5 @@ export const handleUpdatePost: Handler = (req, res, next) => {
 
   updatePost(id, postProps)
     .then((updatedPost) => res.send(updatedPost))
-    .catch((e) => next(e));
+    .catch(next);
 };

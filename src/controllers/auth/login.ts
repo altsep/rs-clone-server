@@ -23,5 +23,5 @@ export const handleLogin: Handler = (req, res, next) => {
       res.cookie('refreshToken', userData.refreshToken, { maxAge: MS_IN_A_MONTH, httpOnly: true });
       res.status(status).send(userData);
     })
-    .catch((e) => next(e));
+    .catch(next);
 };

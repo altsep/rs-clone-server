@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { imageSchema } from './common';
 import { UserSchema } from './types';
 import { setCreatedAt } from './utils';
 
@@ -44,10 +45,6 @@ const userSchema = new Schema<UserSchema>({
     unique: true,
     sparse: true,
   },
-  avatarURL: {
-    type: String,
-    default: '',
-  },
   postsIds: [{ type: Number }],
   friendsIds: [{ type: Number }],
   pendingFriendsIds: [{ type: Number }],
@@ -63,8 +60,14 @@ const userSchema = new Schema<UserSchema>({
     type: Boolean,
     default: true,
   },
-  lastSeen: {
-    type: String,
+  lastSeen: String,
+  images: {
+    avatar: imageSchema,
+    cover: imageSchema,
+  },
+  deleted: {
+    type: Boolean,
+    default: false,
   },
 });
 

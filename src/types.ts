@@ -33,7 +33,6 @@ interface IUser<T = number> {
   country: string;
   birthDate: string;
   alias?: string;
-  avatarURL?: string;
   postsIds?: number[];
   friendsIds?: number[];
   pendingFriendsIds?: number[];

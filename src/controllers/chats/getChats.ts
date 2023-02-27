@@ -18,5 +18,5 @@ export const handleGetUserChats: Handler = (req, res, next) => {
     .then((chatList) => {
       res.send(chatList);
     })
-    .catch((e) => next(e));
+    .catch(next);
 };

@@ -8,15 +8,15 @@ import { handleRegistration } from '../controllers/auth/register';
 
 app.post(
   '/api/registration',
-  body('email').normalizeEmail().isEmail(),
-  body('password').exists(),
-  body('name').exists(),
-  body('country').exists(),
+  body('email').isEmail().normalizeEmail(),
+  body('password').isString().notEmpty(),
+  body('name').isString(),
+  body('country').isString(),
   body('birthDate').isISO8601(),
   handleRegistration
 );
 
-app.post('/api/login', body('email').normalizeEmail().isEmail(), body('password').isString().notEmpty(), handleLogin);
+app.post('/api/login', body('email').isEmail().normalizeEmail(), body('password').isString().notEmpty(), handleLogin);
 
 app.post('/api/logout', handleLogout);
 

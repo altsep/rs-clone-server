@@ -6,5 +6,5 @@ export const handleGetUser: Handler = (req, res, next) => {
 
   getUser(id)
     .then((userData) => res.send(userData))
-    .catch((e) => next(e));
+    .catch(next);
 };

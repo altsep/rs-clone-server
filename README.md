@@ -14,35 +14,50 @@ API for the [RS Clone](https://github.com/altsep/rs-clone) app done as part of t
 
 ## Usage
 
-- **Auth**
+- **[Auth](https://github.com/altsep/rs-clone-server#auth)**
 
   - [Register](https://github.com/altsep/rs-clone-server#register)
   - [Login](https://github.com/altsep/rs-clone-server#login)
   - [Logout](https://github.com/altsep/rs-clone-server#logout)
   - [Refresh](https://github.com/altsep/rs-clone-server#refresh)
 
-- **Users**
+- **[Users](https://github.com/altsep/rs-clone-server#users)**
 
   - [Get users](https://github.com/altsep/rs-clone-server#get-users)
   - [Get user](https://github.com/altsep/rs-clone-server#get-user)
   - [Update user](https://github.com/altsep/rs-clone-server#update-user)
   - [Change user password](https://github.com/altsep/rs-clone-server#change-password)
   - [Delete user](https://github.com/altsep/rs-clone-server#delete-user)
-- **Posts**
+
+- **[Posts](https://github.com/altsep/rs-clone-server#posts)**
+
   - [Get posts](https://github.com/altsep/rs-clone-server#get-posts)
   - [Get post](https://github.com/altsep/rs-clone-server#get-post)
   - [Create posts](https://github.com/altsep/rs-clone-server#create-post)
   - [Delete post](https://github.com/altsep/rs-clone-server#delete-post)
   - [Update post](https://github.com/altsep/rs-clone-server#update-post)
 
-- **Chats**
+- **[Chats](https://github.com/altsep/rs-clone-server#chats)**
+
   - [Create chat](https://github.com/altsep/rs-clone-server#create-chat)
   - [Get user chats](https://github.com/altsep/rs-clone-server#get-user-chats)
 
-- **Messages**
+- **[Users](https://github.com/altsep/rs-clone-server#users)**
+
+  - [Set user avatar](https://github.com/altsep/rs-clone-server#set-user-avatar)
+  - [Get user avatar](https://github.com/altsep/rs-clone-server#get-user-avatar)
+  - [Set user cover](https://github.com/altsep/rs-clone-server#set-user-cover)
+  - [Get user cover](https://github.com/altsep/rs-clone-server#get-user-cover)
+  - [Push post image](https://github.com/altsep/rs-clone-server#push-post-image)
+  - [Get post images](https://github.com/altsep/rs-clone-server#get-post-images)
+
+- **[Messages](https://github.com/altsep/rs-clone-server#messages)**
+
   - [Send message](https://github.com/altsep/rs-clone-server#send-message)
 
 ## **API**
+
+## **Auth**
 
 ## **Register**
 
@@ -120,7 +135,7 @@ Registers a new user by writing their information and access tokens to the datab
 
 </details>
 
-# **Login**
+## **Login**
 
 Authorize a user by comparing the sent password with the one stored in the DB and responds with full user data on success.
 
@@ -201,7 +216,7 @@ Authorize a user by comparing the sent password with the one stored in the DB an
 
 </details>
 
-# **Logout**
+## **Logout**
 
 Removes refresh token from the DB if one exists. The token is read from the corresponding cookie.
 
@@ -247,7 +262,7 @@ Removes refresh token from the DB if one exists. The token is read from the corr
 
 </details>
 
-# **Refresh**
+## **Refresh**
 
 Updates access tokens.
 
@@ -305,6 +320,8 @@ Updates access tokens.
     ```
 
 </details>
+
+## **Users**
 
 ## **Get users**
 
@@ -682,6 +699,8 @@ Allows to change the password by converting it to a hash recognizable by login.
 
 </details>
 
+## **Posts**
+
 ## **Get posts**
 
 Returns a json collection of all posts.
@@ -959,6 +978,8 @@ Updates post properties.
 
 </details>
 
+## **Chats**
+
 ## **Create chat**
 
 Creates a conversation between two or more users.
@@ -1134,6 +1155,317 @@ Removes all messages from a particular chat.
       "message": "Cast to ObjectId failed for value \"zxc\" (type string) at path \"_id\" for model \"Chat\"",
       "instance": "/api/chats/zxc",
       "errors": []
+    }
+    ```
+
+</details>
+
+## **Images**
+
+## **Set user avatar**
+
+Sets user avatar as `user.images.avatar` in DB, available as `user.avatar` in user DTO.
+
+<details>
+
+- **URL**
+
+  /api/images/user-avatar/:id
+
+- **Method:**
+
+  `POST`
+  
+- **URL params**
+
+  `id=[integer]`
+
+- **Success response:**
+
+  - **Code:** 200 OK <br />
+  - **Content:** image/webp <br />
+
+- **Error response:**
+
+  - **Code:** 400 Bad Request <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 400,
+      "message": "Bad Request",
+      "instance": "/api/images/user-avatar",
+    }
+    ```
+
+  - **Code:** 404 Not Found <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 404,
+      "message": "Not Found",
+      "instance": "/api/images/user-avatar",
+    }
+    ```
+
+</details>
+
+## **Set user cover**
+
+Sets user cover as `user.images.cover` in DB, available as `user.cover` in user DTO.
+
+<details>
+
+- **URL**
+
+  /api/images/user-cover/:id
+
+- **Method:**
+
+  `POST`
+  
+- **URL params**
+
+  `id=[integer]`
+
+- **Success response:**
+
+  - **Code:** 200 OK <br />
+  - **Content:** image/webp <br />
+
+- **Error response:**
+
+  - **Code:** 400 Bad Request <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 400,
+      "message": "Bad Request",
+      "instance": "/api/images/user-cover",
+    }
+    ```
+
+  - **Code:** 404 Not Found <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 404,
+      "message": "Not Found",
+      "instance": "/api/images/user-cover",
+    }
+    ```
+
+</details>
+
+## **Push post image**
+
+Pushes post image data to `post.images`, in post DTO available as an array of strings at the same key.
+
+<details>
+
+- **URL**
+
+  /api/images/post/:id
+
+- **Method:**
+
+  `POST`
+  
+- **URL params**
+
+  `id=[integer]`
+
+- **Success response:**
+
+  - **Code:** 200 OK <br />
+  - **Content:** 
+  
+  ```json
+  [
+    "data:image/webp;base64,UklGRjpAAABXRUJQVlA4IC5AAABwKwGdASr0AfQBPrVYpU4nJSOpJjdZWSAWiWVu4TyoaMstILxGfiyPTfL55X8jZNmSd6FnD/Zd7f0c/..."
+  ]
+  ```
+
+- **Error response:**
+
+  - **Code:** 400 Bad Request <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 400,
+      "message": "Bad Request",
+      "instance": "/api/images/post",
+    }
+    ```
+
+  - **Code:** 404 Not Found <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 404,
+      "message": "Not Found",
+      "instance": "/api/images/post",
+    }
+    ```
+
+</details>
+
+## **Get user avatar**
+
+Returns user avatar as image/webp data.
+
+<details>
+
+- **URL**
+
+  /api/images?
+
+- **Method:**
+
+  `GET`
+  
+- **Query params**
+
+  `name=user-avatar`
+  `id=[integer]`
+
+- **Success response:**
+
+  - **Code:** 200 OK <br />
+  - **Content:** image/webp <br />
+
+- **Error response:**
+
+  - **Code:** 400 Bad Request <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 400,
+      "message": "Bad Request",
+      "instance": "/api/images?name=<incorrect-name>&<id-missing>"
+    }
+    ```
+
+  - **Code:** 404 Not Found <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 404,
+      "message": "Not Found",
+      "instance": "/api/images?name=user-avatar&id=1512211512",
+    }
+    ```
+
+</details>
+
+## **Get user cover**
+
+Returns user cover as image/webp data.
+
+<details>
+
+- **URL**
+
+  /api/images?
+
+- **Method:**
+
+  `GET`
+  
+- **Query params**
+
+  `name=user-cover`
+  `id=[integer]`
+
+- **Success response:**
+
+  - **Code:** 200 OK <br />
+  - **Content:** image/webp <br />
+
+- **Error response:**
+
+  - **Code:** 400 Bad Request <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 400,
+      "message": "Bad Request",
+      "instance": "/api/images?name=<incorrect-name>&<id-missing>"
+    }
+    ```
+
+  - **Code:** 404 Not Found <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 404,
+      "message": "Not Found",
+      "instance": "/api/images?name=user-cover&id=1512211512",
+    }
+    ```
+
+</details>
+
+## **Get post images**
+
+Returns an array of post images represented as image data encoded in base64 format.
+
+<details>
+
+- **URL**
+
+  /api/images?
+
+- **Method:**
+
+  `GET`
+  
+- **Query params**
+
+  `name=post`
+  `id=[integer]`
+
+- **Success response:**
+
+  - **Code:** 200 OK <br />
+  - **Content:** 
+  
+  ```json
+  [
+    "data:image/webp;base64,UklGRjpAAABXRUJQVlA4IC5AAABwKwGdASr0AfQBPrVYpU4nJSOpJjdZWSAWiWVu4TyoaMstILxGfiyPTfL55X8jZNmSd6FnD/Zd7f0c/..."
+  ]
+  ```
+
+- **Error response:**
+
+  - **Code:** 400 Bad Request <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 400,
+      "message": "Bad Request",
+      "instance": "/api/images?name=<incorrect-name>&<id-missing>"
+    }
+    ```
+
+  - **Code:** 404 Not Found <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 404,
+      "message": "Not Found",
+      "instance": "/api/images?name=user-avatar&id=1512211512",
     }
     ```
 

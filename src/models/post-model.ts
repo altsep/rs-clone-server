@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { imageSchema } from './common';
 import { PostSchema } from './types';
 import { setCreatedAt } from './utils';
 
@@ -15,7 +16,7 @@ const postSchema = new Schema<PostSchema>({
   },
   description: {
     type: String,
-    required: true,
+    default: '',
   },
   createdAt: {
     type: String,
@@ -29,6 +30,11 @@ const postSchema = new Schema<PostSchema>({
   },
   likedUserIds: [{ type: Number }],
   commentsIds: [{ type: Number }],
+  images: [imageSchema],
+  hasImages: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 postSchema.pre('validate', setCreatedAt);

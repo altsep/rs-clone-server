@@ -3,7 +3,7 @@ import { postModel } from '../../models/post-model';
 import type { Post } from '../../types';
 
 export const getPost = async (id: string): Promise<Post> => {
-  const post = await postModel.findOne({ postId: Number(id) });
+  const post = await postModel.findOne({ postId: Number(id) }).select('-images');
 
   if (!post) {
     throw new Error('Not Found');
