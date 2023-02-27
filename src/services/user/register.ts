@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { userModel } from '../../models/user-model';
 import { sendActivationMail } from '../mail/sendActivationMail';
 import { UserDto } from '../../dtos/user-dto';
-import { generateTokens, Tokens } from '../token/generateTokens';
+import { generateTokens } from '../token/generateTokens';
 import { saveToken } from '../token/saveToken';
 import { User } from '../../types';
 import { ResponseData } from './types';
@@ -31,9 +31,11 @@ export const register = async (data: User): Promise<ResponseData> => {
   const hashPassword = await bcrypt.hash(password, 5);
   const activationLink = uuidv4();
 
-  const count = await userModel.estimatedDocumentCount();
+  const lastUser = await userModel.findOne().sort({ userId: -1 });
 
-  const user = await userModel.create({ ...data, userId: count + 1, password: hashPassword, activationLink });
+  const userId = lastUser ? lastUser.userId + 1 : 1;
+
+  const user = await userModel.create({ ...data, userId, password: hashPassword, activationLink });
 
   const mailActivation = process.env.MODE !== 'dev';
 
@@ -44,9 +46,8 @@ export const register = async (data: User): Promise<ResponseData> => {
   }
 
   const userDto = new UserDto(user);
-  const tokens: Tokens = generateTokens({ ...userDto });
+  const tokens = generateTokens({ ...userDto });
 
-  // eslint-disable-next-line no-underscore-dangle
   await saveToken(user._id, tokens.refreshToken);
 
   return { ...tokens, user: userDto };

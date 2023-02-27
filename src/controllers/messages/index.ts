@@ -34,7 +34,7 @@ const handleMessages: WebsocketRequestHandler = (ws, _req, next) => {
     const res = handler(ws, payload);
 
     if (res instanceof Promise) {
-      res.catch((e) => next(e));
+      res.catch(next);
     }
   });
 

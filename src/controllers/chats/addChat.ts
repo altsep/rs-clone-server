@@ -26,7 +26,7 @@ export const handleAddChat: Handler = (req, res, next) => {
         const status = StatusCodes.CREATED;
         res.status(status).send(chatData);
       })
-      .catch((e) => next(e));
+      .catch(next);
   } catch (e) {
     next(e);
   }

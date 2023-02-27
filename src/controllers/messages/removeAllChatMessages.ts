@@ -15,5 +15,5 @@ export const handleRemoveAllChatMessages: Handler = (req, res, next): void => {
     .then(() => {
       res.end();
     })
-    .catch((e) => next(e));
+    .catch(next);
 };

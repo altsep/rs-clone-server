@@ -21,3 +21,12 @@ app.patch(
   body('pendingFriendsIds').optional().isArray(),
   usersController.updateUser
 );
+
+app.patch(
+  '/api/users-pwd',
+  body('userId').isNumeric(),
+  body('password').isString().notEmpty(),
+  usersController.changePassword
+);
+
+app.delete('/api/users/:id', body('password').isString().notEmpty(), usersController.deleteUser);

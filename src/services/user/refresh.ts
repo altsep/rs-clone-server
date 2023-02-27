@@ -1,6 +1,6 @@
 import { UserDto } from '../../dtos/user-dto';
-import { UserSchema } from '../../models/types';
 import { userModel } from '../../models/user-model';
+import { User } from '../../types';
 import { findRefreshToken } from '../token/findToken';
 import { generateTokens, Tokens } from '../token/generateTokens';
 import { saveToken } from '../token/saveToken';
@@ -8,7 +8,7 @@ import { validateRefreshToken } from '../token/validateAccessToken';
 import { ResponseData } from './types';
 
 export const refresh = async (refreshToken: string): Promise<ResponseData> => {
-  const userData = validateRefreshToken(refreshToken) as UserSchema;
+  const userData = validateRefreshToken(refreshToken) as User | undefined;
   const tokenData = await findRefreshToken(refreshToken);
 
   if (!userData || !tokenData) {
@@ -24,7 +24,6 @@ export const refresh = async (refreshToken: string): Promise<ResponseData> => {
   const userDto = new UserDto(user);
   const tokens: Tokens = generateTokens({ ...userDto });
 
-  // eslint-disable-next-line no-underscore-dangle
   await saveToken(user._id, tokens.refreshToken);
 
   return { ...tokens, user: userDto };
