@@ -4,6 +4,7 @@ import './posts';
 import './comments';
 import './chats';
 import './messages';
+import './images';
 import './ws';
 import './client';
 import { app } from '../app';

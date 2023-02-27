@@ -10,5 +10,5 @@ export const handleRemoveComment: Handler = (req, res, next) => {
       const data = { success: true, instance: originalUrl };
       res.send(data);
     })
-    .catch((e) => next(e));
+    .catch(next);
 };

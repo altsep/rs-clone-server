@@ -1,16 +1,19 @@
 import { Request, Response } from 'express';
 import { ValidationError, validationResult } from 'express-validator';
 import { getReasonPhrase } from 'http-status-codes';
+import { ImageSchema } from './models/types';
 
 interface IErrorHandlerData {
   error: boolean;
   message: string;
   status: number;
   instance: string;
-  errors: ValidationError[];
+  errors: ValidationError[] | undefined;
 }
 
-const handleError = (instance = '', status = 500, errors: ValidationError[] = []): IErrorHandlerData => {
+type THandleError = (instance?: string, status?: number, errors?: ValidationError[] | undefined) => IErrorHandlerData;
+
+const handleError: THandleError = (instance = '', status = 500, errors = undefined) => {
   const message = getReasonPhrase(status);
   const data = { error: true, status, message, instance, errors };
   return data;
@@ -39,4 +42,7 @@ const generateHexStr = (amount = 24): string => {
 
 const getActionString = (type: string, payload: unknown): string => JSON.stringify({ type, payload });
 
-export { handleError, handleValidationResult, getIsoString, generateHexStr, getActionString };
+const getImageBase64String = ({ data, contentType }: ImageSchema): string =>
+  `data:${contentType};base64,${data.toString('base64')}`;
+
+export { handleError, handleValidationResult, getIsoString, generateHexStr, getActionString, getImageBase64String };

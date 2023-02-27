@@ -13,5 +13,5 @@ export const handleGetComment: Handler = (req, res, next) => {
 
   getComment(id)
     .then((post) => res.send(post))
-    .catch((e) => next(e));
+    .catch(next);
 };

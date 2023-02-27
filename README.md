@@ -14,34 +14,50 @@ API for the [RS Clone](https://github.com/altsep/rs-clone) app done as part of t
 
 ## Usage
 
-- **Auth**
+- **[Auth](https://github.com/altsep/rs-clone-server#auth)**
 
   - [Register](https://github.com/altsep/rs-clone-server#register)
   - [Login](https://github.com/altsep/rs-clone-server#login)
   - [Logout](https://github.com/altsep/rs-clone-server#logout)
   - [Refresh](https://github.com/altsep/rs-clone-server#refresh)
 
-- **Users**
+- **[Users](https://github.com/altsep/rs-clone-server#users)**
 
   - [Get users](https://github.com/altsep/rs-clone-server#get-users)
   - [Get user](https://github.com/altsep/rs-clone-server#get-user)
   - [Update user](https://github.com/altsep/rs-clone-server#update-user)
+  - [Change user password](https://github.com/altsep/rs-clone-server#change-password)
+  - [Delete user](https://github.com/altsep/rs-clone-server#delete-user)
 
-- **Posts**
+- **[Posts](https://github.com/altsep/rs-clone-server#posts)**
+
   - [Get posts](https://github.com/altsep/rs-clone-server#get-posts)
   - [Get post](https://github.com/altsep/rs-clone-server#get-post)
   - [Create posts](https://github.com/altsep/rs-clone-server#create-post)
   - [Delete post](https://github.com/altsep/rs-clone-server#delete-post)
   - [Update post](https://github.com/altsep/rs-clone-server#update-post)
 
-- **Chats**
+- **[Chats](https://github.com/altsep/rs-clone-server#chats)**
+
   - [Create chat](https://github.com/altsep/rs-clone-server#create-chat)
   - [Get user chats](https://github.com/altsep/rs-clone-server#get-user-chats)
 
-- **Messages**
+- **[Users](https://github.com/altsep/rs-clone-server#users)**
+
+  - [Set user avatar](https://github.com/altsep/rs-clone-server#set-user-avatar)
+  - [Get user avatar](https://github.com/altsep/rs-clone-server#get-user-avatar)
+  - [Set user cover](https://github.com/altsep/rs-clone-server#set-user-cover)
+  - [Get user cover](https://github.com/altsep/rs-clone-server#get-user-cover)
+  - [Push post image](https://github.com/altsep/rs-clone-server#push-post-image)
+  - [Get post images](https://github.com/altsep/rs-clone-server#get-post-images)
+
+- **[Messages](https://github.com/altsep/rs-clone-server#messages)**
+
   - [Send message](https://github.com/altsep/rs-clone-server#send-message)
 
 ## **API**
+
+## **Auth**
 
 ## **Register**
 
@@ -119,7 +135,7 @@ Registers a new user by writing their information and access tokens to the datab
 
 </details>
 
-# **Login**
+## **Login**
 
 Authorize a user by comparing the sent password with the one stored in the DB and responds with full user data on success.
 
@@ -200,7 +216,7 @@ Authorize a user by comparing the sent password with the one stored in the DB an
 
 </details>
 
-# **Logout**
+## **Logout**
 
 Removes refresh token from the DB if one exists. The token is read from the corresponding cookie.
 
@@ -246,7 +262,7 @@ Removes refresh token from the DB if one exists. The token is read from the corr
 
 </details>
 
-# **Refresh**
+## **Refresh**
 
 Updates access tokens.
 
@@ -304,6 +320,8 @@ Updates access tokens.
     ```
 
 </details>
+
+## **Users**
 
 ## **Get users**
 
@@ -390,22 +408,22 @@ Returns information about the specified user.
       "error": true,
       "message": "Not Found",
       "status": 404,
-      "instance": "/api/api/users/15",
+      "instance": "/api/users/15",
       "errors": []
     }
     ```
 
 </details>
 
-## **Hide user**
+## **Delete user**
 
-Sets the `hidden` field of the specified user to `true`.
+Deletes user from the database.
 
 <details>
 
 - **URL**
 
-  /user/:id
+  /api/user/:id
 
 - **Method:**
 
@@ -428,20 +446,6 @@ Sets the `hidden` field of the specified user to `true`.
 - **Success response:**
 
   - **Code:** 200 OK <br />
-    **Content:**
-    ```json
-    {
-      "id": 3,
-      "name": "h1dd3nUs3r99",
-      "email": "test@example.com",
-      "password": 1,
-      "alias": "",
-      "hidden": true,
-      "country": "",
-      "birthDate": "",
-      "createdAt": ""
-    }
-    ```
 
 - **Error response:**
 
@@ -453,7 +457,7 @@ Sets the `hidden` field of the specified user to `true`.
       "error": true,
       "message": "Bad Request",
       "status": 400,
-      "instance": "/api/api/users/1",
+      "instance": "/api/users/1",
       "errors": []
     }
     ```
@@ -464,9 +468,9 @@ Sets the `hidden` field of the specified user to `true`.
     ```json
     {
       "error": true,
-      "message": "Incorrect password",
+      "message": "Unauthorized",
       "status": 401,
-      "instance": "/api/api/users/1",
+      "instance": "/api/users/1",
       "errors": []
     }
     ```
@@ -479,7 +483,7 @@ Sets the `hidden` field of the specified user to `true`.
       "error": true,
       "message": "Not Found",
       "status": 404,
-      "instance": "/api/api/users/51",
+      "instance": "/api/users/51",
       "errors": []
     }
     ```
@@ -494,16 +498,11 @@ Updates user properties.
 
 - **URL**
 
-  /user/:id
+  /api/user/:id
 
 - **Method:**
 
   `PATCH`
-
-- **URL params**
-
-  **Required:**
-
 
 - **Data params**
 
@@ -549,7 +548,7 @@ Updates user properties.
       "error": true,
       "message": "Bad Request",
       "status": 400,
-      "instance": "/api/api/users/1",
+      "instance": "/api/users/1",
       "errors": []
     }
     ```
@@ -562,7 +561,7 @@ Updates user properties.
       "error": true,
       "message": "Not Found",
       "status": 404,
-      "instance": "/api/api/users/25",
+      "instance": "/api/users/25",
       "errors": []
     }
     ```
@@ -574,12 +573,133 @@ Updates user properties.
       "error": true,
       "message": "User \"Clark\" exists",
       "status": 500,
-      "instance": "/api/api/users/2",
+      "instance": "/api/users/2",
       "errors": []
     }
     ```
 
 </details>
+
+## **Change password**
+
+Allows to change the password by converting it to a hash recognizable by login.
+
+<details>
+
+- **URL**
+
+  /api/user-pwd
+
+- **Method:**
+
+  `PATCH`
+
+- **Data params**
+
+  ```ts
+    {
+      userId: number;
+      password: string;
+    }
+  ```
+
+- **Success response:**
+
+  - **Code:** 200 OK <br />
+    **Content:**
+    ```json
+    {
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJxd2Vxd2VAZXhhbXBsZS5jb20iLCJwYXNzd29yZCI6IiQyYiQwNSRUa1B6N2RWQW5xUmhLVnhZZUVKOTd1Z0VjTUYvaFdUOEZlSE5sdDA5ZDdWbkduS2VXVGVQQyIsIm5hbWUiOiJNciBRV0Vxd2UiLCJhbGlhcyI6InF3ZXNoa2EiLCJjb3VudHJ5IjoiSWNlbGFuZCIsImJpcnRoRGF0ZSI6IjIwMTMtMDItMDlUMDM6NDY6MTguMDU3WiIsImhpZGRlbiI6dHJ1ZSwiY3JlYXRlZEF0IjoiMjAyMy0wMi0wOVQwMzo0NjoxOC4wNTdaIiwicG9zdHNJZHMiOlsyMyw1NF0sImZyaWVuZHNJZHMiOlsyLDcsOCw5LDEzXSwicGVuZGluZ0ZyaWVuZHNJZHMiOltdLCJhY3RpdmF0aW9uTGluayI6Ijk1NmJiMTM1LWVkNWEtNDk0Yi04ZDBmLWE4ZGNhYmFkNGJiMyIsImlzQWN0aXZhdGVkIjp0cnVlLCJpc09ubGluZSI6dHJ1ZSwibGFzdFNlZW4iOiIyMDIzLTAyLTE4VDEyOjIwOjA0Ljc1M1oiLCJpYXQiOjE2NzY3Mzg4MzgsImV4cCI6MTY3Njc0MDYzOH0.k-OJfW6RG0VhIoAvYrKyqMn-gY6TwkyAZqmZ4pilK7I",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJxd2Vxd2VAZXhhbXBsZS5jb20iLCJwYXNzd29yZCI6IiQyYiQwNSRUa1B6N2RWQW5xUmhLVnhZZUVKOTd1Z0VjTUYvaFdUOEZlSE5sdDA5ZDdWbkduS2VXVGVQQyIsIm5hbWUiOiJNciBRV0Vxd2UiLCJhbGlhcyI6InF3ZXNoa2EiLCJjb3VudHJ5IjoiSWNlbGFuZCIsImJpcnRoRGF0ZSI6IjIwMTMtMDItMDlUMDM6NDY6MTguMDU3WiIsImhpZGRlbiI6dHJ1ZSwiY3JlYXRlZEF0IjoiMjAyMy0wMi0wOVQwMzo0NjoxOC4wNTdaIiwicG9zdHNJZHMiOlsyMyw1NF0sImZyaWVuZHNJZHMiOlsyLDcsOCw5LDEzXSwicGVuZGluZ0ZyaWVuZHNJZHMiOltdLCJhY3RpdmF0aW9uTGluayI6Ijk1NmJiMTM1LWVkNWEtNDk0Yi04ZDBmLWE4ZGNhYmFkNGJiMyIsImlzQWN0aXZhdGVkIjp0cnVlLCJpc09ubGluZSI6dHJ1ZSwibGFzdFNlZW4iOiIyMDIzLTAyLTE4VDEyOjIwOjA0Ljc1M1oiLCJpYXQiOjE2NzY3Mzg4MzgsImV4cCI6MTY3OTMzMDgzOH0.F2u4UZb_I9Nphbc-2Ss_fC8t_zn9q0GrkkzUPz8ehRE",
+      "user": {
+          "id": 1,
+          "email": "qweqwe@example.com",
+          "password": "$2b$05$TkPz7dVAnqRhKVxYeEJ97ugEcMF/hWT8FeHNlt09d7VnGnKeWTePC",
+          "name": "Mr QWEqwe",
+          "alias": "qweshka",
+          "country": "Iceland",
+          "birthDate": "2013-02-09T03:46:18.057Z",
+          "hidden": true,
+          "createdAt": "2023-02-09T03:46:18.057Z",
+          "postsIds": [
+              23,
+              54
+          ],
+          "friendsIds": [
+              2,
+              7,
+              8,
+              9,
+              13
+          ],
+          "pendingFriendsIds": [],
+          "activationLink": "956bb135-ed5a-494b-8d0f-a8dcabad4bb3",
+          "isActivated": true,
+          "isOnline": true,
+          "lastSeen": "2023-02-18T12:20:04.753Z"
+      }
+    }
+    ```
+
+- **Error response:**
+
+  - **Code:** 400 Bad Request <br />
+    **Content:**
+
+    ```json
+    {
+      "error": true,
+      "status": 400,
+      "message": "Bad Request",
+      "instance": "/api/users-pwd",
+      "errors": [
+          {
+              "msg": "Invalid value",
+              "param": "userId",
+              "location": "body"
+          },
+          {
+              "msg": "Invalid value",
+              "param": "password",
+              "location": "body"
+          },
+          {
+              "msg": "Invalid value",
+              "param": "password",
+              "location": "body"
+          }
+      ]
+    }
+    ```
+
+  - **Code:** 401 Unauthorized <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 401,
+      "message": "Unauthorized",
+      "instance": "/api/users-pwd",
+      "errors": []
+    }
+    ```
+
+  - **Code:** 404 Not Found <br />
+    **Content:**
+
+    ```json
+    {
+      "error": true,
+      "message": "Not Found",
+      "status": 404,
+      "instance": "/api/users-pwd",
+      "errors": []
+    }
+    ```
+
+</details>
+
+## **Posts**
 
 ## **Get posts**
 
@@ -733,7 +853,7 @@ Creates a new post.
 
 </details>
 
-## **Remove post**
+## **Delete post**
 
 Removes the specified post from the database
 
@@ -851,12 +971,14 @@ Updates post properties.
       "error": true,
       "message": "Not Found",
       "status": 404,
-      "instance": "/api/api/users/25",
+      "instance": "/api/users/25",
       "errors": []
     }
     ```
 
 </details>
+
+## **Chats**
 
 ## **Create chat**
 
@@ -1033,6 +1155,317 @@ Removes all messages from a particular chat.
       "message": "Cast to ObjectId failed for value \"zxc\" (type string) at path \"_id\" for model \"Chat\"",
       "instance": "/api/chats/zxc",
       "errors": []
+    }
+    ```
+
+</details>
+
+## **Images**
+
+## **Set user avatar**
+
+Sets user avatar as `user.images.avatar` in DB, available as `user.avatar` in user DTO.
+
+<details>
+
+- **URL**
+
+  /api/images/user-avatar/:id
+
+- **Method:**
+
+  `POST`
+  
+- **URL params**
+
+  `id=[integer]`
+
+- **Success response:**
+
+  - **Code:** 200 OK <br />
+  - **Content:** image/webp <br />
+
+- **Error response:**
+
+  - **Code:** 400 Bad Request <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 400,
+      "message": "Bad Request",
+      "instance": "/api/images/user-avatar",
+    }
+    ```
+
+  - **Code:** 404 Not Found <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 404,
+      "message": "Not Found",
+      "instance": "/api/images/user-avatar",
+    }
+    ```
+
+</details>
+
+## **Set user cover**
+
+Sets user cover as `user.images.cover` in DB, available as `user.cover` in user DTO.
+
+<details>
+
+- **URL**
+
+  /api/images/user-cover/:id
+
+- **Method:**
+
+  `POST`
+  
+- **URL params**
+
+  `id=[integer]`
+
+- **Success response:**
+
+  - **Code:** 200 OK <br />
+  - **Content:** image/webp <br />
+
+- **Error response:**
+
+  - **Code:** 400 Bad Request <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 400,
+      "message": "Bad Request",
+      "instance": "/api/images/user-cover",
+    }
+    ```
+
+  - **Code:** 404 Not Found <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 404,
+      "message": "Not Found",
+      "instance": "/api/images/user-cover",
+    }
+    ```
+
+</details>
+
+## **Push post image**
+
+Pushes post image data to `post.images`, in post DTO available as an array of strings at the same key.
+
+<details>
+
+- **URL**
+
+  /api/images/post/:id
+
+- **Method:**
+
+  `POST`
+  
+- **URL params**
+
+  `id=[integer]`
+
+- **Success response:**
+
+  - **Code:** 200 OK <br />
+  - **Content:** 
+  
+  ```json
+  [
+    "data:image/webp;base64,UklGRjpAAABXRUJQVlA4IC5AAABwKwGdASr0AfQBPrVYpU4nJSOpJjdZWSAWiWVu4TyoaMstILxGfiyPTfL55X8jZNmSd6FnD/Zd7f0c/..."
+  ]
+  ```
+
+- **Error response:**
+
+  - **Code:** 400 Bad Request <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 400,
+      "message": "Bad Request",
+      "instance": "/api/images/post",
+    }
+    ```
+
+  - **Code:** 404 Not Found <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 404,
+      "message": "Not Found",
+      "instance": "/api/images/post",
+    }
+    ```
+
+</details>
+
+## **Get user avatar**
+
+Returns user avatar as image/webp data.
+
+<details>
+
+- **URL**
+
+  /api/images?
+
+- **Method:**
+
+  `GET`
+  
+- **Query params**
+
+  `name=user-avatar`
+  `id=[integer]`
+
+- **Success response:**
+
+  - **Code:** 200 OK <br />
+  - **Content:** image/webp <br />
+
+- **Error response:**
+
+  - **Code:** 400 Bad Request <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 400,
+      "message": "Bad Request",
+      "instance": "/api/images?name=<incorrect-name>&<id-missing>"
+    }
+    ```
+
+  - **Code:** 404 Not Found <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 404,
+      "message": "Not Found",
+      "instance": "/api/images?name=user-avatar&id=1512211512",
+    }
+    ```
+
+</details>
+
+## **Get user cover**
+
+Returns user cover as image/webp data.
+
+<details>
+
+- **URL**
+
+  /api/images?
+
+- **Method:**
+
+  `GET`
+  
+- **Query params**
+
+  `name=user-cover`
+  `id=[integer]`
+
+- **Success response:**
+
+  - **Code:** 200 OK <br />
+  - **Content:** image/webp <br />
+
+- **Error response:**
+
+  - **Code:** 400 Bad Request <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 400,
+      "message": "Bad Request",
+      "instance": "/api/images?name=<incorrect-name>&<id-missing>"
+    }
+    ```
+
+  - **Code:** 404 Not Found <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 404,
+      "message": "Not Found",
+      "instance": "/api/images?name=user-cover&id=1512211512",
+    }
+    ```
+
+</details>
+
+## **Get post images**
+
+Returns an array of post images represented as image data encoded in base64 format.
+
+<details>
+
+- **URL**
+
+  /api/images?
+
+- **Method:**
+
+  `GET`
+  
+- **Query params**
+
+  `name=post`
+  `id=[integer]`
+
+- **Success response:**
+
+  - **Code:** 200 OK <br />
+  - **Content:** 
+  
+  ```json
+  [
+    "data:image/webp;base64,UklGRjpAAABXRUJQVlA4IC5AAABwKwGdASr0AfQBPrVYpU4nJSOpJjdZWSAWiWVu4TyoaMstILxGfiyPTfL55X8jZNmSd6FnD/Zd7f0c/..."
+  ]
+  ```
+
+- **Error response:**
+
+  - **Code:** 400 Bad Request <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 400,
+      "message": "Bad Request",
+      "instance": "/api/images?name=<incorrect-name>&<id-missing>"
+    }
+    ```
+
+  - **Code:** 404 Not Found <br />
+    **Content:**
+    ```json
+    {
+      "error": true,
+      "status": 404,
+      "message": "Not Found",
+      "instance": "/api/images?name=user-avatar&id=1512211512",
     }
     ```
 

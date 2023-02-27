@@ -25,7 +25,7 @@ interface IPost<T = number> {
 
 interface IUser<T = number> {
   id: T;
-  email: string;
+  email?: string;
   name: string;
   password: string;
   hidden: boolean;
@@ -33,7 +33,6 @@ interface IUser<T = number> {
   country: string;
   birthDate: string;
   alias?: string;
-  avatarURL?: string;
   postsIds?: number[];
   friendsIds?: number[];
   pendingFriendsIds?: number[];
