@@ -27,7 +27,7 @@ const handleMessages: WebsocketRequestHandler = (ws, _req, _next) => {
       const err = new Error(errMessage);
       const res = getActionString('error', { error: true, message: errMessage });
       ws.send(res);
-      console.error(err);
+      console.error(err.message);
       return;
     }
 
@@ -38,11 +38,11 @@ const handleMessages: WebsocketRequestHandler = (ws, _req, _next) => {
     try {
       res = handler(ws, payload);
     } catch (e) {
-      console.error(e);
+      console.error('sync ws handler', handler.name, e);
     }
 
     if (res instanceof Promise) {
-      res.catch(console.error);
+      res.catch((e) => console.error('async ws handler', e));
     }
   });
 

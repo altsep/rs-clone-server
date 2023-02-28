@@ -1,4 +1,4 @@
 import { app } from '../app';
 import { handleMessages } from '../controllers/messages';
 
-app.ws('/', handleMessages);
+app.ws('/messages', handleMessages);
