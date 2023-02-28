@@ -3,12 +3,15 @@ import { WebSocket } from 'ws';
 import { MessageDto } from '../../dtos/message-dto';
 import { chatModel } from '../../models/chat-model';
 import { ChatSchema } from '../../models/types';
+import { userModel } from '../../models/user-model';
 import { getActionString } from '../../utils';
 
-export const watchChats = (ws: WebSocket, userId: number): void => {
-  const validatedMsg = getActionString('system', 'User authenticated. Watching for chat updates...');
+export const watchChats = async (ws: WebSocket, userId: number): Promise<void> => {
+  const user = await userModel.findOne({ userId });
 
-  ws.send(validatedMsg);
+  if (!user) {
+    throw new Error('Not Found');
+  }
 
   const changeStream = chatModel.watch([], { fullDocument: 'updateLookup', hydrate: true });
 
