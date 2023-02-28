@@ -49,13 +49,13 @@ const handleMessages: WebsocketRequestHandler = (ws, _req, _next) => {
   ws.on('error', (err) => {
     const res = getActionString('error', { message: err });
     ws.send(res);
-    console.error(err);
+    console.error('ws error', err);
   });
 
   ws.on('close', (code, reason) => {
     const res = getActionString('system', { code, reason: reason.toString() });
     ws.send(res);
-    console.log(code, reason.toString());
+    console.log('ws close', code, reason.toString());
   });
 };
 
