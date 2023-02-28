@@ -33,7 +33,13 @@ const handleMessages: WebsocketRequestHandler = (ws, _req, next) => {
 
     const handler = messagesWsController[type];
 
-    const res = handler(ws, payload);
+    let res;
+
+    try {
+      res = handler(ws, payload);
+    } catch (e) {
+      next(e);
+    }
 
     if (res instanceof Promise) {
       res.catch(next);
