@@ -38,24 +38,20 @@ const handleMessages: WebsocketRequestHandler = (ws, _req, _next) => {
     try {
       res = handler(ws, payload);
     } catch (e) {
-      console.error('sync ws handler', handler.name, e);
+      console.error('Sync WS handler threw:', e);
     }
 
     if (res instanceof Promise) {
-      res.catch((e) => console.error('async ws handler', e));
+      res.catch((e) => console.error('Async WS handler threw:', e));
     }
   });
 
   ws.on('error', (err) => {
-    const res = getActionString('error', { message: err });
-    ws.send(res);
-    console.error('ws error', err);
+    console.error('WS errored:', err);
   });
 
   ws.on('close', (code, reason) => {
-    const res = getActionString('system', { code, reason: reason.toString() });
-    ws.send(res);
-    console.log('ws close', code, reason.toString());
+    console.log('WS closed:', code, reason.toString());
   });
 };
 
