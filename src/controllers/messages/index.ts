@@ -5,11 +5,13 @@ import { handleSendMessage as send } from './sendMessage';
 import { handleWatchChats as watch } from './watchChats';
 import { handleUserOnlineStatus as userStatus } from './handleOnlineStatus';
 import { handleRemoveAllChatMessages as removeAllChatMessages } from './removeAllChatMessages';
+import { ping } from './ping';
 
 export const messagesWsController: Record<string, WsHandler> = {
   send,
   watch,
   userStatus,
+  ping,
 };
 
 export const messagesController = {
@@ -31,7 +33,13 @@ const handleMessages: WebsocketRequestHandler = (ws, _req, next) => {
 
     const handler = messagesWsController[type];
 
-    const res = handler(ws, payload);
+    let res;
+
+    try {
+      res = handler(ws, payload);
+    } catch (e) {
+      next(e);
+    }
 
     if (res instanceof Promise) {
       res.catch(next);

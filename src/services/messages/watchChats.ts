@@ -3,20 +3,15 @@ import { WebSocket } from 'ws';
 import { MessageDto } from '../../dtos/message-dto';
 import { chatModel } from '../../models/chat-model';
 import { ChatSchema } from '../../models/types';
-import { User } from '../../types';
+import { userModel } from '../../models/user-model';
 import { getActionString } from '../../utils';
-import { validateAccessToken } from '../token/validateAccessToken';
 
-export const watchChats = (ws: WebSocket, userId: number, accessToken: string): void => {
-  const userData = validateAccessToken(accessToken) as User<number>;
+export const watchChats = async (ws: WebSocket, userId: number): Promise<void> => {
+  const user = await userModel.findOne({ userId });
 
-  if (!userData || userData.id !== userId) {
-    throw new Error('Unauthorized');
+  if (!user) {
+    throw new Error('Not Found');
   }
-
-  const validatedMsg = getActionString('system', 'User authenticated. Watching for chat updates...');
-
-  ws.send(validatedMsg);
 
   const changeStream = chatModel.watch([], { fullDocument: 'updateLookup', hydrate: true });
 
