@@ -3,7 +3,7 @@ import { UserSchema } from '../models/types';
 class UserDto {
   public id: number;
 
-  public email: string;
+  public email: string | undefined;
 
   public password: string;
 
