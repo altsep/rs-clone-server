@@ -18,7 +18,7 @@ export const messagesController = {
   removeAllChatMessages,
 };
 
-const handleMessages: WebsocketRequestHandler = (ws, _req, next) => {
+const handleMessages: WebsocketRequestHandler = (ws, _req, _next) => {
   ws.on('message', (message: string) => {
     const { type, payload } = JSON.parse(message) as { type: keyof typeof messagesWsController; payload: unknown };
 
@@ -27,7 +27,7 @@ const handleMessages: WebsocketRequestHandler = (ws, _req, next) => {
       const err = new Error(errMessage);
       const res = getActionString('error', { error: true, message: errMessage });
       ws.send(res);
-      next(err);
+      console.error(err);
       return;
     }
 
@@ -38,18 +38,24 @@ const handleMessages: WebsocketRequestHandler = (ws, _req, next) => {
     try {
       res = handler(ws, payload);
     } catch (e) {
-      next(e);
+      console.error(e);
     }
 
     if (res instanceof Promise) {
-      res.catch(next);
+      res.catch(console.error);
     }
   });
 
   ws.on('error', (err) => {
     const res = getActionString('error', { message: err });
     ws.send(res);
-    next(err);
+    console.error(err);
+  });
+
+  ws.on('close', (code, reason) => {
+    const res = getActionString('system', { code, reason: reason.toString() });
+    ws.send(res);
+    console.log(code, reason.toString());
   });
 };
 

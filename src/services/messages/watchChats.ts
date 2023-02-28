@@ -3,17 +3,9 @@ import { WebSocket } from 'ws';
 import { MessageDto } from '../../dtos/message-dto';
 import { chatModel } from '../../models/chat-model';
 import { ChatSchema } from '../../models/types';
-import { User } from '../../types';
 import { getActionString } from '../../utils';
-import { validateAccessToken } from '../token/validateAccessToken';
 
-export const watchChats = (ws: WebSocket, userId: number, accessToken: string): void => {
-  const userData = validateAccessToken(accessToken) as User<number>;
-
-  if (!userData || userData.id !== userId) {
-    throw new Error('Unauthorized');
-  }
-
+export const watchChats = (ws: WebSocket, userId: number): void => {
   const validatedMsg = getActionString('system', 'User authenticated. Watching for chat updates...');
 
   ws.send(validatedMsg);
