@@ -58,7 +58,7 @@ const userSchema = new Schema<UserSchema>({
   },
   isOnline: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   lastSeen: String,
   images: {
