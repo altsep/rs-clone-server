@@ -1475,9 +1475,13 @@ Returns an array of post images represented as image data encoded in base64 form
 
 ## **Messages**
 
+<details>
+
 - **URL**
 
   /messages
+
+</details>
 
 ## **Send message**
 
