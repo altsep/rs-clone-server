@@ -42,7 +42,7 @@ const generateHexStr = (amount = 24): string => {
 
 const getActionString = (type: string, payload: unknown): string => JSON.stringify({ type, payload });
 
-const getImageBase64String = ({ data, contentType }: ImageSchema): string =>
+const getDataUrl = ({ data, contentType }: ImageSchema): string =>
   `data:${contentType};base64,${data.toString('base64')}`;
 
-export { handleError, handleValidationResult, getIsoString, generateHexStr, getActionString, getImageBase64String };
+export { handleError, handleValidationResult, getIsoString, generateHexStr, getActionString, getDataUrl };
