@@ -18,6 +18,7 @@ export const messagesController = {
   removeAllChatMessages,
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const handleMessages: WebsocketRequestHandler = (ws, _req, _next) => {
   ws.on('message', (message: string) => {
     const { type, payload } = JSON.parse(message) as { type: keyof typeof messagesWsController; payload: unknown };
