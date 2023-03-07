@@ -15,8 +15,9 @@ const DB_URI = process.env.DB_URI || '';
 
 mongoose.connect(DB_URI).catch((e) => console.error(e));
 
-const app = express();
-expressWs(app);
+const appBase = express();
+const wsInstance = expressWs(appBase);
+const { app } = wsInstance;
 
 app.use(compression());
 app.use(morgan('dev'));
