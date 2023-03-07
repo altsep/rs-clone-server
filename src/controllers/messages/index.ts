@@ -7,7 +7,7 @@ import { handleUserOnlineStatus as userStatus } from './handleOnlineStatus';
 import { handleRemoveAllChatMessages as removeAllChatMessages } from './removeAllChatMessages';
 import { ping } from './ping';
 
-export const messagesWsController: Record<string, WsHandler> = {
+const messagesWsController: Record<string, WsHandler> = {
   send,
   watch,
   userStatus,
