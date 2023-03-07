@@ -9,13 +9,13 @@ import { handleError } from '../../utils';
 export const handleLogin: Handler = (req, res, next) => {
   const errors = validationResult(req);
 
-  if (!errors.isEmpty()) {
+  const { email, password } = req.body as Pick<User, 'email' | 'password'>;
+
+  if (email == null || !errors.isEmpty()) {
     const data = handleError(req.originalUrl, 400, errors.array());
     res.status(data.status).send(data);
     return;
   }
-
-  const { email, password } = req.body as Pick<User, 'email' | 'password'>;
 
   login(email, password)
     .then((userData) => {

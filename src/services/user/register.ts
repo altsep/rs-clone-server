@@ -26,6 +26,10 @@ const throwOnUser = async (filter: Partial<User>): Promise<void> => {
 export const register = async (data: User): Promise<ResponseData> => {
   const { email, password } = data;
 
+  if (email == null) {
+    throw new Error('Bad Request');
+  }
+
   await throwOnUser({ email });
 
   const hashPassword = await bcrypt.hash(password, 5);
