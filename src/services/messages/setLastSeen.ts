@@ -1,6 +1,6 @@
 import { UserDto } from '../../dtos/user-dto';
 import { userModel } from '../../models/user-model';
-import { getIsoString } from '../../utils';
+import { Util } from '../../util/Util';
 
 export const setLastSeen = async (userId: number): Promise<UserDto> => {
   const user = await userModel.findOne({ userId });
@@ -9,7 +9,7 @@ export const setLastSeen = async (userId: number): Promise<UserDto> => {
     throw new Error('Not found');
   }
 
-  user.lastSeen = getIsoString();
+  user.lastSeen = Util.getIsoString();
 
   await user.save();
 

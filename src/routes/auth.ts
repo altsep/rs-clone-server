@@ -1,25 +1,26 @@
 import { body } from 'express-validator';
-import { app } from '../app';
-import { handleActivation } from '../controllers/auth/activate';
-import { handleLogin } from '../controllers/auth/login';
-import { handleLogout } from '../controllers/auth/logout';
-import { handleRefresh } from '../controllers/auth/refresh';
-import { handleRegistration } from '../controllers/auth/register';
+import { authController } from '../controllers/auth-controller';
+import { router } from '../router';
 
-app.post(
-  '/api/registration',
+router.post(
+  '/registration',
   body('email').isEmail().normalizeEmail(),
   body('password').isString().notEmpty(),
   body('name').isString(),
   body('country').isString(),
   body('birthDate').isISO8601(),
-  handleRegistration
+  authController.register
 );
 
-app.post('/api/login', body('email').isEmail().normalizeEmail(), body('password').isString().notEmpty(), handleLogin);
+router.post(
+  '/login',
+  body('email').isEmail().normalizeEmail(),
+  body('password').isString().notEmpty(),
+  authController.login
+);
 
-app.post('/api/logout', handleLogout);
+router.post('/logout', authController.logout);
 
-app.get('/api/activate/:link', handleActivation);
+router.get('/activate/:link', authController.activate);
 
-app.post('/api/refresh', handleRefresh);
+router.post('/refresh', authController.refresh);

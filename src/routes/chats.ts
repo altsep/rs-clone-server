@@ -1,9 +1,9 @@
 import { body, query } from 'express-validator';
-import { app } from '../app';
-import { chatsController } from '../controllers/chats';
+import { chatController } from '../controllers/chat-controller';
+import { router } from '../router';
 
-app.post('/api/chats', body('userIds').isArray({ min: 2 }), chatsController.addChat);
+router.post('/chats', body('userIds').isArray({ min: 2 }), chatController.addChat);
 
-app.get('/api/chats', query('userId').exists(), chatsController.getUserChats);
+router.get('/chats', query('userId').exists(), chatController.getAllUserChats);
 
-app.delete('/api/chats/:id', chatsController.removeChat);
+router.delete('/chats/:id', chatController.removeChat);

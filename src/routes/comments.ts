@@ -1,25 +1,25 @@
 import { body } from 'express-validator';
-import { app } from '../app';
-import { commentsController } from '../controllers/comments';
+import { commentController } from '../controllers/comment.controller';
+import { router } from '../router';
 
-app.get('/api/comments', commentsController.getComments);
+router.get('/comments', commentController.getAllComments);
 
-app.post(
-  '/api/comments',
+router.post(
+  '/comments',
   body('postId').exists().isNumeric(),
   body('userId').exists().isNumeric(),
   body('description').exists().isString(),
-  commentsController.addComment
+  commentController.addComment
 );
 
-app.get('/api/comments/:id', commentsController.getComment);
+router.get('/comments/:id', commentController.getComment);
 
-app.patch(
-  '/api/comments/:id',
+router.patch(
+  '/comments/:id',
   body('description').optional().isString(),
   body('likes').optional().isNumeric(),
   body('likedUserIds').optional().isArray(),
-  commentsController.updateComment
+  commentController.updateComment
 );
 
-app.delete('/api/comments/:id', commentsController.removeComment);
+router.delete('/comments/:id', commentController.removeComment);

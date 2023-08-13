@@ -1,12 +1,12 @@
 import { CallbackWithoutResultAndOptionalError, Document } from 'mongoose';
-import { getIsoString } from '../utils';
+import { Util } from '../util/Util';
 
 const setCreatedAt = function (
   this: Document & { createdAt: string },
   next: CallbackWithoutResultAndOptionalError
 ): void {
   if (!this.createdAt) {
-    this.createdAt = getIsoString();
+    this.createdAt = Util.getIsoString();
   }
 
   next();

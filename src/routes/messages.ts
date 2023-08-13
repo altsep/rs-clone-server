@@ -1,4 +1,4 @@
-import { app } from '../app';
-import { messagesController } from '../controllers/messages';
+import { messageController } from '../controllers/message-controller';
+import { router } from '../router';
 
-app.delete('/api/messages/:id', messagesController.removeAllChatMessages);
+router.delete('/messages/:id', messageController.removeAllChatMessages);

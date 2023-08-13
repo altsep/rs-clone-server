@@ -4,7 +4,7 @@ import { MessageDto } from '../../dtos/message-dto';
 import { chatModel } from '../../models/chat-model';
 import { ChatSchema } from '../../models/types';
 import { userModel } from '../../models/user-model';
-import { getActionString } from '../../utils';
+import { Util } from '../../util/Util';
 
 export const watchChats = async (ws: WebSocket, userId: number): Promise<void> => {
   const user = await userModel.findOne({ userId });
@@ -27,7 +27,7 @@ export const watchChats = async (ws: WebSocket, userId: number): Promise<void> =
 
         if (lastMessage.userId !== userId) {
           const lastMessageDto = new MessageDto(lastMessage);
-          const message = getActionString('watch', lastMessageDto);
+          const message = Util.getActionString('watch', lastMessageDto);
           ws.send(message);
         }
       }

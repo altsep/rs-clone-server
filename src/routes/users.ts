@@ -1,14 +1,14 @@
 import { body } from 'express-validator';
-import { app } from '../app';
 import { RESERVED_PAGE_NAMES } from '../constants';
-import { usersController } from '../controllers/users';
+import { userController } from '../controllers/user-controller';
+import { router } from '../router';
 
-app.get('/api/users', usersController.getUsers);
+router.get('/users', userController.getAllUsers);
 
-app.get('/api/users/:id', usersController.getUser);
+router.get('/users/:id', userController.getUser);
 
-app.patch(
-  '/api/users/:id',
+router.patch(
+  '/users/:id',
   body('email').optional().isEmail(),
   body('name').optional().isString(),
   body('password').optional().isString(),
@@ -19,14 +19,14 @@ app.patch(
   body('postsIds').optional().isArray(),
   body('friendsIds').optional().isArray(),
   body('pendingFriendsIds').optional().isArray(),
-  usersController.updateUser
+  userController.updateUser
 );
 
-app.patch(
-  '/api/users-pwd',
+router.patch(
+  '/users-pwd',
   body('userId').isNumeric(),
   body('password').isString().notEmpty(),
-  usersController.changePassword
+  userController.changePassword
 );
 
-app.delete('/api/users/:id', body('password').isString().notEmpty(), usersController.deleteUser);
+router.delete('/users/:id', body('password').isString().notEmpty(), userController.deleteUser);

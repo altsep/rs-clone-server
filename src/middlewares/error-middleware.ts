@@ -1,6 +1,6 @@
 import { ErrorRequestHandler } from 'express';
 import { getStatusCode } from 'http-status-codes';
-import { handleError } from '../utils';
+import { Util } from '../util/Util';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const errorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
@@ -9,10 +9,10 @@ export const errorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
   try {
     if (err instanceof Error) {
       const statusCode = getStatusCode(err.message);
-      data = handleError(req.originalUrl, statusCode);
+      data = Util.handleError(req.originalUrl, statusCode);
     }
   } catch (statusCodeError) {
-    data = handleError(req.originalUrl);
+    data = Util.handleError(req.originalUrl);
 
     if (err instanceof Error) {
       data.message = err.message;

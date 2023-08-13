@@ -10,7 +10,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "tsx build",
+    "start": "npm run build && tsx build",
     "dev": "tsx watch --trace-warnings src",
     "build": "esbuild src/index.ts --outdir=build --allow-overwrite --bundle --platform=node --packages=external --log-limit=0",
     "test": "jest",

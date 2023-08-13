@@ -1,25 +1,25 @@
 import { body } from 'express-validator';
-import { app } from '../app';
-import { postsController } from '../controllers/posts';
+import { postController } from '../controllers/post-controller';
+import { router } from '../router';
 
-app.get('/api/posts', postsController.getPosts);
+router.get('/posts', postController.getAllPosts);
 
-app.post(
-  '/api/posts',
+router.post(
+  '/posts',
   body('userId').exists().isNumeric(),
   body('description').exists().isString(),
-  postsController.addPost
+  postController.addPost
 );
 
-app.get('/api/posts/:id', postsController.getPost);
+router.get('/posts/:id', postController.getPost);
 
-app.patch(
-  '/api/posts/:id',
+router.patch(
+  '/posts/:id',
   body('description').optional().isString(),
   body('likes').optional().isNumeric(),
   body('likedUserIds').optional().isArray(),
   body('commentsIds').optional().isArray(),
-  postsController.updatePost
+  postController.updatePost
 );
 
-app.delete('/api/posts/:id', postsController.removePost);
+router.delete('/posts/:id', postController.removePost);

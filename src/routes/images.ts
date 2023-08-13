@@ -1,27 +1,27 @@
 import { param, query } from 'express-validator';
-import { app } from '../app';
-import { imagesController } from '../controllers/images';
+import { imageController } from '../controllers/image-controller';
 import { upload } from '../middlewares/upload-middleware';
+import { router } from '../router';
 
-app.post('/api/images/post/:id', param('id').isNumeric(), upload.array('post-img', 10), imagesController.uploadImage);
+router.post('/images/post/:id', param('id').isNumeric(), upload.array('post-img', 10), imageController.uploadImage);
 
-app.post(
-  '/api/images/user-avatar/:id',
+router.post(
+  '/images/user-avatar/:id',
   param('id').isNumeric(),
   upload.single('user-avatar'),
-  imagesController.uploadImage
+  imageController.uploadImage
 );
 
-app.get(
-  '/api/images?',
+router.get(
+  '/images?',
   query('name').isAlpha(undefined, { ignore: '-' }),
   query('id').isNumeric(),
-  imagesController.getImage
+  imageController.getImage
 );
 
-app.post(
-  '/api/images/user-cover/:id',
+router.post(
+  '/images/user-cover/:id',
   param('id').isNumeric(),
   upload.single('user-cover'),
-  imagesController.uploadImage
+  imageController.uploadImage
 );

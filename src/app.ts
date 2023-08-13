@@ -6,6 +6,8 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import { router } from './router';
+import { errorMiddleware } from './middlewares/error-middleware';
 
 dotenv.config();
 
@@ -27,6 +29,8 @@ app.use(express.urlencoded({ extended: true }));
 const origin = process.env.ORIGIN;
 const corsOpts = { credentials: true, origin };
 app.use(cors(corsOpts));
+app.use('/api', router);
+app.use(errorMiddleware);
 
 app.set('json spaces', 2);
 
