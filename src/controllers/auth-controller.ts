@@ -3,13 +3,9 @@ import { Handler } from 'express';
 import { validationResult } from 'express-validator';
 import { StatusCodes } from 'http-status-codes';
 import { MS_IN_A_MONTH } from '../constants';
-import { activate } from '../services/user/activate';
-import { login } from '../services/user/login';
-import { logout } from '../services/user/logout';
-import { refresh } from '../services/user/refresh';
-import { register } from '../services/user/register';
 import { User } from '../types';
 import { Util } from '../util/Util';
+import { authService } from '../services/auth-service';
 
 class AuthController {
   public register: Handler = (req, res, next): void => {
@@ -22,7 +18,8 @@ class AuthController {
 
     const userProps = req.body as Exclude<User, 'id'>;
 
-    register(userProps)
+    authService
+      .register(userProps)
       .then((userData) => {
         const status = StatusCodes.CREATED;
         res.cookie('refreshToken', userData.refreshToken, { maxAge: MS_IN_A_MONTH, httpOnly: true });
@@ -34,7 +31,8 @@ class AuthController {
   public activate: Handler = (req, res, next) => {
     const { link: activationLink } = req.params;
 
-    activate(activationLink)
+    authService
+      .activate(activationLink)
       .then(() => res.redirect(process.env.CLIENT_URL || ''))
       .catch(next);
   };
@@ -50,7 +48,8 @@ class AuthController {
       return;
     }
 
-    login(email, password)
+    authService
+      .login(email, password)
       .then((userData) => {
         const status = StatusCodes.ACCEPTED;
         res.cookie('refreshToken', userData.refreshToken, { maxAge: MS_IN_A_MONTH, httpOnly: true });
@@ -68,7 +67,8 @@ class AuthController {
       return;
     }
 
-    refresh(refreshToken)
+    authService
+      .refresh(refreshToken)
       .then((userData) => {
         res.clearCookie('refreshToken');
         const status = StatusCodes.OK;
@@ -87,7 +87,8 @@ class AuthController {
       return;
     }
 
-    logout(refreshToken)
+    authService
+      .logout(refreshToken)
       .then((deleteResult) => {
         res.clearCookie('refreshToken');
         const status = StatusCodes.OK;

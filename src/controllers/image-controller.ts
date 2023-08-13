@@ -3,12 +3,8 @@ import { validationResult } from 'express-validator';
 import fsPromises from 'fs/promises';
 import { asyncMiddleware } from '../middlewares/async-middleware';
 import { ImageSchema } from '../models/types';
-import { getPostImages } from '../services/post/getPostImages';
-import { setPostImage } from '../services/post/setPostImage';
-import { getUserAvatar } from '../services/user/getUserAvatar';
-import { getUserCover } from '../services/user/getUserCover';
-import { setUserAvatar } from '../services/user/setUserAvatar';
-import { setUserCover } from '../services/user/setUserCover';
+import { imageService } from '../services/image-service';
+import { postService } from '../services/post-service';
 import { ProcessOpts, SharpInstance } from '../util/SharpInstance';
 
 type GetImageService = (id: number) => Promise<ImageSchema | string[] | undefined>;
@@ -20,14 +16,14 @@ interface UploadImageService<T> {
 
 class ImageController {
   private imageServices: Record<string, GetImageService> = {
-    'user-avatar': getUserAvatar,
-    'user-cover': getUserCover,
-    post: getPostImages,
+    'user-avatar': imageService.getUserAvatar,
+    'user-cover': imageService.getUserCover,
+    post: postService.getPostImages,
   };
 
   private multipleFileServices: Record<string, UploadImageService<ImageSchema[]>> = {
     'post-img': {
-      serviceFn: setPostImage,
+      serviceFn: postService.setPostImage,
       processOpts: {
         width: 500,
         height: 500,
@@ -38,14 +34,14 @@ class ImageController {
 
   private singleFileServices: Record<string, UploadImageService<ImageSchema>> = {
     'user-avatar': {
-      serviceFn: setUserAvatar,
+      serviceFn: imageService.setUserAvatar,
       processOpts: {
         width: 150,
         height: 150,
       },
     },
     'user-cover': {
-      serviceFn: setUserCover,
+      serviceFn: imageService.setUserCover,
       processOpts: {
         width: 1000,
         height: 300,

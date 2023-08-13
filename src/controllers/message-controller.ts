@@ -2,11 +2,7 @@
 import { Handler } from 'express';
 import { WebsocketRequestHandler } from 'express-ws';
 import WebSocket from 'ws';
-import { removeAllChatMessages } from '../services/messages/removeAllChatMessages';
-import { sendMessage } from '../services/messages/sendMessage';
-import { setLastSeen } from '../services/messages/setLastSeen';
-import { setUserOnlineStatus } from '../services/messages/setUserOnlineStatus';
-import { watchChats } from '../services/messages/watchChats';
+import { messageService } from '../services/message-service';
 import { Message } from '../types';
 import { Util } from '../util/Util';
 
@@ -15,8 +11,8 @@ export type WsHandler = (ws: WebSocket, payload?: unknown) => void | Promise<voi
 class MessageController {
   private handleUserOnlineStatus: WsHandler = async (_ws, payload): Promise<void> => {
     const { userId, isOnline } = payload as { userId: number; isOnline: boolean };
-    await setUserOnlineStatus(userId, isOnline);
-    if (!isOnline) await setLastSeen(userId);
+    await messageService.setUserOnlineStatus(userId, isOnline);
+    if (!isOnline) await messageService.setLastSeen(userId);
   };
 
   private ping = (ws: WebSocket): void => {
@@ -27,7 +23,7 @@ class MessageController {
   private send: WsHandler = async (ws, payload) => {
     const { chatId, userId, description } = payload as { chatId: string } & Exclude<Message, 'id'>;
 
-    const message = await sendMessage(chatId, userId, description);
+    const message = await messageService.sendMessage(chatId, userId, description);
 
     const res = Util.getActionString('send', message);
 
@@ -37,7 +33,7 @@ class MessageController {
   private watch: WsHandler = (ws, payload): void => {
     const { userId } = payload as { userId: number };
 
-    watchChats(ws, userId).catch(console.error);
+    messageService.watchChats(ws, userId).catch(console.error);
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -87,7 +83,8 @@ class MessageController {
 
     const { id } = req.params;
 
-    removeAllChatMessages(id)
+    messageService
+      .removeAllChatMessages(id)
       .then(() => {
         res.end();
       })

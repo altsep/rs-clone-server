@@ -2,13 +2,9 @@
 import { Handler } from 'express';
 import { validationResult } from 'express-validator';
 import { StatusCodes } from 'http-status-codes';
-import { addComment } from '../services/comment/addComment';
-import { getAllComments } from '../services/comment/getAllComments';
-import { getComment } from '../services/comment/getComment';
-import { removeComment } from '../services/comment/removeComment';
-import { updateComment } from '../services/comment/updateComment';
 import { Comment } from '../types';
 import { Util } from '../util/Util';
+import { commentService } from '../services/comment-service';
 
 class CommentController {
   public addComment: Handler = (req, res, next) => {
@@ -22,7 +18,8 @@ class CommentController {
 
     const data = req.body as Exclude<Comment, 'id'>;
 
-    addComment(data)
+    commentService
+      .addComment(data)
       .then((comment) => {
         const status = StatusCodes.CREATED;
         res.status(status).send(comment);
@@ -39,13 +36,15 @@ class CommentController {
       return;
     }
 
-    getComment(id)
+    commentService
+      .getComment(id)
       .then((post) => res.send(post))
       .catch(next);
   };
 
   public getAllComments: Handler = (_req, res, next) => {
-    getAllComments()
+    commentService
+      .getAllComments()
       .then((posts) => res.send(posts))
       .catch(next);
   };
@@ -62,7 +61,8 @@ class CommentController {
     const { id } = req.params;
     const postProps = req.body as Partial<Comment>;
 
-    updateComment(id, postProps)
+    commentService
+      .updateComment(id, postProps)
       .then((updatedComment) => res.send(updatedComment))
       .catch(next);
   };
@@ -71,7 +71,8 @@ class CommentController {
     const { originalUrl } = req;
     const { id } = req.params;
 
-    removeComment(id)
+    commentService
+      .removeComment(id)
       .then(() => {
         const data = { success: true, instance: originalUrl };
         res.send(data);

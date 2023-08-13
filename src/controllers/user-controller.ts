@@ -3,11 +3,7 @@ import { Handler } from 'express';
 import { matchedData, validationResult } from 'express-validator';
 import { MS_IN_A_MONTH } from '../constants';
 import { UserSchema } from '../models/types';
-import { changePassword } from '../services/user/changePassword';
-import { deleteUser } from '../services/user/deleteUser';
-import { getAllUsers } from '../services/user/getAllUsers';
-import { getUser } from '../services/user/getUser';
-import { updateUser } from '../services/user/updateUser';
+import { userService } from '../services/user-service';
 import { User } from '../types';
 import { Util } from '../util/Util';
 
@@ -15,13 +11,15 @@ class UserController {
   public getUser: Handler = (req, res, next) => {
     const { id } = req.params;
 
-    getUser(id)
+    userService
+      .getUser(id)
       .then((userData) => res.send(userData))
       .catch(next);
   };
 
   public getAllUsers: Handler = (_req, res, next) => {
-    getAllUsers()
+    userService
+      .getAllUsers()
       .then((users) => res.send(users))
       .catch(next);
   };
@@ -42,7 +40,8 @@ class UserController {
       return;
     }
 
-    changePassword(userId, password, refreshToken)
+    userService
+      .changePassword(userId, password, refreshToken)
       .then((userData) => {
         res.cookie('refreshToken', userData.refreshToken, { maxAge: MS_IN_A_MONTH, httpOnly: true });
         res.send(userData);
@@ -69,7 +68,8 @@ class UserController {
 
     const data = req.body as Partial<User>;
 
-    updateUser(Number(id), data, refreshToken)
+    userService
+      .updateUser(Number(id), data, refreshToken)
       .then((userData) => res.send(userData))
       .catch(next);
   };
@@ -91,7 +91,8 @@ class UserController {
       return;
     }
 
-    deleteUser(Number(id), password, refreshToken)
+    userService
+      .deleteUser(Number(id), password, refreshToken)
       .then(() => {
         res.clearCookie('refreshToken');
         res.end();

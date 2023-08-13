@@ -1,9 +1,9 @@
-interface IMessage {
+interface Message {
   description: string;
   userId: number;
 }
 
-interface IComment<T = number> {
+interface Comment<T = number> {
   id: T;
   postId: number;
   userId: number;
@@ -13,7 +13,7 @@ interface IComment<T = number> {
   likedUserIds?: number[];
 }
 
-interface IPost<T = number> {
+interface Post<T = number> {
   id: T;
   userId: number;
   description: string;
@@ -23,7 +23,7 @@ interface IPost<T = number> {
   commentsIds?: number[];
 }
 
-interface IUser<T = number> {
+interface User<T = number> {
   id: T;
   email?: string;
   name: string;
@@ -40,4 +40,11 @@ interface IUser<T = number> {
   lastSeen?: string;
 }
 
-export { IMessage as Message, IComment as Comment, IPost as Post, IUser as User };
+interface Tokens {
+  accessToken: string;
+  refreshToken: string;
+}
+
+type ResponseData = { user: User } & Tokens;
+
+export { Comment, Message, Post, User, Tokens, ResponseData };

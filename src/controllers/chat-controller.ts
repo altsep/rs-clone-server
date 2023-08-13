@@ -2,9 +2,7 @@
 import { Handler } from 'express';
 import { validationResult } from 'express-validator';
 import { StatusCodes } from 'http-status-codes';
-import { addChat } from '../services/chat/addChat';
-import { getUserChats } from '../services/chat/getUserChats';
-import { removeChat } from '../services/chat/removeChat';
+import { chatService } from '../services/chat-service';
 import { Util } from '../util/Util';
 
 class ChatController {
@@ -25,7 +23,8 @@ class ChatController {
         throw new Error("Chat can't have one member");
       }
 
-      addChat(uniqueUserIds)
+      chatService
+        .addChat(uniqueUserIds)
         .then((chatData) => {
           const status = StatusCodes.CREATED;
           res.status(status).send(chatData);
@@ -47,7 +46,8 @@ class ChatController {
 
     const { userId } = req.query;
 
-    getUserChats(Number(userId))
+    chatService
+      .getUserChats(Number(userId))
       .then((chatList) => {
         res.send(chatList);
       })
@@ -63,7 +63,8 @@ class ChatController {
 
     const { id } = req.params;
 
-    removeChat(id)
+    chatService
+      .removeChat(id)
       .then(() => {
         res.end();
       })

@@ -2,13 +2,9 @@
 import { Handler } from 'express';
 import { validationResult } from 'express-validator';
 import { StatusCodes } from 'http-status-codes';
-import { addPost } from '../services/post/addPost';
-import { getAllPosts } from '../services/post/getAllPosts';
-import { getPost } from '../services/post/getPost';
-import { removePost } from '../services/post/removePost';
-import { updatePost } from '../services/post/updatePost';
 import { Post } from '../types';
 import { Util } from '../util/Util';
+import { postService } from '../services/post-service';
 
 class PostController {
   public addPost: Handler = (req, res, next) => {
@@ -22,7 +18,8 @@ class PostController {
 
     const postProps = req.body as Exclude<Post, 'id'>;
 
-    addPost(postProps)
+    postService
+      .addPost(postProps)
       .then((newPost) => {
         const status = StatusCodes.CREATED;
         res.status(status).send(newPost);
@@ -39,13 +36,15 @@ class PostController {
       return;
     }
 
-    getPost(id)
+    postService
+      .getPost(id)
       .then((post) => res.send(post))
       .catch(next);
   };
 
   public getAllPosts: Handler = (_req, res, next) => {
-    getAllPosts()
+    postService
+      .getAllPosts()
       .then((posts) => res.send(posts))
       .catch(next);
   };
@@ -62,7 +61,8 @@ class PostController {
     const { id } = req.params;
     const postProps = req.body as Partial<Post>;
 
-    updatePost(id, postProps)
+    postService
+      .updatePost(id, postProps)
       .then((updatedPost) => res.send(updatedPost))
       .catch(next);
   };
@@ -71,7 +71,8 @@ class PostController {
     const { originalUrl } = req;
     const { id } = req.params;
 
-    removePost(id)
+    postService
+      .removePost(id)
       .then(() => {
         const data = { success: true, instance: originalUrl };
         res.send(data);
