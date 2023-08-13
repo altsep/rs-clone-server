@@ -17,8 +17,7 @@ router.patch(
   '/posts/:id',
   body('description').optional().isString(),
   body('likes').optional().isNumeric(),
-  body('likedUserIds').optional().isArray(),
-  body('commentsIds').optional().isArray(),
+  body(['likedUserIds', 'commentsIds']).optional().isArray(),
   postController.updatePost
 );
 

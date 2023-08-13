@@ -10,15 +10,9 @@ router.get('/users/:id', userController.getUser);
 router.patch(
   '/users/:id',
   body('email').optional().isEmail(),
-  body('name').optional().isString(),
-  body('password').optional().isString(),
+  body(['name', 'password', 'birthDate', 'country', 'avatarURL']).optional().isString(),
   body('alias').optional().isString().not().isIn(RESERVED_PAGE_NAMES),
-  body('birthDate').optional().isString(),
-  body('country').optional().isString(),
-  body('avatarURL').optional().isString(),
-  body('postsIds').optional().isArray(),
-  body('friendsIds').optional().isArray(),
-  body('pendingFriendsIds').optional().isArray(),
+  body(['postsIds', 'friendsIds', 'pendingFriendsIds']).optional().isArray(),
   userController.updateUser
 );
 

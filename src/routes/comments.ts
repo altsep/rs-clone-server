@@ -6,8 +6,7 @@ router.get('/comments', commentController.getAllComments);
 
 router.post(
   '/comments',
-  body('postId').exists().isNumeric(),
-  body('userId').exists().isNumeric(),
+  body(['postId', 'userId']).exists().isNumeric(),
   body('description').exists().isString(),
   commentController.addComment
 );

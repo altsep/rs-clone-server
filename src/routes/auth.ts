@@ -6,8 +6,7 @@ router.post(
   '/registration',
   body('email').isEmail().normalizeEmail(),
   body('password').isString().notEmpty(),
-  body('name').isString(),
-  body('country').isString(),
+  body(['name', 'country']).isString(),
   body('birthDate').isISO8601(),
   authController.register
 );
